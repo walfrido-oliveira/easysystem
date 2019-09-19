@@ -1,5 +1,5 @@
 # easysystem
 An simple erp online
 
-## contac me
+## contact me
 walfrido_15@hotmail.com
