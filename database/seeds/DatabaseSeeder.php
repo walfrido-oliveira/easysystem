@@ -14,10 +14,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'name' => 'Walfrido',
-            'email' => 'walfrido_15@hotmail.com',
-            'password' => Hash::make('vi4282es'),
+        DB::table('areas')->insert([
+            'name'=> Str::random(10),
+        ]);
+
+        DB::table('areas')->insert([
+            'name'=> Str::random(10),
+        ]);
+
+        DB::table('areas')->insert([
+            'name'=> Str::random(10),
+        ]);
+
+        DB::table('areas')->insert([
+            'name'=> Str::random(10),
+        ]);
+
+        DB::table('areas')->insert([
+            'name'=> Str::random(10),
         ]);
     }
 }

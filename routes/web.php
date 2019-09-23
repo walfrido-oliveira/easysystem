@@ -15,6 +15,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('users','UserController')->middleware('auth');
+
+Route::get('/home', function() {
+    if (Auth::user()->type === 'adm')
+    {
+        return view('adms.home');
+    }
+    if (Auth::user()->type === 'user')
+    {
+        return view('users.home');
+    }
+})->middleware('check_user_role:' . \App\Role\UserRole::ROLE_FINANCE);
+
+Route::resource('orcamentos','Orcamento\OrcamentoController');
+
+

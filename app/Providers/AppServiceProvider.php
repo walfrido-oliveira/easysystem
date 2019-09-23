@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Role\CheckUserRole;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(CheckUserRole::class, function(Application $app) {
+            return new CheckUserRole(
+                $app->make(RoleChecker::class)
+            );
+        });
     }
 
     /**
