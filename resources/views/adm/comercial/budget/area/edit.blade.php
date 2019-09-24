@@ -5,7 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Painel de Controle Administrativo -> Comercial -> Orçamento -> Áreas -> Alterar</div>
+                <div class="card-header">
+                    @include('adm.comercial.budget.area.header')
+                </div>
 
                 <div class="card-body">
                     @if ($errors->any())
