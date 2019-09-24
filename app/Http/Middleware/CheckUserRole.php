@@ -34,6 +34,9 @@ class CheckUserRole
     {
         /** @var User $user */
         $user = Auth::guard()->user();
+        if (is_null($user)) {
+            throw new AuthorizationException('Você não tem permissão para acessar essa página');
+        }
         if ( ! $this->roleChecker->check($user, $role)) {
             throw new AuthorizationException('Você não tem permissão para acessar essa página');
         }

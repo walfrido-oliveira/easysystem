@@ -11,25 +11,31 @@
 |
 */
 
+
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 Auth::routes(['register' => false]);
 
-Route::resource('users','UserController')->middleware('auth');
+Route::resource('users','User\UserController')->middleware('auth');
 
 Route::get('/home', function() {
     if (Auth::user()->type === 'adm')
     {
-        return view('adms.home');
+        return view('adm.home');
     }
     if (Auth::user()->type === 'user')
     {
-        return view('users.home');
+        return view('user.home');
     }
-})->middleware('check_user_role:' . \App\Role\UserRole::ROLE_FINANCE);
+})->middleware('auth')->name('home');
 
-Route::resource('orcamentos','Orcamento\OrcamentoController');
+Route::get('/home/comercial','AdmController@index')->middleware('auth')->name('home_comercial');
+Route::get('/home/comercial/orcamento','AdmController@showBudget')->middleware('auth')->name('comercial_budget');
+Route::resource('/home/comercial/orcamento/area','Budget\AreaController')->middleware('auth');
+
+Route::resource('orcamento','Budget\BudgetController');
 
 
