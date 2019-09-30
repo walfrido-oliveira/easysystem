@@ -35,6 +35,7 @@ Route::get('/home', function() {
 Route::get('/home/comercial','AdmController@index')->middleware('auth')->name('home_comercial');
 Route::get('/home/comercial/orcamento','AdmController@showBudget')->middleware('auth')->name('comercial_budget');
 Route::resource('/home/comercial/orcamento/area','Budget\AreaController')->middleware('auth');
+Route::resource('/home/comercial/orcamento/service','Budget\ServiceController')->middleware('auth');
 
 Route::resource('orcamento','Budget\BudgetController');
 

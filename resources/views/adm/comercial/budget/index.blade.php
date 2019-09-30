@@ -32,6 +32,12 @@
                                 </a>
                                 <div class="title">Pagamento</div>
                             </li>
+                            <li>
+                                <a href="{{ route('service.index') }}">
+                                    <img src="{{URL::asset('/img/icons/service.png')}}" alt="Serviços">
+                                </a>
+                                <div class="title">Serviços</div>
+                            </li>
                         </ul>
                     </nav>
                 </div>
