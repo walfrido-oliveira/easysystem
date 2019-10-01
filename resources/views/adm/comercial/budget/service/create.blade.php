@@ -61,6 +61,13 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
+                                    <label for="range" class="col-sm-2 col-form-label">Faixa: </label>
+                                    <textarea class="from-control col-sm-9" name="range" id="range" placeholder="Faixa" required>
+                                    </textarea>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
                                     <label for="value" class="col-sm-2 col-form-label">Valor: </label>
                                     <input type="text" class="from-control" name="value" id="value" placeholder="Valor" required>
                                 </div>

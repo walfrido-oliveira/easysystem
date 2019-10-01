@@ -15,14 +15,40 @@
                                 habilite o item e informe a quantidade desejada. Ao final, clique em 'Próximo'.</b></p>
 
                                 <div class="form-group">
-                                    <label class="control-label" for="filter-area-value">Filtrar por área</label>
-                                    <select id="filter-area-value" class="form-control input-lg">
+                                    <label class="control-label" for="area">Filtrar por área</label>
+                                    <select id="area" class="form-control input-lg" onchange="seacherServices() ">
                                     @foreach ($areas as $area)
                                         <option value="{{ $area->id }}">{{ $area->name }}</option>
                                     @endforeach
                                     </select>
 
                                 </div>
+                                <table class="table table-bordered" id="services">
+                                    <tr>
+                                        <th></th>
+                                        <th>Quantidade</th>
+                                        <th>Serviços de calibração, ensaios ou produtos</th>
+                                        <th>Área</th>
+                                        <th>Tipo</th>
+                                        <th>Local</th>
+                                        <th>Faixa</th>
+                                    </tr>
+
+                                    @foreach ($services as $service)
+                                    <tr>
+                                        <td>
+                                            <a href="#" class="btn btn-success add-service" id="{{ __('add-service-') . $service->id }}"><i class="fa fa-plus"></i></a>
+                                        </td>
+                                        <td></td>
+                                        <td>{{ $service->desc }}</td>
+                                        <td>{{ $service->area->name }}</td>
+                                        <td>{{ $service->type }}</td>
+                                        <td>{{ $service->local }}</td>
+                                        <td>{{ $service->range }}</td>
+                                    </tr>
+                                    @endforeach
+                                </table>
+
                             </fieldset>
                         </form>
                     </div>
