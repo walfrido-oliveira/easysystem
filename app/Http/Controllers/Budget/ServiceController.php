@@ -60,7 +60,8 @@ class ServiceController extends Controller
             'area_id' => 'required',
             'type' => 'required|max:255',
             'local' => 'required|max:255',
-            'value' => 'required|numeric'
+            'value' => 'required|numeric|max:9999',
+            'range' => 'required',
         ]);
 
         Service::create($request->all());
@@ -105,7 +106,8 @@ class ServiceController extends Controller
             'area' => 'required',
             'type' => 'required|max:255',
             'local' => 'required|max:255',
-            'value' => 'required|numeric'
+            'value' => 'required|numeric',
+            'range' => 'required',
         ]);
 
         $service->update($request->all());
