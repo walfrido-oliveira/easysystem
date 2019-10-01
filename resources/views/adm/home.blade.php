@@ -13,7 +13,7 @@
                     <nav class="row align-items-center justify-content-center">
                         <ul class="thumb">
                             <li>
-                                <a href="{{ route('home_comercial') }}">
+                                <a href="{{ route('home.comercial') }}">
                                     <img src="{{URL::asset('/img/icons/value.png')}}" alt="Comercial">
                                 </a>
                                 <div class="title">Comercial</div>
@@ -26,7 +26,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <img src="{{URL::asset('/img/icons/services.png')}}" alt="Serviços">
+                                    <img src="{{URL::asset('/img/icons/service.png')}}" alt="Serviços">
                                 </a>
                                 <div class="title">Serviços</div>
                             </li>

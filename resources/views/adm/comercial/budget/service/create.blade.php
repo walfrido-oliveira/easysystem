@@ -25,51 +25,65 @@
 
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <label for="desc" class="col-sm-2 col-form-label">Descrição: </label>
-                                    <textarea class="from-control col-sm-9" name="desc" id="desc" placeholder="Descrição" required>
-                                    </textarea>
+                                <div class="form-group row">
+                                    <label for="desc" class="col-sm-1 col-form-label">Des.: </label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" name="desc" id="desc" placeholder="Descrição" required>
+                                        </textarea>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <label for="id_sgv" class="col-sm-2 col-form-label">SGV (ID): </label>
-                                    <input type="text" class="from-control" name="id_sgv" id="id_sgv" placeholder="SGV (ID)" required>
+                                <div class="form-group row">
+                                    <label for="id_sgv" class="col-sm-1 col-form-label">SGV (ID): </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="id_sgv" id="id_sgv" placeholder="SGV (ID)" required>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <label for="area_id" class="col-sm-2 col-form-label">Área: </label>
-                                    <select  class="form-control col-sm-9 custom-select" name="area_id" id="area_id" required>
-                                    @foreach ($areas as $area)
-                                        <option value="{{ $area->id }}">{{ $area->name }}</option>
-                                    @endforeach
-                                    </select>
+                                <div class="form-group row">
+                                    <label for="area_id" class="col-sm-1 col-form-label">Área: </label>
+                                    <div class="col-sm-10">
+                                        <select  class="form-control custom-select" name="area_id" id="area_id" required>
+                                        @foreach ($areas as $area)
+                                            <option value="{{ $area->id }}">{{ $area->name }}</option>
+                                        @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <label for="type" class="col-sm-2 col-form-label">Tipo: </label>
-                                    <input type="text" class="from-control" name="type" id="type" placeholder="Tipo" required>
+                                <div class="form-group row">
+                                    <label for="type" class="col-sm-1 col-form-label">Tipo: </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="type" id="type" placeholder="Tipo" required>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <label for="local" class="col-sm-2 col-form-label">Local: </label>
-                                    <input type="text" class="from-control" name="local" id="local" placeholder="Local" required>
+                                <div class="form-group row">
+                                    <label for="local" class="col-sm-1 col-form-label">Local: </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="local" id="local" placeholder="Local" required>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <label for="range" class="col-sm-2 col-form-label">Faixa: </label>
-                                    <textarea class="from-control col-sm-9" name="range" id="range" placeholder="Faixa" required>
-                                    </textarea>
+                                <div class="form-group row">
+                                    <label for="range" class="col-sm-1 col-form-label">Faixa: </label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" name="range" id="range" placeholder="Faixa" required>
+                                        </textarea>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <label for="value" class="col-sm-2 col-form-label">Valor: </label>
-                                    <input type="text" class="from-control" name="value" id="value" placeholder="Valor" required>
+                                <div class="form-group row">
+                                    <label for="value" class="col-sm-1 col-form-label">Valor: </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="value" id="value" placeholder="Valor" required>
+                                    </div>
                                 </div>
                             </div>
                         </div>

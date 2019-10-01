@@ -1,5 +1,7 @@
 <?php
 
+use \App\Role\UserRole;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,8 +21,6 @@ Route::get('/', function () {
 
 Auth::routes(['register' => false]);
 
-Route::resource('users','User\UserController')->middleware('auth');
-
 Route::get('/home', function() {
     if (Auth::user()->type === 'adm')
     {
@@ -32,11 +32,18 @@ Route::get('/home', function() {
     }
 })->middleware('auth')->name('home');
 
-Route::get('/home/comercial','AdmController@index')->middleware('auth')->name('home_comercial');
-Route::get('/home/comercial/orcamento','AdmController@showBudget')->middleware('auth')->name('comercial_budget');
+Route::get('/home/comercial','AdmController@index')->middleware('auth')->name('home.comercial');
+Route::get('/home/comercial/orcamento','AdmController@showBudget')->middleware('auth')->name('comercial.budget');
+Route::get('orcamento/create','Budget\BudgetController@create')->name('orcamento.create');
+Route::post('orcamento/store','Budget\BudgetController@store')->name('orcamento.store');
+
+Route::resource('users','User\UserController')->middleware('auth');
 Route::resource('/home/comercial/orcamento/area','Budget\AreaController')->middleware('auth');
 Route::resource('/home/comercial/orcamento/service','Budget\ServiceController')->middleware('auth');
-
-Route::resource('orcamento','Budget\BudgetController');
+Route::resource('orcamento','Budget\BudgetController')->except([
+    'create', 'store'
+])->middleware('auth')->middleware('check_user_role:' . UserRole::ROLE_ADMIN);
+Route::resource('/home/comercial/orcamento/payment','Budget\PaymentController')->middleware('auth');
+Route::resource('/home/comercial/orcamento/transport','Budget\TransportController')->middleware('auth');
 
 

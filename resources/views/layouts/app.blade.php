@@ -55,7 +55,7 @@
                             @endif
 
                             <li class="nav-item">
-                                <a class="nav-link nav-link-highlight-red"  href="{{ route('orcamento.index') }}">{{ __('Faça seu Orçamento') }}</a>
+                                <a class="nav-link nav-link-highlight-red"  href="{{ route('orcamento.create') }}">{{ __('Faça seu Orçamento') }}</a>
                             </li>
                         @else
                             <li class="nav-item dropdown">
