@@ -8,7 +8,7 @@ class Service extends Model
 {
     protected $fillable = [
         'id_sgv','desc','area_id','type','local',
-        'value','active'
+        'value','active','range'
     ];
 
     public function area()
