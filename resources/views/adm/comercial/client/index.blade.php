@@ -22,7 +22,7 @@
                             </li>
                             <li>
                                 <a href="{{ route('activity.index') }}">
-                                    <img src="{{URL::asset('/img/icons/add.png')}}" alt="Transporte">
+                                    <img src="{{URL::asset('/img/icons/add.png')}}" alt="Transporte" >
                                 </a>
                                 <div class="title">Atividade</div>
                             </li>

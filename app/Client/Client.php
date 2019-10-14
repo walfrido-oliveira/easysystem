@@ -11,7 +11,8 @@ class Client extends Model
         'phone','contact','adress','number','district',
         'complement','state','city','cep','ddd_2',
         'phone_2','mail','website','ie','im','suframa',
-        'cnae','simples_nacional','produto_rural','id_type_client_activity'
+        'cnae','simples_nacional','produto_rural','id_type_client_activity',
+        'active','logo'
 
     ];
 

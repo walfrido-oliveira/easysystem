@@ -50,5 +50,20 @@ Route::resource('/home/comercial/orcamento/transport','Budget\TransportControlle
 Route::resource('/home/comercial/client/client','Client\ClientController')->middleware('auth');
 Route::resource('/home/comercial/client/activity','Client\ActivityController')->middleware('auth');
 
+Route::get('storage/app/{filename?}', function ($filename)
+{
+    $path = storage_path('app/' . $filename);
+    $path = str_replace('\\','/',$path);
+
+    if (!File::exists($path)) {
+        abort(404,'Arquivo não localizado');
+    }
+    $file = File::get($path);
+    $type = File::mimeType($path);
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    return $response;
+})->where('filename', '(.*)');
+
 
 

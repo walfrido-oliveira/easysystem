@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Client;
 
 use App\Client\Client;
+use App\Client\Activity ;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use \App\Role\UserRole;
+use Storage;
+use Image;
+use \App\UF;
 
 class ClientController extends Controller
 {
@@ -40,7 +44,9 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view('adm.comercial.client.client.create');
+        $activitys = Activity::where('active',1)->get();
+        $ufs = UF::all();
+        return view('adm.comercial.client.client.create',compact('activitys','ufs'));
     }
 
     /**
@@ -52,7 +58,7 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'cnpj' => 'required|max:14',
+            'cnpj' => 'required|max:14|unique:clients',
             'razao_social' => 'required|max:255',
             'nome_fantasia' => 'required|max:255',
             'id_type_client_activity' => 'required'
@@ -60,13 +66,23 @@ class ClientController extends Controller
         [
             'cnpj.required' => 'O campo CNPJ é obrigatório',
             'cnpj.max' => 'O CNPJ não está em um formato correto',
+            'cnpj.unique' => 'CNPJ já cadastrado',
             'id_type_client_activity.required' => 'O campo tipo atividade é obrigatório'
         ]
         );
 
-        Activity::create($request->all());
+        $data = $request->all();
+        $client = Client::create($data);
 
-        return redirect()->route('activity.index');
+        if (! is_null($request->logo))
+        {
+            $logo = $request->logo->store('clients/' . str_pad((string)$client->id, 20, "0", STR_PAD_LEFT));
+            $data['logo'] = $logo;
+        }
+
+        $client->update($data);
+        return redirect()->route('client.index');
+
     }
 
     /**
@@ -88,7 +104,9 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        return view('adm.comercial.client.client.edit',compact('activity'));
+        $activitys = Activity::where('active',1)->get();
+        $ufs = UF::all();
+        return view('adm.comercial.client.client.edit',compact('client','activitys','ufs'));
     }
 
     /**
@@ -101,7 +119,7 @@ class ClientController extends Controller
     public function update(Request $request, Client $client)
     {
         $request->validate([
-            'cnpj' => 'required|max:14',
+            'cnpj' => 'required|max:14|unique:clients,cnpj,'.$client->id,
             'razao_social' => 'required|max:255',
             'nome_fantasia' => 'required|max:255',
             'id_type_client_activity' => 'required'
@@ -109,11 +127,20 @@ class ClientController extends Controller
         [
             'cnpj.required' => 'O campo CNPJ é obrigatório',
             'cnpj.max' => 'O CNPJ não está em um formato correto',
+            'cnpj.unique' => 'CNPJ já cadastrado',
             'id_type_client_activity.required' => 'O campo tipo atividade é obrigatório'
         ]
         );
 
-        $client->update($request->all());
+        $data = $request->all();
+
+        if (! is_null($request->logo))
+        {
+            $logo = $request->logo->store('clients/' . str_pad((string)$client->id, 20, "0", STR_PAD_LEFT));
+            $data['logo'] = $logo;
+        }
+
+        $client->update($data);
 
         return redirect()->route('client.index')
                         ->with('success','Cliente adicionado com sucesso');
@@ -130,6 +157,6 @@ class ClientController extends Controller
         $client->delete();
 
         return redirect()->route('client.index')
-                        ->with('success','Cliente deletado com sucesso')
+                        ->with('success','Cliente deletado com sucesso');
     }
 }

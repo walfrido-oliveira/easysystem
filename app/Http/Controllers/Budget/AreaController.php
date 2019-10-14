@@ -52,7 +52,7 @@ class AreaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:255',
+            'name' => 'required|max:255|unique:areas',
         ],
         [
             'name.required' => 'O campo nome é obrigatório'
@@ -96,7 +96,7 @@ class AreaController extends Controller
     public function update(Request $request, Area $area)
     {
         $request->validate([
-            'name' => 'required|max:255',
+            'name' => 'required|max:255|unique:areas',
         ],
         [
             'name.required' => 'O campo nome é obrigatório'

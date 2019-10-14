@@ -86,3 +86,42 @@ $(".allownumericwithoutdecimal").on("keypress keyup blur",function (event) {
     fieldset_1.show(500);
     fieldset_2.hide(500);
  });
+
+ $("#logo").on("change", function (e) {
+    const maxAllowedSize = 50 * 1024 * 1024;
+    if(this.files[0].size > maxAllowedSize){
+        alert("Tamanho máximo permitido: 50kb!");
+        this.value = "";
+     } else {
+        document.getElementById('output_logo').src = window.URL.createObjectURL(this.files[0])
+     }
+});
+
+$("#cep").blur(function (e) {
+
+    const correios_app_key =  "WCDKcdgMxB805tLJ2atHvIHcUIRViz9h";
+    const correios_app_secret = "k6QNlftoMdHdBjy8hgvri47kqUvgBMXU7nrxLIT3DUfFzQDV";
+    input = $(this).val().replace(/[^0-9]/g,'');
+
+    var loading = $('#loading-cep');
+    loading.text('Carregando dados...');
+
+    $.getJSON( "https://webmaniabr.com/api/1/cep/"+input+"/?app_key="+correios_app_key+"&app_secret="+correios_app_secret, function( data ) {
+        $.each( data, function( key, val ) {
+            if (key == 'endereco') {
+                $('#adress').val(val);
+            }
+            if (key == 'bairro') {
+                $('#district').val(val);
+            }
+            if (key == 'cidade') {
+                $('#city').val(val);
+            }
+            if (key == 'uf') {
+                $('#state').val(val);
+            }
+        });
+        loading.text('');
+    });
+
+});
