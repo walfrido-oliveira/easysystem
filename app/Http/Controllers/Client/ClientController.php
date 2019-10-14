@@ -72,6 +72,10 @@ class ClientController extends Controller
         );
 
         $data = $request->all();
+        $data['cnpj'] = str_replace('.','',$data['cnpj']);
+        $data['cnpj'] = str_replace('/','',$data['cnpj']);
+        $data['cep'] = str_replace('-','',$data['cep']);
+
         $client = Client::create($data);
 
         if (! is_null($request->logo))
@@ -133,6 +137,9 @@ class ClientController extends Controller
         );
 
         $data = $request->all();
+        $data['cnpj'] = str_replace('.','',$data['cnpj']);
+        $data['cnpj'] = str_replace('/','',$data['cnpj']);
+        $data['cep'] = str_replace('-','',$data['cep']);
 
         if (! is_null($request->logo))
         {

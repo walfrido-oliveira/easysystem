@@ -42,7 +42,7 @@
                                     </div>
                                     <label for="cnpj" class="col-sm-1 col-form-label">CNPJ: </label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" name="cnpj" id="cnpj" placeholder="CNPJ" required>
+                                        <input type="text" class="form-control" name="cnpj" id="cnpj"  data-mask="99.999.999/9999-99" selectonfocus="true" clearifnotmatch="true">
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                                             </div>
                                             <label for="cep" class="col-sm-1 col-form-label">CEP: </label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" name="cep" id="cep" placeholder="CEP">
+                                                <input type="text" class="form-control" name="cep" id="cep" data-mask="99999-999" selectonfocus="true" clearifnotmatch="true">
                                                 <small class="form-text text-muted" id="loading-cep"></small>
                                             </div>
                                         </div>
