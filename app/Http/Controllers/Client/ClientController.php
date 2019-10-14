@@ -27,7 +27,10 @@ class ClientController extends Controller
      */
     public function index()
     {
-        dd('ok');
+        $clients = Client::where('active',1)->paginate(10);
+
+        return view('adm.comercial.client.client.index',compact('clients'))
+        ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -37,7 +40,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return view('adm.comercial.client.client.create');
     }
 
     /**
@@ -48,7 +51,22 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'cnpj' => 'required|max:14',
+            'razao_social' => 'required|max:255',
+            'nome_fantasia' => 'required|max:255',
+            'id_type_client_activity' => 'required'
+        ],
+        [
+            'cnpj.required' => 'O campo CNPJ é obrigatório',
+            'cnpj.max' => 'O CNPJ não está em um formato correto',
+            'id_type_client_activity.required' => 'O campo tipo atividade é obrigatório'
+        ]
+        );
+
+        Activity::create($request->all());
+
+        return redirect()->route('activity.index');
     }
 
     /**
@@ -59,7 +77,7 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        //
+        return view('adm.comercial.client.client.show',compact('activity'));
     }
 
     /**
@@ -70,7 +88,7 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+        return view('adm.comercial.client.client.edit',compact('activity'));
     }
 
     /**
@@ -82,7 +100,23 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+        $request->validate([
+            'cnpj' => 'required|max:14',
+            'razao_social' => 'required|max:255',
+            'nome_fantasia' => 'required|max:255',
+            'id_type_client_activity' => 'required'
+        ],
+        [
+            'cnpj.required' => 'O campo CNPJ é obrigatório',
+            'cnpj.max' => 'O CNPJ não está em um formato correto',
+            'id_type_client_activity.required' => 'O campo tipo atividade é obrigatório'
+        ]
+        );
+
+        $client->update($request->all());
+
+        return redirect()->route('client.index')
+                        ->with('success','Cliente adicionado com sucesso');
     }
 
     /**
@@ -93,6 +127,9 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        $client->delete();
+
+        return redirect()->route('client.index')
+                        ->with('success','Cliente deletado com sucesso')
     }
 }
