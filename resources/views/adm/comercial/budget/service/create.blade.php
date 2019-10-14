@@ -35,14 +35,6 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group row">
-                                    <label for="id_sgv" class="col-sm-1 col-form-label">SGV (ID): </label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="id_sgv" id="id_sgv" placeholder="SGV (ID)" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group row">
                                     <label for="area_id" class="col-sm-1 col-form-label">Área: </label>
                                     <div class="col-sm-10">
                                         <select  class="form-control custom-select" name="area_id" id="area_id" required>

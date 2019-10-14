@@ -100,7 +100,7 @@ class BudgetController extends Controller
      */
     public function show(Budget $budget)
     {
-        //
+        return view('adm.comercial.budget.budget.show',compact('budget'));
     }
 
     /**

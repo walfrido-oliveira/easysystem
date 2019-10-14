@@ -55,14 +55,22 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_sgv' => 'required',
             'desc' => 'required|max:255',
             'area_id' => 'required',
             'type' => 'required|max:255',
             'local' => 'required|max:255',
-            'value' => 'required|numeric|max:9999',
+            'value' => 'required|numeric',
             'range' => 'required',
-        ]);
+        ],
+        [
+            'desc.required' => 'O campo descrição é obrigatório',
+            'area_id.required' => 'O campo área é obrigatório',
+            'type' => 'O campo tipo é obrigatório',
+            'local.required' => 'O campo local é obrigatório',
+            'value.required' => 'O campo valor é obrigatório',
+            'range.required' => 'O campo faixa é obrigatório'
+        ]
+        );
 
         Service::create($request->all());
 
@@ -88,7 +96,8 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        return view('adm.comercial.budget.service.edit',compact('service'));
+        $areas = Area::where('active',1)->get();
+        return view('adm.comercial.budget.service.edit',compact('service','areas'));
     }
 
     /**
@@ -101,14 +110,22 @@ class ServiceController extends Controller
     public function update(Request $request, Service $service)
     {
         $request->validate([
-            'id_sgv' => 'required',
             'desc' => 'required|max:255',
-            'area' => 'required',
+            'area_id' => 'required',
             'type' => 'required|max:255',
             'local' => 'required|max:255',
             'value' => 'required|numeric',
             'range' => 'required',
-        ]);
+        ],
+        [
+            'desc.required' => 'O campo descrição é obrigatório',
+            'area_id.required' => 'O campo área é obrigatório',
+            'type' => 'O campo tipo é obrigatório',
+            'local.required' => 'O campo local é obrigatório',
+            'value.required' => 'O campo valor é obrigatório',
+            'range.required' => 'O campo faixa é obrigatório'
+        ]
+        );
 
         $service->update($request->all());
 

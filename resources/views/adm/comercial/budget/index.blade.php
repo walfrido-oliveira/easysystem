@@ -39,7 +39,7 @@
                                 <div class="title">Serviços</div>
                             </li>
                             <li>
-                                <a href="{{ route('orcamento.index') }}">
+                                <a href="{{ route('budget.index') }}">
                                     <img src="{{URL::asset('/img/icons/budget.png')}}" alt="Serviços">
                                 </a>
                                 <div class="title">Orçamentos</div>

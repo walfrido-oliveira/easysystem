@@ -20,4 +20,9 @@ class Budget extends Model
     {
         return $this->hasOne('App\Budget\Payment','id','payment_id');
     }
+
+    public function services()
+    {
+        return $this->hasMany('App\Budget\BudgetHasService','budget_id','id');
+    }
 }

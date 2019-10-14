@@ -7,23 +7,24 @@
             <div class="card">
             <div class="card-header">
                     <a href="{{ route('home') }}" class="link-light">Painel de Controle Administrativo</a> <i class="fa fa-chevron-right"></i>
-                    <a href="{{ route('home.comercial') }}" class="link-light">Comercial</a>
+                    <a href="{{ route('home.comercial') }}" class="link-light">Comercial</a> <i class="fa fa-chevron-right"></i>
+                    <a href="{{ route('comercial.budget') }}" class="link-light">Orçamento</a>
                 </div>
 
                 <div class="card-body">
                     <nav class="row align-items-center justify-content-center">
                         <ul class="thumb">
                             <li>
-                                <a href="{{ route('comercial.budget') }}">
-                                    <img src="{{URL::asset('/img/icons/budget.png')}}" alt="Orçamento">
+                                <a href="{{ route('client.index') }}">
+                                    <img src="{{URL::asset('/img/icons/client.png')}}" alt="Áreas">
                                 </a>
-                                <div class="title">Orçamento</div>
+                                <div class="title">Clientes</div>
                             </li>
                             <li>
-                                <a href="{{ route('comercial.client') }}">
-                                    <img src="{{URL::asset('/img/icons/client.png')}}" alt="Cliente">
+                                <a href="{{ route('activity.index') }}">
+                                    <img src="{{URL::asset('/img/icons/add.png')}}" alt="Transporte">
                                 </a>
-                                <div class="title">Cliente</div>
+                                <div class="title">Atividade</div>
                             </li>
                         </ul>
                     </nav>

@@ -37,5 +37,15 @@ class AdmController extends Controller
         return view('adm.comercial.budget.index');
     }
 
+    /**
+     * Show the client view.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function showClient()
+    {
+        return view('adm.comercial.client.index');
+    }
+
 
 }

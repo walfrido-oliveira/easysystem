@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends Model
 {
     protected $fillable = [
-        'id_sgv','desc','area_id','type','local',
+        'desc','area_id','type','local',
         'value','active','range'
     ];
 

@@ -1,12 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Company;
+namespace App\Http\Controllers\Client;
 
-use App\Company\Company;
+use App\Client\Client;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use \App\Role\UserRole;
 
-class CompanyController extends Controller
+class ClientController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('check_user_role:' . UserRole::ROLE_ADMIN);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +27,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        dd('ok');
     }
 
     /**
@@ -41,10 +54,10 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Company  $company
+     * @param  \App\Client\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function show(Company $company)
+    public function show(Client $client)
     {
         //
     }
@@ -52,10 +65,10 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Company  $company
+     * @param  \App\Client\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit(Client $client)
     {
         //
     }
@@ -64,10 +77,10 @@ class CompanyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Company  $company
+     * @param  \App\Client\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(Request $request, Client $client)
     {
         //
     }
@@ -75,10 +88,10 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Company  $company
+     * @param  \App\Client\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy(Client $client)
     {
         //
     }

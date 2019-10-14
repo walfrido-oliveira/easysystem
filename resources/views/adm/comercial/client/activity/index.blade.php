@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    @include('adm.comercial.budget.area.header')
+                    @include('adm.comercial.client.activity.header')
                 </div>
 
                 <div class="card-body">
@@ -22,16 +22,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($areas as $area)
+                                        @foreach ($activitys as $activity)
                                         <tr>
                                             <td class="column1">{{ ++$i ?? '' }}</td>
-                                            <td class="column2">{{ $area->name }}</td>
+                                            <td class="column2">{{ $activity->name }}</td>
                                             <td class="column3">
-                                                <form action="{{ route('area.destroy',$area->id) }}" method="POST">
-                                                    <a class="btn btn-primary" href="{{ route('area.show',$area->id) }}">
+                                                <form action="{{ route('activity.destroy',$activity->id) }}" method="POST">
+                                                    <a class="btn btn-primary" href="{{ route('activity.show',$activity->id) }}">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
-                                                    <a class="btn btn-primary" href="{{ route('area.edit',$area->id) }}">
+                                                    <a class="btn btn-primary" href="{{ route('activity.edit',$activity->id) }}">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
                                                     @csrf
@@ -48,9 +48,9 @@
                         </div>
                     </div>
                 </div>
-                {!! $areas->links() !!}
+                {!! $activitys->links() !!}
                 <div class="row">
-                    <a href="{{ route('area.create') }}" class="btn btn-success">Nova Área</a>
+                    <a href="{{ route('activity.create') }}" class="btn btn-success">Nova Atividadea</a>
                 </div>
                 </div>
             </div>

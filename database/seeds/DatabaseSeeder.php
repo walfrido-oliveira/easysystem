@@ -14,23 +14,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('areas')->insert([
+        DB::table('type_client_activitys')->insert([
             'name'=> Str::random(10),
         ]);
 
-        DB::table('areas')->insert([
+        DB::table('type_client_activitys')->insert([
             'name'=> Str::random(10),
         ]);
 
-        DB::table('areas')->insert([
+        DB::table('type_client_activitys')->insert([
             'name'=> Str::random(10),
         ]);
 
-        DB::table('areas')->insert([
+        DB::table('type_client_activitys')->insert([
             'name'=> Str::random(10),
         ]);
 
-        DB::table('areas')->insert([
+        DB::table('type_client_activitys')->insert([
             'name'=> Str::random(10),
         ]);
     }
