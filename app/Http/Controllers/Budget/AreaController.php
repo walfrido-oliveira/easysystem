@@ -53,7 +53,11 @@ class AreaController extends Controller
     {
         $request->validate([
             'name' => 'required|max:255',
-        ]);
+        ],
+        [
+            'name.required' => 'O campo nome é obrigatório'
+        ]
+        );
 
         Area::create($request->all());
 
@@ -93,7 +97,11 @@ class AreaController extends Controller
     {
         $request->validate([
             'name' => 'required|max:255',
-        ]);
+        ],
+        [
+            'name.required' => 'O campo nome é obrigatório'
+        ]
+        );
 
         $area->update($request->all());
 
