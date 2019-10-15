@@ -32,6 +32,23 @@ Route::get('/home', function() {
     }
 })->middleware('auth')->name('home');
 
+Route::get('storage/app/{filename?}', function ($filename)
+{
+    $path = storage_path('app/' . $filename);
+    $path = str_replace('\\','/',$path);
+
+    if (!File::exists($path)) {
+        abort(404,'Arquivo não localizado');
+    }
+    $file = File::get($path);
+    $type = File::mimeType($path);
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    return $response;
+})->where('filename', '(.*)');
+
+Route::get('/home/comercial/client/cnae/search','Client\CnaeController@search')->middleware('auth');
+
 Route::get('/home/comercial','AdmController@index')->middleware('auth')->name('home.comercial');
 Route::get('/home/comercial/orcamento','AdmController@showBudget')->middleware('auth')->name('comercial.budget');
 Route::get('/home/comercial/client','AdmController@showClient')->middleware('auth')->name('comercial.client');
@@ -50,20 +67,7 @@ Route::resource('/home/comercial/orcamento/transport','Budget\TransportControlle
 Route::resource('/home/comercial/client/client','Client\ClientController')->middleware('auth');
 Route::resource('/home/comercial/client/activity','Client\ActivityController')->middleware('auth');
 
-Route::get('storage/app/{filename?}', function ($filename)
-{
-    $path = storage_path('app/' . $filename);
-    $path = str_replace('\\','/',$path);
 
-    if (!File::exists($path)) {
-        abort(404,'Arquivo não localizado');
-    }
-    $file = File::get($path);
-    $type = File::mimeType($path);
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-    return $response;
-})->where('filename', '(.*)');
 
 
 

@@ -54,6 +54,18 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group row">
+                                    <label for="ddd" class="col-sm-2 col-form-label">DDD: </label>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control" name="ddd" id="ddd" placeholder="DDD" >
+                                    </div>
+                                    <label for="phone" class="col-sm-1 col-form-label">Telefone:</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="phone" id="phone" placeholder="Telefone" >
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <ul class="nav nav-tabs" id="clientTab" role="tablist">
                             <li class="nav-item">
@@ -120,19 +132,70 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="contact-tab">
-
+                                <div class="row mt-3">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                         <div class="form-group row">
+                                            <label for="ddd_2" class="col-sm-1 col-form-label">DDD: </label>
+                                            <div class="col-sm-2">
+                                                <input type="text" class="form-control" name="ddd_2" id="ddd_2" placeholder="DDD 2" >
+                                            </div>
+                                            <label for="phone_2" class="col-sm-1 col-form-label">Telefone:</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" name="phone_2" id="phone_2" placeholder="Telefone 2" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                         <div class="form-group row">
+                                            <label for="mail" class="col-sm-1 col-form-label">Email: </label>
+                                            <div class="col-sm-2">
+                                                <input type="text" class="form-control" name="mail" id="ddd_2" placeholder="Email" >
+                                            </div>
+                                            <label for="website" class="col-sm-1 col-form-label">Site:</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" name="website" id="website" placeholder="Site" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="others-tab">
                                 <div class="row mt-3">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
+                                         <div class="form-group row">
+                                            <label for="ie" class="col-sm-2 col-form-label">IE: </label>
+                                            <div class="col-sm-2">
+                                                <input type="text" class="form-control" name="ie" id="ie" placeholder="Inscrição Estadual" >
+                                            </div>
+                                            <label for="im" class="col-sm-1 col-form-label">IM:</label>
+                                            <div class="col-sm-2">
+                                                <input type="text" class="form-control" name="im" id="im" placeholder="Inscrição Municipal" >
+                                            </div>
+                                            <label for="suframa" class="col-sm-2 col-form-label">SUFRAMA:</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" name="suframa" id="suframa" placeholder="Inscrição SUFRAMA" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group row">
-                                            <label for="id_type_client_activity" class="col-sm-2 col-form-label">Atividade: </label>
-                                            <div class="col-sm-6">
+                                            <label for="id_type_client_activity" class="col-sm-2 col-form-label">Atividade </label>
+                                            <div class="col-sm-5">
                                                 <select  class="form-control custom-select" name="id_type_client_activity" id="id_type_client_activity" required>
                                                     @foreach ($activitys as $activity)
                                                         <option value="{{ $activity->id }}">{{ $activity->name }}</option>
                                                     @endforeach
                                                 </select>
+                                            </div>
+                                            <label for="cnae" class="col-sm-1 col-form-label">CNAE:</label>
+                                            <div class="col-sm-2 pr-0">
+                                                <input type="text" class="form-control" name="cnae" id="cnae" placeholder="CNAE Principal" >
+                                            </div>
+                                            <div class="col-sm-2 pl-0">
+                                                <label class="custom-file-upload">
+                                                    <input type="button"  name="search_cnae" id="search_cnae">
+                                                    <i class="fa fa-search"></i>
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
@@ -147,5 +210,42 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="searchCNAE" tabindex="-1" role="dialog" aria-labelledby="searchCNAELabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="searchCNAELabel">Buscar Código CNAE</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">COD.:</label>
+            <input type="text" class="form-control" id="searchCNAEValue">
+          </div>
+        </form>
+        <div class="modal-table">
+            <table class="table table-bordered" id="cnae_results">
+                <thead>
+                    <tr class="modal-datble-head">
+                        <th class="column1">COD</th>
+                        <th class="column2">Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Buscar</button>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection

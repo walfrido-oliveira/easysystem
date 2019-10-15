@@ -125,3 +125,34 @@ $("#cep").blur(function (e) {
     });
 
 });
+
+$("#search_cnae").click(function(event) {
+    $('#searchCNAE').modal('toggle');
+ });
+
+ $('#searchCNAEValue').on('keyup',function(){
+    $value=$(this).val();
+    $.ajax({
+        type : 'get',
+        url : '/home/comercial/client/cnae/search',
+        data:{'search':$value},
+        success:function(data){
+            var result = data.result;
+            var tbody = $("#cnae_results tbody");
+            tbody.empty();
+            result.forEach(function(element) {
+                tbody.append('<tr id="'+element.id+'"><td>'+element.cnae_id+'</td><td>'+element.desc+'</td></tr>');
+            });
+        }
+    });
+})
+
+$(document).on('click', '#cnae_results tbody tr', function(event)
+{
+    var value = $(this).find('td').eq(0).text();
+    $('#cnae').val(value);
+    $('#searchCNAE').modal('toggle');
+    var tbody = $("#cnae_results tbody");
+    tbody.empty();
+    $('#searchCNAEValue').val('');
+});

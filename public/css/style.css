@@ -191,6 +191,12 @@ img{
     height: 30px;
     background: rgba(41,58,74,0.95);
   }
+
+  .modal-table table thead tr {
+    height: 30px;
+    background: #fff;
+  }
+
   table tbody tr {
     height: 50px;
   }
@@ -210,11 +216,18 @@ img{
     text-align: center;
   }
 
-
   .table100-head th{
     font-family: OpenSans-Regular;
     font-size: 18px;
     color: #fff;
+    line-height: 1.2;
+    font-weight: unset;
+  }
+
+  .modal-datble-head th{
+    font-family: OpenSans-Regular;
+    font-size: 14px;
+    color: #000;
     line-height: 1.2;
     font-weight: unset;
   }
@@ -345,7 +358,7 @@ img{
     }
   }
 
-input[type="file"] {
+  .custom-file-upload input {
     display: none;
 }
 .custom-file-upload {

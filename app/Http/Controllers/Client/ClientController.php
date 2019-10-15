@@ -58,7 +58,7 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'cnpj' => 'required|max:14|unique:clients',
+            'cnpj' => 'required|max:18|unique:clients',
             'razao_social' => 'required|max:255',
             'nome_fantasia' => 'required|max:255',
             'id_type_client_activity' => 'required'
@@ -74,6 +74,7 @@ class ClientController extends Controller
         $data = $request->all();
         $data['cnpj'] = str_replace('.','',$data['cnpj']);
         $data['cnpj'] = str_replace('/','',$data['cnpj']);
+        $data['cnpj'] = str_replace('-','',$data['cnpj']);
         $data['cep'] = str_replace('-','',$data['cep']);
 
         $client = Client::create($data);
@@ -123,7 +124,7 @@ class ClientController extends Controller
     public function update(Request $request, Client $client)
     {
         $request->validate([
-            'cnpj' => 'required|max:14|unique:clients,cnpj,'.$client->id,
+            'cnpj' => 'required|max:18|unique:clients,cnpj,'.$client->id,
             'razao_social' => 'required|max:255',
             'nome_fantasia' => 'required|max:255',
             'id_type_client_activity' => 'required'
@@ -139,6 +140,7 @@ class ClientController extends Controller
         $data = $request->all();
         $data['cnpj'] = str_replace('.','',$data['cnpj']);
         $data['cnpj'] = str_replace('/','',$data['cnpj']);
+        $data['cnpj'] = str_replace('-','',$data['cnpj']);
         $data['cep'] = str_replace('-','',$data['cep']);
 
         if (! is_null($request->logo))
