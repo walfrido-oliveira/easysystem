@@ -99,14 +99,12 @@ $(".allownumericwithoutdecimal").on("keypress keyup blur",function (event) {
 
 $("#cep").blur(function (e) {
 
-    const correios_app_key =  "WCDKcdgMxB805tLJ2atHvIHcUIRViz9h";
-    const correios_app_secret = "k6QNlftoMdHdBjy8hgvri47kqUvgBMXU7nrxLIT3DUfFzQDV";
     input = $(this).val().replace(/[^0-9]/g,'');
 
     var loading = $('#loading-cep');
     loading.text('Carregando dados...');
 
-    $.getJSON( "https://webmaniabr.com/api/1/cep/"+input+"/?app_key="+correios_app_key+"&app_secret="+correios_app_secret, function( data ) {
+    $.getJSON( CORREIOS_URL+input+"/?app_key="+CORREIOS_APP_KEY+"&app_secret="+CORREIOS_APP_SECRET, function( data ) {
         $.each( data, function( key, val ) {
             if (key == 'endereco') {
                 $('#adress').val(val);
@@ -159,7 +157,7 @@ $(document).on('click', '#cnae_results tbody tr', function(event)
 
 $('.phone').mask('0000-00009');
 $('.phone').blur(function(event) {
-   if($(this).val().length == 10){ // Celular com 9 dígitos + 2 dígitos DDD e 4 da máscara
+   if($(this).val().length == 10){
       $('.phone').mask('00000-0009');
    } else {
       $('.phone').mask('0000-00009');
