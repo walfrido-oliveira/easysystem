@@ -230,6 +230,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row mt-3 border-top p-5">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group row">
+                                    <label for="obs" class="col-sm-2 col-form-label">Observações:</label>
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control" name="obs" id="obs" placeholder="Observações"></textarea>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group border-top">
                             <button type="submit" class="btn btn-primary mt-3">Salvar</button>
                         </div>

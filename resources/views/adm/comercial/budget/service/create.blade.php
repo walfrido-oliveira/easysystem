@@ -28,8 +28,7 @@
                                 <div class="form-group row">
                                     <label for="desc" class="col-sm-1 col-form-label">Des.: </label>
                                     <div class="col-sm-10">
-                                        <textarea class="form-control" name="desc" id="desc" placeholder="Descrição" required>
-                                        </textarea>
+                                        <textarea class="form-control" name="desc" id="desc" placeholder="Descrição" required></textarea>
                                     </div>
                                 </div>
                             </div>

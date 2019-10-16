@@ -102,8 +102,9 @@ class ClientController extends Controller
         }
 
         $client->update($data);
-        return redirect()->route('client.index');
 
+        return redirect()->route('client.index')
+            ->with('success','Cliente adicionado com sucesso');
     }
 
     /**
@@ -200,7 +201,7 @@ class ClientController extends Controller
         $client->update($data);
 
         return redirect()->route('client.index')
-                        ->with('success','Cliente adicionado com sucesso');
+                        ->with('success','Cliente atualizado com sucesso');
     }
 
     /**

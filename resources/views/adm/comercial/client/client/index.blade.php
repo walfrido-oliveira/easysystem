@@ -9,6 +9,13 @@
                     @include('adm.comercial.client.client.header')
                 </div>
                 <div class="card-body">
+
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            <p>{{ $message }}</p>
+                        </div>
+                    @endif
+
                     <div class="limiter">
                         <div class="wrap-table100">
                             <div class="table100">
