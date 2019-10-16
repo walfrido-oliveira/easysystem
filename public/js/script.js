@@ -156,3 +156,12 @@ $(document).on('click', '#cnae_results tbody tr', function(event)
     tbody.empty();
     $('#searchCNAEValue').val('');
 });
+
+$('.phone').mask('0000-00009');
+$('.phone').blur(function(event) {
+   if($(this).val().length == 10){ // Celular com 9 dígitos + 2 dígitos DDD e 4 da máscara
+      $('.phone').mask('00000-0009');
+   } else {
+      $('.phone').mask('0000-00009');
+   }
+});

@@ -54,23 +54,39 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group row">
+                                    <label for="ddd" class="col-sm-2 col-form-label">DDD: </label>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control" name="ddd" id="ddd" placeholder="DDD" value="{{ $client->ddd }}">
+                                    </div>
+                                    <label for="phone" class="col-sm-1 col-form-label">Telefone:</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control phone" name="phone" id="phone" placeholder="Telefone" value="{{ $client->phone }}">
+                                    </div>
+                                    <label for="contact" class="col-sm-1 col-form-label">Contato:</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="contact" id="contact" placeholder="Contato" value="{{ $client->contact }}">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <ul class="nav nav-tabs" id="clientTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="adress-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                                <a class="nav-link active" id="adress-tab" data-toggle="tab" href="#adress" role="tab" aria-controls="adress"
                                 aria-selected="true">Endereço</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-                                aria-selected="false">Contato</a>
+                                <a class="nav-link" id="contacts-tab" data-toggle="tab" href="#contacts" role="tab" aria-controls="contacts"
+                                aria-selected="true">Contato</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="others-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+                                <a class="nav-link" id="others-tab" data-toggle="tab" href="#others" role="tab" aria-controls="others"
                                 aria-selected="false">Inscrições, CNAE e outros</a>
                             </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="adress-tab">
+                            <div class="tab-pane fade show active" id="adress" role="tabpanel" aria-labelledby="adress-tab">
                                 <div class="row mt-3">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group row">
@@ -124,20 +140,99 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="contact-tab">
-
-                            </div>
-                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="others-tab">
+                            <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
                                 <div class="row mt-3">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                         <div class="form-group row">
+                                            <label for="ddd_2" class="col-sm-1 col-form-label">DDD: </label>
+                                            <div class="col-sm-2">
+                                                <input type="text" class="form-control" name="ddd_2" id="ddd_2" placeholder="DDD 2" value="{{ $client->ddd_2 }}">
+                                            </div>
+                                            <label for="phone_2" class="col-sm-1 col-form-label">Telefone:</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control phone" name="phone_2" id="phone_2" placeholder="Telefone 2" value="{{ $client->phone_2 }}">
+                                            </div>
+                                            <label for="mail" class="col-sm-1 col-form-label">Email: </label>
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control" name="mail" id="ddd_2" placeholder="Email" value="{{ $client->mail }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                         <div class="form-group row">
+                                            <label for="website" class="col-sm-1 col-form-label">Site:</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" name="website" id="website" placeholder="Site" value="{{ $client->website }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="others" role="tabpanel" aria-labelledby="others-tab">
+                                <div class="row mt-3">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                         <div class="form-group row">
+                                            <label for="ie" class="col-sm-2 col-form-label">IE: </label>
+                                            <div class="col-sm-2">
+                                                <input type="text" class="form-control" name="ie" id="ie" placeholder="Inscrição Estadual" value="{{ $client->ie }}">
+                                            </div>
+                                            <label for="im" class="col-sm-1 col-form-label">IM:</label>
+                                            <div class="col-sm-2">
+                                                <input type="text" class="form-control" name="im" id="im" placeholder="Inscrição Municipal" value="{{ $client->im }}">
+                                            </div>
+                                            <label for="suframa" class="col-sm-2 col-form-label">SUFRAMA:</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" name="suframa" id="suframa" placeholder="Inscrição SUFRAMA" value="{{ $client->suframa }}">
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group row">
                                             <label for="id_type_client_activity" class="col-sm-2 col-form-label">Atividade: </label>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-5">
                                                 <select  class="form-control custom-select" name="id_type_client_activity" id="id_type_client_activity" required>
                                                     @foreach ($activitys as $activity)
-                                                        <option value="{{ $activity->id }}">{{ $activity->name }}</option>
+                                                        @if ($client->id_type_client_activity == $activity->id)
+                                                            <option value="{{ $activity->id }}" selected>{{ $activity->name }}</option>
+                                                        @else
+                                                            <option value="{{ $activity->id }}">{{ $activity->name }}</option>
+                                                        @endif
                                                     @endforeach
                                                 </select>
+                                            </div>
+                                            <label for="cnae" class="col-sm-1 col-form-label">CNAE:</label>
+                                            <div class="col-sm-2 pr-0">
+                                                <input type="text" class="form-control" name="cnae" id="cnae" placeholder="CNAE Principal" value="{{ $client->cnae }}" >
+                                            </div>
+                                            <div class="col-sm-2 pl-0">
+                                                <label class="custom-file-upload">
+                                                    <input type="button"  name="search_cnae" id="search_cnae">
+                                                    <i class="fa fa-search"></i>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group row">
+                                            <div class="col-sm-2">Simples Nacional?</div>
+                                            <div class="col-sm-10">
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input" type="checkbox" id="simples_nacional" name="simples_nacional" {{ $client->simples_nacional }}>
+                                                <label class="custom-control-label" for="simples_nacional" >
+                                                Sim
+                                                </label>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-2">Produtor Rural?</div>
+                                            <div class="col-sm-10">
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input" type="checkbox" id="produtor_rural" name="produtor_rural" {{ $client->produtor_rural }}>
+                                                <label class="custom-control-label" for="produtor_rural">
+                                                Sim
+                                                </label>
+                                            </div>
                                             </div>
                                         </div>
                                     </div>
@@ -153,4 +248,7 @@
         </div>
     </div>
 </div>
+
+@include('adm.comercial.client.client.cnaemodal')
+
 @endsection

@@ -10,6 +10,7 @@ use \App\Role\UserRole;
 use Storage;
 use Image;
 use \App\UF;
+Use DB;
 
 class ClientController extends Controller
 {
@@ -72,6 +73,21 @@ class ClientController extends Controller
         );
 
         $data = $request->all();
+
+        if (isset($data['simples_nacional']))
+        {
+            $data['simples_nacional'] = true;
+        } else {
+            $data['simples_nacional'] = false;
+        }
+
+        if (isset($data['produtor_rural']))
+        {
+            $data['produtor_rural'] = true;
+        } else {
+            $data['produtor_rural'] = false;
+        }
+
         $data['cnpj'] = str_replace('.','',$data['cnpj']);
         $data['cnpj'] = str_replace('/','',$data['cnpj']);
         $data['cnpj'] = str_replace('-','',$data['cnpj']);
@@ -111,6 +127,20 @@ class ClientController extends Controller
     {
         $activitys = Activity::where('active',1)->get();
         $ufs = UF::all();
+        if ($client->simples_nacional)
+        {
+            $client->simples_nacional = 'checked';
+        } else {
+            $client->simples_nacional = '';
+        }
+
+        if ($client->produtor_rural)
+        {
+            $client->produtor_rural = 'checked';
+        } else {
+            $client->produtor_rural = '';
+        }
+
         return view('adm.comercial.client.client.edit',compact('client','activitys','ufs'));
     }
 
@@ -123,7 +153,8 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        $request->validate([
+        $request->validate(
+        [
             'cnpj' => 'required|max:18|unique:clients,cnpj,'.$client->id,
             'razao_social' => 'required|max:255',
             'nome_fantasia' => 'required|max:255',
@@ -138,6 +169,23 @@ class ClientController extends Controller
         );
 
         $data = $request->all();
+
+        if (isset($data['simples_nacional']))
+        {
+            $data['simples_nacional'] = true;
+        } else {
+            $data['simples_nacional'] = false;
+        }
+
+        if (isset($data['produtor_rural']))
+        {
+            $data['produtor_rural'] = true;
+        } else {
+            $data['produtor_rural'] = false;
+        }
+
+        //dd($data);
+
         $data['cnpj'] = str_replace('.','',$data['cnpj']);
         $data['cnpj'] = str_replace('/','',$data['cnpj']);
         $data['cnpj'] = str_replace('-','',$data['cnpj']);

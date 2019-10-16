@@ -62,27 +62,31 @@
                                     </div>
                                     <label for="phone" class="col-sm-1 col-form-label">Telefone:</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" name="phone" id="phone" placeholder="Telefone" >
+                                        <input type="text" class="form-control phone" name="phone" id="phone" placeholder="Telefone" >
+                                    </div>
+                                    <label for="contact" class="col-sm-1 col-form-label">Contato:</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="contact" id="contact" placeholder="Contato" >
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <ul class="nav nav-tabs" id="clientTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="adress-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                                <a class="nav-link active" id="adress-tab" data-toggle="tab" href="#adress" role="tab" aria-controls="adress"
                                 aria-selected="true">Endereço</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+                                <a class="nav-link" id="contacts-tab" data-toggle="tab" href="#contacts" role="tab" aria-controls="contacts"
                                 aria-selected="false">Contato</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="others-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+                                <a class="nav-link" id="others-tab" data-toggle="tab" href="#others" role="tab" aria-controls="others"
                                 aria-selected="false">Inscrições, CNAE e outros</a>
                             </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="adress-tab">
+                            <div class="tab-pane fade show active" id="adress" role="tabpanel" aria-labelledby="adress-tab">
                                 <div class="row mt-3">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group row">
@@ -131,7 +135,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="contact-tab">
+                            <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
                                 <div class="row mt-3">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                          <div class="form-group row">
@@ -141,16 +145,16 @@
                                             </div>
                                             <label for="phone_2" class="col-sm-1 col-form-label">Telefone:</label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" name="phone_2" id="phone_2" placeholder="Telefone 2" >
+                                                <input type="text" class="form-control phone" name="phone_2" id="phone_2" placeholder="Telefone 2" >
+                                            </div>
+                                            <label for="mail" class="col-sm-1 col-form-label">Email: </label>
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control" name="mail" id="ddd_2" placeholder="Email" >
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                          <div class="form-group row">
-                                            <label for="mail" class="col-sm-1 col-form-label">Email: </label>
-                                            <div class="col-sm-2">
-                                                <input type="text" class="form-control" name="mail" id="ddd_2" placeholder="Email" >
-                                            </div>
                                             <label for="website" class="col-sm-1 col-form-label">Site:</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control" name="website" id="website" placeholder="Site" >
@@ -159,7 +163,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="others-tab">
+                            <div class="tab-pane fade" id="others" role="tabpanel" aria-labelledby="others-tab">
                                 <div class="row mt-3">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                          <div class="form-group row">
@@ -199,6 +203,30 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group row">
+                                            <div class="col-sm-2">Simples Nacional?</div>
+                                            <div class="col-sm-10">
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input" type="checkbox" id="simples_nacional" name="simples_nacional">
+                                                <label class="custom-control-label" for="simples_nacional">
+                                                Sim
+                                                </label>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-2">Produtor Rural?</div>
+                                            <div class="col-sm-10">
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input" type="checkbox" id="produtor_rural" name="produtor_rural">
+                                                <label class="custom-control-label" for="produtor_rural">
+                                                Sim
+                                                </label>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -212,40 +240,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="searchCNAE" tabindex="-1" role="dialog" aria-labelledby="searchCNAELabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="searchCNAELabel">Buscar Código CNAE</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">COD.:</label>
-            <input type="text" class="form-control" id="searchCNAEValue">
-          </div>
-        </form>
-        <div class="modal-table">
-            <table class="table table-bordered" id="cnae_results">
-                <thead>
-                    <tr class="modal-datble-head">
-                        <th class="column1">COD</th>
-                        <th class="column2">Descrição</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Buscar</button>
-      </div>
-    </div>
-  </div>
-</div>
+@include('adm.comercial.client.client.cnaemodal')
+
 @endsection
