@@ -62,13 +62,33 @@ class ClientController extends Controller
             'cnpj' => 'required|max:18|unique:clients',
             'razao_social' => 'required|max:255',
             'nome_fantasia' => 'required|max:255',
-            'id_type_client_activity' => 'required'
+            'id_type_client_activity' => 'required',
+            'ddd' => 'max:99',
+            'phone' => 'max:255',
+            'contact' => 'max:255',
+            'adress' => 'max:255',
+            'number' => 'max:255',
+            'district' => 'max:255',
+            'complement' => 'max:255',
+            'state' => 'max:2',
+            'city' => 'max:255',
+            'ddd_2' => 'max:99',
+            'phone_2' => 'max:99',
+            'mail' => 'max:255',
+            'website' => 'max:255',
+            'ie' => 'max:255',
+            'im' => 'max:255',
+            'suframa' => 'max:255',
+            'cnae' => 'max:255',
+            'logo' => 'max:255',
+            'obs' => 'max:255',
         ],
         [
             'cnpj.required' => 'O campo CNPJ é obrigatório',
             'cnpj.max' => 'O CNPJ não está em um formato correto',
             'cnpj.unique' => 'CNPJ já cadastrado',
-            'id_type_client_activity.required' => 'O campo tipo atividade é obrigatório'
+            'id_type_client_activity.required' => 'O campo tipo atividade é obrigatório',
+            'ddd.max' => 'O campo ddd permite no máximo o valor 99'
         ]
         );
 
@@ -92,6 +112,7 @@ class ClientController extends Controller
         $data['cnpj'] = str_replace('/','',$data['cnpj']);
         $data['cnpj'] = str_replace('-','',$data['cnpj']);
         $data['cep'] = str_replace('-','',$data['cep']);
+        $data['cep'] = str_replace('.','',$data['cep']);
 
         $client = Client::create($data);
 
@@ -155,18 +176,37 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        $request->validate(
-        [
-            'cnpj' => 'required|max:18|unique:clients,cnpj,'.$client->id,
+        $request->validate([
+            'cnpj' => 'required|max:18|unique:clients',
             'razao_social' => 'required|max:255',
             'nome_fantasia' => 'required|max:255',
-            'id_type_client_activity' => 'required'
+            'id_type_client_activity' => 'required',
+            'ddd' => 'max:99',
+            'phone' => 'max:255',
+            'contact' => 'max:255',
+            'adress' => 'max:255',
+            'number' => 'max:255',
+            'district' => 'max:255',
+            'complement' => 'max:255',
+            'state' => 'max:2',
+            'city' => 'max:255',
+            'ddd_2' => 'max:99',
+            'phone_2' => 'max:99',
+            'mail' => 'max:255',
+            'website' => 'max:255',
+            'ie' => 'max:255',
+            'im' => 'max:255',
+            'suframa' => 'max:255',
+            'cnae' => 'max:255',
+            'logo' => 'max:255',
+            'obs' => 'max:255',
         ],
         [
             'cnpj.required' => 'O campo CNPJ é obrigatório',
             'cnpj.max' => 'O CNPJ não está em um formato correto',
             'cnpj.unique' => 'CNPJ já cadastrado',
-            'id_type_client_activity.required' => 'O campo tipo atividade é obrigatório'
+            'id_type_client_activity.required' => 'O campo tipo atividade é obrigatório',
+            'ddd.max' => 'O campo ddd permite no máximo o valor 99'
         ]
         );
 
@@ -186,16 +226,16 @@ class ClientController extends Controller
             $data['produtor_rural'] = false;
         }
 
-        //dd($data);
-
         $data['cnpj'] = str_replace('.','',$data['cnpj']);
         $data['cnpj'] = str_replace('/','',$data['cnpj']);
         $data['cnpj'] = str_replace('-','',$data['cnpj']);
         $data['cep'] = str_replace('-','',$data['cep']);
+        $data['cep'] = str_replace('.','',$data['cep']);
 
         if (! is_null($request->logo))
         {
-            $logo = $request->logo->store('clients/' . str_pad((string)$client->id, 20, "0", STR_PAD_LEFT));
+            $logo = $request->logo->store('clients/' .
+                                          str_pad((string)$client->id, 20, "0", STR_PAD_LEFT));
             $data['logo'] = $logo;
         }
 
