@@ -97,7 +97,8 @@ class ClientController extends Controller
 
         if (! is_null($request->logo))
         {
-            $logo = $request->logo->store('clients/' . str_pad((string)$client->id, 20, "0", STR_PAD_LEFT));
+            $logo = $request->logo->store('clients/' .
+                                           str_pad((string)$client->id, 20, "0", STR_PAD_LEFT));
             $data['logo'] = $logo;
         }
 

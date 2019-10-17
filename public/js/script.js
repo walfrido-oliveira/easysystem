@@ -98,55 +98,70 @@ $(".allownumericwithoutdecimal").on("keypress keyup blur",function (event) {
 });
 
 $("#cep").blur(function (e) {
-
     input = $(this).val().replace(/[^0-9]/g,'');
-
-    var loading = $('#loading-cep');
-    loading.text('Carregando dados...');
-
-    $.getJSON( CORREIOS_URL+input+"/?app_key="+CORREIOS_APP_KEY+"&app_secret="+CORREIOS_APP_SECRET, function( data ) {
-        $.each( data, function( key, val ) {
-            if (key == 'endereco') {
-                $('#adress').val(val);
-            }
-            if (key == 'bairro') {
-                $('#district').val(val);
-            }
-            if (key == 'cidade') {
-                $('#city').val(val);
-            }
-            if (key == 'uf') {
-                $('#state').val(val);
-            }
-        });
-        loading.text('');
+    $.ajax({
+        type : 'get',
+        url : '/helper/cep',
+        data:{'cep':input},
+        success:function(data){
+            var result = data.result;
+            $('#adress').val(result.endereco);
+            $('#district').val(result.bairro);
+            $('#state').val(result.uf);
+            $('#city').val(result.cidade);
+        }
     });
+});
 
+$("#cnpj").blur(function (e) {
+    input = $(this).val().replace(/[^0-9]/g,'');
+    $.ajax({
+        type : 'get',
+        url : '/helper/client',
+        data:{'cnpj':input},
+        success:function(data) {
+            var result = data.result;
+            $('#razao_social').val(result.nome);
+            $('#nome_fantasia').val(result.fantasia);
+            $('#phone').val(result.telefone.split('/')[0].substring(5));
+            $('#ddd').val(result.telefone.split('/')[0].substring(1,3));
+            $('#phone_2').val(result.telefone.split('/')[1].substring(5));
+            $('#ddd_2').val(result.telefone.split('/')[1].substring(2,4))
+            $('#adress').val(result.logradouro);
+            $('#district').val(result.bairro);
+            $('#state').val(result.uf);
+            $('#city').val(result.municipio);
+            $('#cep').val(result.cep);
+            $('#number').val(result.numero);
+        }
+    });
 });
 
 $("#search_cnae").click(function(event) {
     $('#searchCNAE').modal('toggle');
  });
 
- $('#searchCNAEValue').on('keyup',function(){
+ $('#searchCNAEValue').on('keyup',function() {
     $value=$(this).val();
     $.ajax({
         type : 'get',
         url : '/home/comercial/client/cnae/search',
         data:{'search':$value},
-        success:function(data){
+        success:function(data) {
             var result = data.result;
             var tbody = $("#cnae_results tbody");
             tbody.empty();
             result.forEach(function(element) {
-                tbody.append('<tr id="'+element.id+'"><td>'+element.cnae_id+'</td><td>'+element.desc+'</td></tr>');
+                tbody.append('<tr id="'+element.id+
+                             '"><td>'+element.cnae_id+
+                             '</td><td>'+element.desc+
+                             '</td></tr>');
             });
         }
     });
 })
 
-$(document).on('click', '#cnae_results tbody tr', function(event)
-{
+$(document).on('click', '#cnae_results tbody tr', function(event) {
     var value = $(this).find('td').eq(0).text();
     $('#cnae').val(value);
     $('#searchCNAE').modal('toggle');
@@ -157,9 +172,9 @@ $(document).on('click', '#cnae_results tbody tr', function(event)
 
 $('.phone').mask('0000-00009');
 $('.phone').blur(function(event) {
-   if($(this).val().length == 10){
+   if($(this).val().length == 10) {
       $('.phone').mask('00000-0009');
-   } else {
+    } else {
       $('.phone').mask('0000-00009');
    }
 });

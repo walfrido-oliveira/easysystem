@@ -73,7 +73,7 @@
                         </div>
                         <ul class="nav nav-tabs" id="clientTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="adress-tab" data-toggle="tab" href="#adress" role="tab" aria-controls="adress"
+                                <a class="nav-link active" id="adress-tab" data-toggle="tab" href="#adress" role="tab" aria-controls="adress-fields"
                                 aria-selected="true">Endereço</a>
                             </li>
                             <li class="nav-item">
@@ -86,7 +86,7 @@
                             </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="adress" role="tabpanel" aria-labelledby="adress-tab">
+                            <div class="tab-pane fade show active" id="adress-fields" role="tabpanel" aria-labelledby="adress-tab">
                                 <div class="row mt-3">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group row">

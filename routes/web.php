@@ -47,7 +47,10 @@ Route::get('storage/app/{filename?}', function ($filename)
     return $response;
 })->where('filename', '(.*)');
 
+
 Route::get('/home/comercial/client/cnae/search','Client\CnaeController@search')->middleware('auth');
+Route::get('/helper/cep','Helper\HelperController@getAdressInformations')->middleware('auth');
+Route::get('/helper/client','Helper\HelperController@getClientInformations')->middleware('auth');
 
 Route::get('/home/comercial','AdmController@index')->middleware('auth')->name('home.comercial');
 Route::get('/home/comercial/orcamento','AdmController@showBudget')->middleware('auth')->name('comercial.budget');
@@ -56,6 +59,8 @@ Route::get('orcamento','Budget\BudgetController@create')->name('orcamento.create
 Route::post('orcamento/store','Budget\BudgetController@store')->name('orcamento.store');
 
 Route::resource('users','User\UserController')->middleware('auth');
+
+//Comercial resources
 Route::resource('/home/comercial/orcamento/area','Budget\AreaController')->middleware('auth');
 Route::resource('/home/comercial/orcamento/service','Budget\ServiceController')->middleware('auth');
 Route::resource('budget','Budget\BudgetController')->except([
@@ -63,10 +68,8 @@ Route::resource('budget','Budget\BudgetController')->except([
 ])->middleware('auth')->middleware('check_user_role:' . UserRole::ROLE_ADMIN);
 Route::resource('/home/comercial/orcamento/payment','Budget\PaymentController')->middleware('auth');
 Route::resource('/home/comercial/orcamento/transport','Budget\TransportController')->middleware('auth');
-
 Route::resource('/home/comercial/client/client','Client\ClientController')->middleware('auth');
 Route::resource('/home/comercial/client/activity','Client\ActivityController')->middleware('auth');
-
 
 
 
