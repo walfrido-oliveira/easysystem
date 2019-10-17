@@ -33,6 +33,7 @@
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Salvar</button>
+                            <a href="{{ route('activity.index') }}" class="btn btn-success">Voltar</a>
                         </div>
                     </form>
                 </div>

@@ -34,9 +34,6 @@
                                             <td class="column2">{{ $client->nome_fantasia }}</td>
                                             <td class="column3">
                                                 <form action="{{ route('client.destroy',$client->id) }}" method="POST">
-                                                    <a class="btn btn-primary" href="{{ route('client.show',$client->id) }}">
-                                                        <i class="fa fa-eye"></i>
-                                                    </a>
                                                     <a class="btn btn-primary" href="{{ route('client.edit',$client->id) }}">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
@@ -55,7 +52,7 @@
                     </div>
                 </div>
                 {!! $clients->links() !!}
-                <div class="row">
+                <div class="row p-3">
                     <a href="{{ route('client.create') }}" class="btn btn-success">Novo</a>
                 </div>
                 </div>

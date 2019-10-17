@@ -49,8 +49,8 @@
                     </div>
                 </div>
                 {!! $activitys->links() !!}
-                <div class="row">
-                    <a href="{{ route('activity.create') }}" class="btn btn-success">Nova Atividadea</a>
+                <div class="row p-3">
+                    <a href="{{ route('activity.create') }}" class="btn btn-success">Novo</a>
                 </div>
                 </div>
             </div>
