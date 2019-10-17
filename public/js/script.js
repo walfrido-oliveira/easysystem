@@ -130,7 +130,7 @@ $("#search_cnpj_modal").click(function(event) {
                 $('#district_modal').text(result.bairro);
                 $('#state_modal').text(result.uf);
                 $('#city_modal').text(result.municipio);
-                $('#cep_modal').text(result.cep);
+                $('#cep_modal').text(result.cep.replace('.',''));
                 $('#number_modal').text(result.numero);
                 $('#alert_cnpj_modal').hide();
                 $('#fieldset_client_modal').show();
