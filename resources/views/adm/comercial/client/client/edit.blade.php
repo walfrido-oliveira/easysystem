@@ -37,12 +37,18 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group row">
                                     <label for="razao_social" class="col-sm-2 col-form-label">Razão Social: </label>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-5">
                                         <input type="text" class="form-control" name="razao_social" id="razao_social" placeholder="Razão Social" required value="{{ $client->razao_social }}">
                                     </div>
                                     <label for="cnpj" class="col-sm-1 col-form-label">CNPJ: </label>
                                     <div class="col-sm-3">
                                         <input type="text" class="form-control" name="cnpj" id="cnpj" value="{{ $client->cnpj }}" data-mask="99.999.999/9999-99" selectonfocus="true" clearifnotmatch="true">
+                                    </div>
+                                    <div class="col-sm-1 pl-0">
+                                        <label class="custom-file-upload">
+                                            <input type="button"  name="search_client" id="search_client">
+                                            <i class="fa fa-search"></i>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -260,6 +266,7 @@
 </div>
 
 @include('adm.comercial.client.client.cnaemodal')
+@include('adm.comercial.client.client.clientmodal')
 
 @endsection
 
