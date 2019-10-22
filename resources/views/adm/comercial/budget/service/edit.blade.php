@@ -26,74 +26,106 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group row">
+                                    <label for="id_service" class="col-sm-1 col-form-label">Código:</label>
+                                    <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="id_service" id="id_service"
+                                        value="{{ str_pad((string)$service->id, 5, '0', STR_PAD_LEFT)  }}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group row">
                                     <label for="desc" class="col-sm-1 col-form-label">Des.: </label>
                                     <div class="col-sm-10">
                                         <textarea class="form-control" name="desc" id="desc"  required>{{ $service->desc }}</textarea>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group row">
-                                    <label for="area_id" class="col-sm-1 col-form-label">Área: </label>
-                                    <div class="col-sm-6">
-                                        <select  class="form-control custom-select" name="area_id" id="area_id" required>
-                                            @foreach ($areas as $area)
-                                                @if ($area->id == $service->area_id)
-                                                    <option value="{{ $area->id }}" selected>{{ $area->name }}</option>
-                                                @else
-                                                    <option value="{{ $area->id }}">{{ $area->name }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <label for="type" class="col-sm-1 col-form-label">Tipo: </label>
-                                    <div class="col-sm-3">
-                                        <select  class="form-control custom-select" name="type" id="type" required>
-                                            @foreach ($types as $type)
-                                                @if ($type == $service->type)
-                                                    <option value="{{ $type }}" selected>{{ $type }}</option>
-                                                @else
-                                                    <option value="{{ $type }}">{{ $type }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
+                        </div>
+                        <ul class="nav nav-tabs" id="serviceTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="fin-tab" data-toggle="tab" href="#fin-fields" role="tab" aria-controls="fin-fields"
+                                    aria-selected="true">Financeiro</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="lab-tab" data-toggle="tab" href="#lab-fields" role="tab" aria-controls="lab-fields"
+                                    aria-selected="true">Laboratório</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="fin-fields" role="tabpanel" aria-labelledby="fin-tab">
+                                <div class="row mt-3">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group row">
+                                            <label for="value" class="col-sm-1 col-form-label">Valor: </label>
+                                            <div class="col-sm-3">
+                                            <input type="text" class="form-control" name="value" id="value" placeholder="Valor"
+                                            required value="{{ $service->value }}"
+                                            data-mask="#.##0,00" selectonfocus="true" clearifnotmatch="true" data-mask-reverse="true">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group row">
-                                    <label for="local" class="col-sm-1 col-form-label">Local: </label>
-                                    <div class="col-sm-3">
-                                        <select  class="form-control custom-select" name="local" id="local" required>
-                                            @foreach ($locals as $local)
-                                                @if ($local == $service->local)
-                                                    <option value="{{ $local }}" selected>{{ $local }}</option>
-                                                @else
-                                                    <option value="{{ $local }}">{{ $local }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
+                            <div class="tab-pane fade" id="lab-fields" role="tabpanel" aria-labelledby="lab-tab">
+                                <div class="row mt-3">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group row">
+                                            <label for="area_id" class="col-sm-1 col-form-label">Área: </label>
+                                            <div class="col-sm-6">
+                                                <select  class="form-control custom-select" name="area_id" id="area_id" required>
+                                                    @foreach ($areas as $area)
+                                                        @if ($area->id == $service->area_id)
+                                                            <option value="{{ $area->id }}" selected>{{ $area->name }}</option>
+                                                        @else
+                                                            <option value="{{ $area->id }}">{{ $area->name }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <label for="type" class="col-sm-1 col-form-label">Tipo: </label>
+                                            <div class="col-sm-3">
+                                                <select  class="form-control custom-select" name="type" id="type" required>
+                                                    @foreach ($types as $type)
+                                                        @if ($type == $service->type)
+                                                            <option value="{{ $type }}" selected>{{ $type }}</option>
+                                                        @else
+                                                            <option value="{{ $type }}">{{ $type }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group row">
-                                    <label for="range" class="col-sm-1 col-form-label">Faixa: </label>
-                                    <div class="col-sm-10">
-                                        <textarea class="form-control" name="range" id="range" placeholder="Faixa" required >{{ $service->range }}</textarea>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group row">
+                                            <label for="local" class="col-sm-1 col-form-label">Local: </label>
+                                            <div class="col-sm-3">
+                                                <select  class="form-control custom-select" name="local" id="local" required>
+                                                    @foreach ($locals as $local)
+                                                        @if ($local == $service->local)
+                                                            <option value="{{ $local }}" selected>{{ $local }}</option>
+                                                        @else
+                                                            <option value="{{ $local }}">{{ $local }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group row">
-                                    <label for="value" class="col-sm-1 col-form-label">Valor: </label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="value" id="value" placeholder="Valor" required value="{{ $service->value }}"
-                                        data-mask="#.##0,00" selectonfocus="true" clearifnotmatch="true" data-mask-reverse="true">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group row">
+                                            <label for="range" class="col-sm-1 col-form-label">Faixa: </label>
+                                            <div class="col-sm-10">
+                                            <textarea class="form-control" name="range" id="range" placeholder="Faixa"
+                                            required >{{ $service->range }}</textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group pt-3 border-top">
                             <button type="submit" class="btn btn-primary">Salvar</button>
                             <a href="{{ route('service.index') }}" class="btn btn-success">Voltar</a>

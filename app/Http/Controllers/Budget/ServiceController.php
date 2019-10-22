@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use \App\Role\UserRole;
 use App\Budget\Area;
+use App\Budget\Taxation;
 use DB;
 
 class ServiceController extends Controller
@@ -48,7 +49,10 @@ class ServiceController extends Controller
 
         $locals = $this->getTypeEnum('local');
 
-        return view('adm.comercial.budget.service.create',compact('areas','types','locals'));
+        $taxations = Taxation::where('active',1)->get();
+
+        return view('adm.comercial.budget.service.create',
+                compact('areas','types','locals','taxations'));
     }
 
     /**
@@ -112,7 +116,10 @@ class ServiceController extends Controller
 
         $locals = $this->getTypeEnum('local');
 
-        return view('adm.comercial.budget.service.edit',compact('service','areas','types','locals'));
+        $taxations = Taxation::where('active',1)->get();
+
+        return view('adm.comercial.budget.service.edit',
+                compact('service','areas','types','locals','taxations'));
     }
 
     /**

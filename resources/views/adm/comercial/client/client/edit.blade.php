@@ -24,7 +24,7 @@
                         @csrf
                         @method('PUT')
                         <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <img src="{{URL::asset( 'storage/app/' . $client->logo )}}" alt="Logo" width="64" height="64" id="output_logo">
                                     <label  class="custom-file-upload">
@@ -38,11 +38,13 @@
                                 <div class="form-group row">
                                     <label for="razao_social" class="col-sm-2 col-form-label">Razão Social: </label>
                                     <div class="col-sm-5">
-                                        <input type="text" class="form-control" name="razao_social" id="razao_social" placeholder="Razão Social" required value="{{ $client->razao_social }}">
+                                        <input type="text" class="form-control" name="razao_social" id="razao_social" placeholder="Razão Social"
+                                            required value="{{ $client->razao_social }}">
                                     </div>
                                     <label for="cnpj" class="col-sm-1 col-form-label">CNPJ: </label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" name="cnpj" id="cnpj" value="{{ $client->cnpj }}" data-mask="99.999.999/9999-99" selectonfocus="true" clearifnotmatch="true">
+                                        <input type="text" class="form-control" name="cnpj" id="cnpj" value="{{ $client->cnpj }}"
+                                            data-mask="99.999.999/9999-99" selectonfocus="true" clearifnotmatch="true">
                                     </div>
                                     <div class="col-sm-1 pl-0">
                                         <label class="custom-file-upload">
@@ -56,7 +58,8 @@
                                 <div class="form-group row">
                                     <label for="nome_fantasia" class="col-sm-2 col-form-label">Nome Fantasia: </label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="nome_fantasia" id="nome_fantasia" placeholder="Nome Fantasia" required value ="{{ $client->nome_fantasia }}">
+                                        <input type="text" class="form-control" name="nome_fantasia" id="nome_fantasia" placeholder="Nome Fantasia"
+                                            required value ="{{ $client->nome_fantasia }}">
                                     </div>
                                 </div>
                             </div>
@@ -139,7 +142,8 @@
                                             </div>
                                             <label for="cep" class="col-sm-1 col-form-label">CEP: </label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" name="cep" id="cep" value="{{ $client->cep }}" data-mask="99999-999" selectonfocus="true" clearifnotmatch="true">
+                                                <input type="text" class="form-control" name="cep" id="cep" value="{{ $client->cep }}"
+                                                    data-mask="99999-999" selectonfocus="true" clearifnotmatch="true">
                                                 <small class="form-text text-muted" id="loading-cep"></small>
                                             </div>
                                         </div>
