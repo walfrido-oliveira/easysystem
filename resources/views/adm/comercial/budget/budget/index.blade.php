@@ -24,15 +24,18 @@
                                     <tbody>
                                         @foreach ($budgets as $budget)
                                         <tr>
-                                            <td class="column1">{{ ++$i ?? '' }}</td>
+                                            <td class="column1">{{ str_pad((string)$budget->id, 5, "0", STR_PAD_LEFT)  }}</td>
                                             <td class="column2">{{ $budget->client }}</td>
                                             <td class="column3">
                                                 <form action="{{ route('budget.destroy',$budget->id) }}" method="POST">
-                                                    <a class="btn btn-primary" href="{{ route('budget.show',$budget->id) }}"><i class="fa fa-eye"></i></a>
-                                                    <a class="btn btn-primary" href="{{ route('budget.edit',$budget->id) }}"><i class="fa fa-edit"></i></a>
+                                                    <a class="btn btn-primary" href="{{ route('budget.edit',$budget->id) }}">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                    <button type="submit" class="btn btn-danger">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -43,8 +46,8 @@
                         </div>
                     </div>
                     {!! $budgets->links() !!}
-                    <div class="row">
-                        <a href="{{ route('orcamento.create') }}" class="btn btn-success">Novo orçamento</a>
+                    <div class="row p-3">
+                        <a href="{{ route('orcamento.create') }}" class="btn btn-success">Novo</a>
                     </div>
                 </div>
             </div>

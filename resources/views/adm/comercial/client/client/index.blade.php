@@ -30,7 +30,7 @@
                                     <tbody>
                                         @foreach ($clients as $client)
                                         <tr>
-                                            <td class="column1">{{ ++$i ?? '' }}</td>
+                                            <td class="column1">{{ str_pad((string)$client->id, 5, "0", STR_PAD_LEFT)  }}</td>
                                             <td class="column2">{{ $client->nome_fantasia }}</td>
                                             <td class="column3">
                                                 <form action="{{ route('client.destroy',$client->id) }}" method="POST">

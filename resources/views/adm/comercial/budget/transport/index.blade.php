@@ -23,12 +23,13 @@
                                     <tbody>
                                         @foreach ($transports as $transport)
                                         <tr>
-                                            <td class="column1">{{ ++$i ?? '' }}</td>
+                                            <td class="column1">{{ str_pad((string)$transport->id, 5, "0", STR_PAD_LEFT)  }}</td>
                                             <td class="column2">{{ $transport->name }}</td>
                                             <td class="column3">
                                                 <form action="{{ route('transport.destroy',$transport->id) }}" method="POST">
-                                                    <a class="btn btn-primary" href="{{ route('transport.show',$transport->id) }}"><i class="fa fa-eye"></i></a>
-                                                    <a class="btn btn-primary" href="{{ route('transport.edit',$transport->id) }}"><i class="fa fa-edit"></i></a>
+                                                    <a class="btn btn-primary" href="{{ route('transport.edit',$transport->id) }}">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
@@ -42,8 +43,8 @@
                         </div>
                     </div>
                     {!! $transports->links() !!}
-                    <div class="row">
-                        <a href="{{ route('transport.create') }}" class="btn btn-success">Nova forma de transporte</a>
+                    <div class="row p-3">
+                        <a href="{{ route('transport.create') }}" class="btn btn-success">Novo</a>
                     </div>
                 </div>
             </div>

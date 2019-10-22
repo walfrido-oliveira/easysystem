@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use \App\Role\UserRole;
 use App\Budget\Area;
+use DB;
 
 class ServiceController extends Controller
 {
@@ -43,7 +44,11 @@ class ServiceController extends Controller
     {
         $areas = Area::where('active',1)->get();
 
-        return view('adm.comercial.budget.service.create',compact('areas'));
+        $types = $this->getTypeEnum('type');
+
+        $locals = $this->getTypeEnum('local');
+
+        return view('adm.comercial.budget.service.create',compact('areas','types','locals'));
     }
 
     /**
@@ -59,7 +64,7 @@ class ServiceController extends Controller
             'area_id' => 'required',
             'type' => 'required|max:255',
             'local' => 'required|max:255',
-            'value' => 'required|numeric',
+            'value' => 'required|regex:/^\d+(\,\d{1,2})?$/',
             'range' => 'required',
         ],
         [
@@ -68,11 +73,16 @@ class ServiceController extends Controller
             'type' => 'O campo tipo é obrigatório',
             'local.required' => 'O campo local é obrigatório',
             'value.required' => 'O campo valor é obrigatório',
+            'value.regex' => 'O campo valor deve ser um número',
             'range.required' => 'O campo faixa é obrigatório'
         ]
         );
 
-        Service::create($request->all());
+        $data = $request->all();
+        $data['value'] = str_replace('.','',$data['value'] );
+        $data['value'] = str_replace(',','.',$data['value'] );
+
+        Service::create($data);
 
         return redirect()->route('service.index');
     }
@@ -97,7 +107,12 @@ class ServiceController extends Controller
     public function edit(Service $service)
     {
         $areas = Area::where('active',1)->get();
-        return view('adm.comercial.budget.service.edit',compact('service','areas'));
+
+        $types = $this->getTypeEnum('type');
+
+        $locals = $this->getTypeEnum('local');
+
+        return view('adm.comercial.budget.service.edit',compact('service','areas','types','locals'));
     }
 
     /**
@@ -114,7 +129,7 @@ class ServiceController extends Controller
             'area_id' => 'required',
             'type' => 'required|max:255',
             'local' => 'required|max:255',
-            'value' => 'required|numeric',
+            'value' => 'required|regex:/^\d+(\,\d{1,2})?$/',
             'range' => 'required',
         ],
         [
@@ -123,11 +138,16 @@ class ServiceController extends Controller
             'type' => 'O campo tipo é obrigatório',
             'local.required' => 'O campo local é obrigatório',
             'value.required' => 'O campo valor é obrigatório',
+            'value.regex' => 'O campo valor deve ser um número',
             'range.required' => 'O campo faixa é obrigatório'
         ]
         );
 
-        $service->update($request->all());
+        $data = $request->all();
+        $data['value'] = str_replace('.','',$data['value'] );
+        $data['value'] = str_replace(',','.',$data['value'] );
+
+        $service->update($data);
 
         return redirect()->route('service.index')
                         ->with('success','Serviço adicionado com sucesso');
@@ -145,5 +165,22 @@ class ServiceController extends Controller
 
         return redirect()->route('service.index')
                         ->with('success','Serviço deletado com sucesso');
+    }
+
+    /**
+     * Retrieves enum fields
+     *
+     * @return array
+     */
+    public function getTypeEnum($column)
+    {
+        $instance = new Service();
+
+        $enumStr = DB::select(DB::raw('SHOW COLUMNS FROM '.$instance->getTable().' WHERE Field = "'.$column.'"'))[0]->Type;
+
+        preg_match_all("/'([^']+)'/", $enumStr, $matches);
+
+        return isset($matches[1]) ? $matches[1] : [];
+
     }
 }

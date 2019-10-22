@@ -50,7 +50,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="close_cnpj_modal" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" id="close_cnpj_modal" data-dismiss="modal">Fechar</button>
         <button type="button" class="btn btn-success" id="import_cnpj_modal" disabled>Importar</button>
         <button type="button" class="btn btn-primary" id="search_cnpj_modal">Buscar</button>
       </div>

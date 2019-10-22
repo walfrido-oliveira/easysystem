@@ -24,13 +24,10 @@
                                     <tbody>
                                         @foreach ($activitys as $activity)
                                         <tr>
-                                            <td class="column1">{{ ++$i ?? '' }}</td>
+                                            <td class="column1">{{ str_pad((string)$activity->id, 5, "0", STR_PAD_LEFT)  }}</td>
                                             <td class="column2">{{ $activity->name }}</td>
                                             <td class="column3">
                                                 <form action="{{ route('activity.destroy',$activity->id) }}" method="POST">
-                                                    <a class="btn btn-primary" href="{{ route('activity.show',$activity->id) }}">
-                                                        <i class="fa fa-eye"></i>
-                                                    </a>
                                                     <a class="btn btn-primary" href="{{ route('activity.edit',$activity->id) }}">
                                                         <i class="fa fa-edit"></i>
                                                     </a>

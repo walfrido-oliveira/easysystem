@@ -25,14 +25,17 @@
                         @method('PUT')
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <label for="name">Nome: </label>
-                                    <input type="text" class="from-control" name="name" value="{{ $transport->name }}" placeholder="Nome">
+                                <div class="form-group row">
+                                    <label for="name" class="col-sm-1 col-form-label">Nome: </label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" name="name" value="{{ $transport->name }}" placeholder="Nome">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group pt-3 border-top">
                             <button type="submit" class="btn btn-primary">Salvar</button>
+                            <a href="{{ route('transport.index') }}" class="btn btn-success">Voltar</a>
                         </div>
                     </form>
                 </div>
