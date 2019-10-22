@@ -183,13 +183,17 @@ $("#search_cnae").click(function(event) {
     $('#searchCNAE').modal('toggle');
 });
 
+$("#search_service_type").click(function(event) {
+    $('#searchService').modal('toggle');
+});
+
 $("#search_client").click(function(event) {
     $('#cnpjModalValue').val($('#cnpj').val())
     $('#searchClient').modal('toggle');
     $('#fieldset_client_modal').hide();
 });
 
- $('#searchCNAEValue').on('keyup',function() {
+$('#searchCNAEValue').on('keyup',function() {
     $value=$(this).val();
     $.ajax({
         type : 'get',
@@ -207,7 +211,27 @@ $("#search_client").click(function(event) {
             });
         }
     });
-})
+});
+
+$('#searchServiceValue').on('keyup',function() {
+    $value=$(this).val();
+    $.ajax({
+        type : 'get',
+        url : '/home/comercial/budget/service_type/search',
+        data:{'search':$value},
+        success:function(data) {
+            var result = data.result;
+            var tbody = $("#service_results tbody");
+            tbody.empty();
+            result.forEach(function(element) {
+                tbody.append('<tr id="'+element.id+
+                             '"><td>'+element.tse_id+
+                             '</td><td>'+element.desc+
+                             '</td></tr>');
+            });
+        }
+    });
+});
 
 $(document).on('click', '#cnae_results tbody tr', function(event) {
     var value = $(this).find('td').eq(0).text();
@@ -216,6 +240,15 @@ $(document).on('click', '#cnae_results tbody tr', function(event) {
     var tbody = $("#cnae_results tbody");
     tbody.empty();
     $('#searchCNAEValue').val('');
+});
+
+$(document).on('click', '#service_results tbody tr', function(event) {
+    var value = $(this).find('td').eq(0).text();
+    $('#service_type_id').val(value);
+    $('#searchService').modal('toggle');
+    var tbody = $("#service_results tbody");
+    tbody.empty();
+    $('#searchServiceValue').val('');
 });
 
 $('.phone').mask('0000-00009');

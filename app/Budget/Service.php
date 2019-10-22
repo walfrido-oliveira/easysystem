@@ -9,7 +9,7 @@ class Service extends Model
     protected $fillable = [
         'desc','area_id','type','local',
         'value','active','range','taxation_id',
-        'cm',
+        'cm','service_type_id'
     ];
 
     public function area()
@@ -20,5 +20,10 @@ class Service extends Model
     public function taxation()
     {
         return $this->hasOne('App\Budget\Taxation','id','taxation_id');
+    }
+
+    public function serviceType()
+    {
+        return $this->hasOne('App\Budget\ServiceType','tse_id','service_type_id');
     }
 }

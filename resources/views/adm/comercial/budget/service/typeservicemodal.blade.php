@@ -1,8 +1,8 @@
-<div class="modal fade" id="searchCNAE" tabindex="-1" role="dialog" aria-labelledby="searchCNAELabel" aria-hidden="true">
+<div class="modal fade" id="searchService" tabindex="-1" role="dialog" aria-labelledby="searchServiceLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="searchCNAELabel">Buscar Código CNAE</h5>
+        <h5 class="modal-title" id="searchServiceLabel">Buscar Código</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -11,11 +11,11 @@
         <form>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">COD.:</label>
-            <input type="text" class="form-control" id="searchCNAEValue">
+            <input type="text" class="form-control" id="searchServiceValue">
           </div>
         </form>
         <div class="modal-table">
-            <table class="table table-bordered" id="cnae_results">
+            <table class="table table-bordered" id="service_results">
                 <thead>
                     <tr class="modal-datble-head">
                         <th class="column1">COD</th>

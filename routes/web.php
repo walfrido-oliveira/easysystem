@@ -51,6 +51,7 @@ Route::get('storage/app/{filename?}', function ($filename)
 Route::get('/home/comercial/client/cnae/search','Client\CnaeController@search')->middleware('auth');
 Route::get('/helper/cep','Helper\HelperController@getAdressInformations')->middleware('auth');
 Route::get('/helper/client','Helper\HelperController@getClientInformations')->middleware('auth');
+Route::get('/home/comercial/budget/service_type/search','Budget\ServiceTypeController@search')->middleware('auth');
 
 Route::get('/home/comercial','AdmController@index')->middleware('auth')->name('home.comercial');
 Route::get('/home/comercial/orcamento','AdmController@showBudget')->middleware('auth')->name('comercial.budget');

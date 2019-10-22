@@ -5,82 +5,41 @@ namespace App\Http\Controllers\Budget;
 use App\Budget\ServiceType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use \App\Role\UserRole;
+use Response;
 
 class ServiceTypeController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
+     * Create a new controller instance.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function index()
+    public function __construct()
     {
-        //
+        $this->middleware('check_user_role:' . UserRole::ROLE_ADMIN);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource by name
      *
-     * @return \Illuminate\Http\Response
+     *  @return \Illuminate\Http\Response
      */
-    public function create()
+    public function search(Request $request)
     {
-        //
-    }
+        if ($request->ajax())
+        {
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+            $servicetypes = ServiceType::where('tse_id','LIKE','%'.$request->search.'%')->get();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Budget\ServiceType  $serviceType
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ServiceType $serviceType)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Budget\ServiceType  $serviceType
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ServiceType $serviceType)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Budget\ServiceType  $serviceType
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ServiceType $serviceType)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Budget\ServiceType  $serviceType
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ServiceType $serviceType)
-    {
-        //
+            if ($servicetypes)
+            {
+                $term = $request->term;
+                $sen['sucess'] = true;
+                $sen['result'] = $servicetypes->toArray();
+                return Response::json( $sen );
+            }
+        }
     }
 }

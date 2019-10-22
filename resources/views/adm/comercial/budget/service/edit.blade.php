@@ -27,7 +27,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group row">
                                     <label for="id_service" class="col-sm-1 col-form-label">Código:</label>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-2">
                                     <input type="text" class="form-control" name="id_service" id="id_service"
                                         value="{{ str_pad((string)$service->id, 5, '0', STR_PAD_LEFT)  }}" readonly>
                                     </div>
@@ -57,12 +57,49 @@
                                 <div class="row mt-3">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group row">
-                                            <label for="value" class="col-sm-1 col-form-label">Valor: </label>
-                                            <div class="col-sm-3">
-                                            <input type="text" class="form-control" name="value" id="value" placeholder="Valor"
-                                            required value="{{ $service->value }}"
-                                            data-mask="#.##0,00" selectonfocus="true" clearifnotmatch="true" data-mask-reverse="true">
+                                            <label for="local" class="col-sm-2 col-form-label">Tributação dos Serviços:</label>
+                                            <div class="col-sm-5">
+                                                <select  class="form-control custom-select" name="taxation_id" id="taxation_id" required>
+                                                    @foreach ($taxations as $taxation)
+                                                        @if ($taxation->id == $service->taxation_id)
+                                                            <option value="{{ $taxation->id }}" selected>{{ $taxation->name }}</option>
+                                                        @else
+                                                            <option value="{{ $taxation->id }}">{{ $taxation->name }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
                                             </div>
+                                            <label for="cm" class="col-sm-2 col-form-label">Código do Serviço Municipal: </label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" name="cm" id="value" placeholder="Código"
+                                                value="{{ $service->cm }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group row">
+                                            <label for="service_type_id" class="col-sm-2 col-form-label">Código do Serviço LC 116:</label>
+                                            <div class="col-sm-2 pr-0">
+                                                <input type="text" class="form-control" name="service_type_id" id="service_type_id"
+                                                    placeholder="Código do Serviço" value="{{ $service->service_type_id }}">
+                                            </div>
+                                            <div class="pl-0">
+                                                <label class="custom-file-upload">
+                                                    <input type="button"  name="search_service_type" id="search_service_type">
+                                                    <i class="fa fa-search"></i>
+                                                </label>
+                                            </div>
+                                            <label for="value" class="col-sm-1 col-form-label">Preço Unitário: </label>
+                                            <div class="col-sm-2">
+                                                <input type="text" class="form-control" name="value" id="value" placeholder="Valor"
+                                                data-mask="#.##0,00" selectonfocus="true" clearifnotmatch="true" data-mask-reverse="true"
+                                                value="{{ $service->value }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group row">
+
                                         </div>
                                     </div>
                                 </div>
@@ -136,4 +173,7 @@
         </div>
     </div>
 </div>
+
+@include('adm.comercial.budget.service.typeservicemodal')
+
 @endsection

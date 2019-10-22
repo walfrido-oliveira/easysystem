@@ -212,7 +212,8 @@
                                             </div>
                                             <label for="cnae" class="col-sm-1 col-form-label">CNAE:</label>
                                             <div class="col-sm-2 pr-0">
-                                                <input type="text" class="form-control" name="cnae" id="cnae" placeholder="CNAE Principal" value="{{ $client->cnae }}" >
+                                                <input type="text" class="form-control" name="cnae" id="cnae" placeholder="CNAE Principal"
+                                                value="{{ $client->cnae }}" >
                                             </div>
                                             <div class="col-sm-2 pl-0">
                                                 <label class="custom-file-upload">
@@ -227,7 +228,8 @@
                                             <div class="col-sm-2">Simples Nacional?</div>
                                             <div class="col-sm-10">
                                             <div class="custom-control custom-checkbox">
-                                                <input class="custom-control-input" type="checkbox" id="simples_nacional" name="simples_nacional" {{ $client->simples_nacional }}>
+                                                <input class="custom-control-input" type="checkbox" id="simples_nacional"
+                                                name="simples_nacional" {{ $client->simples_nacional }}>
                                                 <label class="custom-control-label" for="simples_nacional" >
                                                 Sim
                                                 </label>
@@ -238,7 +240,8 @@
                                             <div class="col-sm-2">Produtor Rural?</div>
                                             <div class="col-sm-10">
                                             <div class="custom-control custom-checkbox">
-                                                <input class="custom-control-input" type="checkbox" id="produtor_rural" name="produtor_rural" {{ $client->produtor_rural }}>
+                                                <input class="custom-control-input" type="checkbox" id="produtor_rural"
+                                                name="produtor_rural" {{ $client->produtor_rural }}>
                                                 <label class="custom-control-label" for="produtor_rural">
                                                 Sim
                                                 </label>

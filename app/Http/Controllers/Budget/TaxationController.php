@@ -6,6 +6,7 @@ use App\Budget\Taxation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use \App\Role\UserRole;
+use Response;
 
 class TaxationController extends Controller
 {
@@ -21,105 +22,26 @@ class TaxationController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource by name
      *
-     * @return \Illuminate\Http\Response
+     *  @return \Illuminate\Http\Response
      */
-    public function index()
+    public function search(Request $request)
     {
-        $Taxations = Taxation::where('active',1)->paginate(10);
+        if ($request->ajax())
+        {
 
-        return view('adm.comercial.budget.Taxation.index',compact('Taxations'))
-        ->with('i', (request()->input('page', 1) - 1) * 5);
+            $taxations = Taxation::where('name','LIKE','%'.$request->search.'%')->get();
+
+            if ($taxations)
+            {
+                $term = $request->term;
+                $sen['sucess'] = true;
+                $sen['result'] = $taxations->toArray();
+                return Response::json( $sen );
+            }
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('adm.comercial.budget.Taxation.create');
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|max:255|unique:Taxations',
-        ],
-        [
-            'name.required' => 'O campo nome é obrigatório'
-        ]
-        );
-
-        Taxation::create($request->all());
-
-        return redirect()->route('Taxation.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Orcamento\Taxation  $Taxation
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Taxation $Taxation)
-    {
-        return view('adm.comercial.budget.Taxation.show',compact('Taxation'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Orcamento\Taxation  $Taxation
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Taxation $Taxation)
-    {
-        return view('adm.comercial.budget.Taxation.edit',compact('Taxation'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Orcamento\Taxation  $Taxation
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Taxation $Taxation)
-    {
-        $request->validate([
-            'name' => 'required|max:255|unique:Taxations',
-        ],
-        [
-            'name.required' => 'O campo nome é obrigatório'
-        ]
-        );
-
-        $Taxation->update($request->all());
-
-        return redirect()->route('Taxation.index')
-                        ->with('success','Área adicionado com sucesso');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Orcamento\Taxation  $Taxation
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Taxation $Taxation)
-    {
-        $Taxation->delete();
-
-        return redirect()->route('Taxation.index')
-                        ->with('success','Área deletado com sucesso');
-    }
 }

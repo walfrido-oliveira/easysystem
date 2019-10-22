@@ -58,18 +58,33 @@
                                             </div>
                                             <label for="cm" class="col-sm-2 col-form-label">Código do Serviço Municipal: </label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" name="cm" id="value" placeholder="Código"
+                                                <input type="text" class="form-control" name="cm" id="value" placeholder="Código">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group row">
+                                            <label for="service_type_id" class="col-sm-2 col-form-label">Código do Serviço LC 116:</label>
+                                            <div class="col-sm-2 pr-0">
+                                                <input type="text" class="form-control" name="service_type_id" id="service_type_id"
+                                                    placeholder="Código do Serviço">
+                                            </div>
+                                            <div class="pl-0">
+                                                <label class="custom-file-upload">
+                                                    <input type="button"  name="search_service_type" id="search_service_type">
+                                                    <i class="fa fa-search"></i>
+                                                </label>
+                                            </div>
+                                            <label for="value" class="col-sm-1 col-form-label">Preço Unitário: </label>
+                                            <div class="col-sm-2">
+                                                <input type="text" class="form-control" name="value" id="value" placeholder="Valor"
                                                 data-mask="#.##0,00" selectonfocus="true" clearifnotmatch="true" data-mask-reverse="true">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group row">
-                                            <label for="value" class="col-sm-2 col-form-label">Preço Unitário: </label>
-                                            <div class="col-sm-3">
-                                                <input type="text" class="form-control" name="value" id="value" placeholder="Valor"
-                                                data-mask="#.##0,00" selectonfocus="true" clearifnotmatch="true" data-mask-reverse="true">
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -129,4 +144,7 @@
         </div>
     </div>
 </div>
+
+@include('adm.comercial.budget.service.typeservicemodal')
+
 @endsection
