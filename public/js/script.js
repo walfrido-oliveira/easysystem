@@ -251,12 +251,3 @@ $(document).on('click', '#service_results tbody tr', function(event) {
     $('#searchServiceValue').val('');
 });
 
-$('.phone').mask('0000-00009');
-$('.phone').blur(function(event) {
-   if($(this).val().length == 10) {
-      $('.phone').mask('00000-0009');
-    } else {
-      $('.phone').mask('0000-00009');
-   }
-});
-

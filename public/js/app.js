@@ -37215,7 +37215,7 @@ var render = function() {
       mask: _vm.mask,
       value: _vm.value,
       type: "text",
-      masked: "true",
+      masked: "false",
       placeholder: _vm.placeholder,
       name: _vm.name,
       id: _vm.id

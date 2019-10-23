@@ -43,8 +43,8 @@
                                     </div>
                                     <label for="cnpj" class="col-sm-1 col-form-label">CNPJ: </label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" name="cnpj" id="cnpj" value="{{ $client->cnpj }}"
-                                            data-mask="99.999.999/9999-99" selectonfocus="true" clearifnotmatch="true">
+                                        <the-mask name="cnpj" id="cnpj" :mask="['###.###.###-##', '##.###.###/####-##']"  value="{{ $client->cnpj }}"
+                                        placeholder="CNPJ" class="form-control">
                                     </div>
                                     <div class="col-sm-1 pl-0">
                                         <label class="custom-file-upload">
@@ -67,22 +67,26 @@
                                 <div class="form-group row">
                                     <label for="ddd" class="col-sm-2 col-form-label">DDD: </label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" name="ddd" id="ddd" placeholder="DDD" value="{{ $client->ddd }}">
+                                        <the-mask name="ddd" id="ddd" :mask="'##'"  value="{{ $client->ddd }}"
+                                        placeholder="DDD" class="form-control">
                                     </div>
                                     <label for="phone" class="col-sm-1 col-form-label">Telefone:</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control phone" name="phone" id="phone" placeholder="Telefone" value="{{ $client->phone }}">
+                                        <the-mask name="phone" id="phone" :mask="['####-####','#####-####']"  value="{{ $client->phone }}"
+                                        placeholder="Telefone" class="form-control">
                                     </div>
                                     <label for="contact" class="col-sm-1 col-form-label">Contato:</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" name="contact" id="contact" placeholder="Contato" value="{{ $client->contact }}">
+                                        <input type="text" class="form-control" name="contact" id="contact"
+                                        placeholder="Contato" value="{{ $client->contact }}">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <ul class="nav nav-tabs" id="clientTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="adress-tab" data-toggle="tab" href="#adress-fields" role="tab" aria-controls="adress-fields"
+                                <a class="nav-link active" id="adress-tab" data-toggle="tab" href="#adress-fields" role="tab"
+                                aria-controls="adress-fields"
                                 aria-selected="true">Endereço</a>
                             </li>
                             <li class="nav-item">
@@ -101,11 +105,13 @@
                                         <div class="form-group row">
                                             <label for="adress" class="col-sm-2 col-form-label">Endereço: </label>
                                             <div class="col-sm-6">
-                                                <input type="text" class="form-control" name="adress" id="adress" placeholder="Endereço" value="{{ $client->adress }}">
+                                                <input type="text" class="form-control" name="adress" id="adress"
+                                                placeholder="Endereço" value="{{ $client->adress }}">
                                             </div>
                                             <label for="number" class="col-sm-1 col-form-label">Número: </label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" name="number" id="number" placeholder="Número" value="{{ $client->number }}">
+                                                <input type="text" class="form-control" name="number" id="number"
+                                                placeholder="Número" value="{{ $client->number }}">
                                             </div>
                                         </div>
                                     </div>
@@ -113,11 +119,13 @@
                                         <div class="form-group row">
                                             <label for="district" class="col-sm-2 col-form-label">Bairro: </label>
                                             <div class="col-sm-6">
-                                                <input type="text" class="form-control" name="district" id="district" placeholder="Bairro" value="{{ $client->district }}">
+                                                <input type="text" class="form-control" name="district" id="district"
+                                                placeholder="Bairro" value="{{ $client->district }}">
                                             </div>
                                             <label for="complement" class="col-sm-1 col-form-label">Compl.: </label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" name="complement" id="complement" placeholder="Complemento" value="{{ $client->complement }}">
+                                                <input type="text" class="form-control" name="complement" id="complement"
+                                                placeholder="Complemento" value="{{ $client->complement }}">
                                             </div>
                                         </div>
                                     </div>
@@ -138,13 +146,13 @@
                                             </div>
                                             <label for="city" class="col-sm-1 col-form-label">Cidade: </label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" name="city" id="city" placeholder="Cidade" value="{{ $client->city }}">
+                                                <input type="text" class="form-control" name="city" id="city"
+                                                placeholder="Cidade" value="{{ $client->city }}">
                                             </div>
                                             <label for="cep" class="col-sm-1 col-form-label">CEP: </label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" name="cep" id="cep" value="{{ $client->cep }}"
-                                                    data-mask="99999-999" selectonfocus="true" clearifnotmatch="true">
-                                                <small class="form-text text-muted" id="loading-cep"></small>
+                                                <the-mask name="cep" id="cep" :mask="'#####-###'"  value="{{ $client->cep }}"
+                                                placeholder="CEP" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -156,15 +164,18 @@
                                          <div class="form-group row">
                                             <label for="ddd_2" class="col-sm-1 col-form-label">DDD: </label>
                                             <div class="col-sm-2">
-                                                <input type="text" class="form-control" name="ddd_2" id="ddd_2" placeholder="DDD 2" value="{{ $client->ddd_2 }}">
+                                                <the-mask name="ddd_2" id="ddd_2" :mask="'##'"  value="{{ $client->ddd_2 }}"
+                                                    placeholder="DDD" class="form-control">
                                             </div>
                                             <label for="phone_2" class="col-sm-1 col-form-label">Telefone:</label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control phone" name="phone_2" id="phone_2" placeholder="Telefone 2" value="{{ $client->phone_2 }}">
+                                                <the-mask name="phone_2" id="phone_2" :mask="['####-####','#####-####']"  value="{{ $client->phone_2 }}"
+                                                placeholder="Telefone" class="form-control">
                                             </div>
                                             <label for="mail" class="col-sm-1 col-form-label">Email: </label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control" name="mail" id="ddd_2" placeholder="Email" value="{{ $client->mail }}">
+                                                <input type="email" class="form-control" name="mail" id="ddd_2"
+                                                placeholder="Email" value="{{ $client->mail }}">
                                             </div>
                                         </div>
                                     </div>
@@ -172,7 +183,8 @@
                                          <div class="form-group row">
                                             <label for="website" class="col-sm-1 col-form-label">Site:</label>
                                             <div class="col-sm-6">
-                                                <input type="text" class="form-control" name="website" id="website" placeholder="Site" value="{{ $client->website }}">
+                                                <input type="text" class="form-control" name="website" id="website"
+                                                placeholder="Site" value="{{ $client->website }}">
                                             </div>
                                         </div>
                                     </div>
@@ -184,15 +196,18 @@
                                          <div class="form-group row">
                                             <label for="ie" class="col-sm-2 col-form-label">IE: </label>
                                             <div class="col-sm-2">
-                                                <input type="text" class="form-control" name="ie" id="ie" placeholder="Inscrição Estadual" value="{{ $client->ie }}">
+                                                <input type="text" class="form-control" name="ie" id="ie"
+                                                placeholder="Inscrição Estadual" value="{{ $client->ie }}">
                                             </div>
                                             <label for="im" class="col-sm-1 col-form-label">IM:</label>
                                             <div class="col-sm-2">
-                                                <input type="text" class="form-control" name="im" id="im" placeholder="Inscrição Municipal" value="{{ $client->im }}">
+                                                <input type="text" class="form-control" name="im" id="im"
+                                                placeholder="Inscrição Municipal" value="{{ $client->im }}">
                                             </div>
                                             <label for="suframa" class="col-sm-2 col-form-label">SUFRAMA:</label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" name="suframa" id="suframa" placeholder="Inscrição SUFRAMA" value="{{ $client->suframa }}">
+                                                <input type="text" class="form-control" name="suframa" id="suframa"
+                                                placeholder="Inscrição SUFRAMA" value="{{ $client->suframa }}">
                                             </div>
                                         </div>
                                     </div>
@@ -200,7 +215,8 @@
                                         <div class="form-group row">
                                             <label for="id_type_client_activity" class="col-sm-2 col-form-label">Atividade: </label>
                                             <div class="col-sm-5">
-                                                <select  class="form-control custom-select" name="id_type_client_activity" id="id_type_client_activity" required>
+                                                <select  class="form-control custom-select" name="id_type_client_activity"
+                                                    id="id_type_client_activity" required>
                                                     @foreach ($activitys as $activity)
                                                         @if ($client->id_type_client_activity == $activity->id)
                                                             <option value="{{ $activity->id }}" selected>{{ $activity->name }}</option>

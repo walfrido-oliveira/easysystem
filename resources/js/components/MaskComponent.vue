@@ -1,10 +1,10 @@
 <template>
-    <the-mask :mask="mask" :value="value" type="text" masked="true"
-        :placeholder="placeholder" class="form-control" :name="name" :id="id"></the-mask>
+    <the-mask :mask="mask" :value="value" type="text" masked="false"
+        :placeholder="placeholder" class="form-control" :name="name" :id="id" ></the-mask>
 </template>
 
 <script>
-    import {TheMask} from 'vue-the-mask'
+    import {TheMask } from 'vue-the-mask'
 
     export default {
         components : {TheMask},

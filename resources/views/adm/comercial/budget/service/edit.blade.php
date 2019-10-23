@@ -166,8 +166,6 @@
                             <button type="submit" class="btn btn-primary">Salvar</button>
                             <a href="{{ route('service.index') }}" class="btn btn-success">Voltar</a>
                         </div>
-                        <mask-component :name="'cnpj'" :id="'cnpj'" :mask="['###.###.###-##', '##.###.###/####-##']" :value="'29.612.669/0001-16'" :placeholder="'CNPJ'"></mask-component>
-
                     </form>
                 </div>
             </div>

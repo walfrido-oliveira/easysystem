@@ -38,11 +38,13 @@
                                 <div class="form-group row">
                                     <label for="razao_social" class="col-sm-2 col-form-label">Razão Social: </label>
                                     <div class="col-sm-5">
-                                        <input type="text" class="form-control" name="razao_social" id="razao_social" placeholder="Razão Social" required>
+                                        <input type="text" class="form-control" name="razao_social" id="razao_social"
+                                        placeholder="Razão Social" required>
                                     </div>
                                     <label for="cnpj" class="col-sm-1 col-form-label">CNPJ: </label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" name="cnpj" id="cnpj"  data-mask="99.999.999/9999-99" selectonfocus="true" clearifnotmatch="true">
+                                        <the-mask name="cnpj" id="cnpj" :mask="['###.###.###-##', '##.###.###/####-##']"
+                                        placeholder="CNPJ" class="form-control">
                                     </div>
                                     <div class="col-sm-1 pl-0">
                                         <label class="custom-file-upload">
@@ -56,7 +58,8 @@
                                 <div class="form-group row">
                                     <label for="nome_fantasia" class="col-sm-2 col-form-label">Nome Fantasia: </label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="nome_fantasia" id="nome_fantasia" placeholder="Nome Fantasia" required>
+                                        <input type="text" class="form-control" name="nome_fantasia" id="nome_fantasia"
+                                        placeholder="Nome Fantasia" required>
                                     </div>
                                 </div>
                             </div>
@@ -64,11 +67,13 @@
                                 <div class="form-group row">
                                     <label for="ddd" class="col-sm-2 col-form-label">DDD: </label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" name="ddd" id="ddd" placeholder="DDD" >
+                                        <the-mask name="ddd" id="ddd" :mask="'##'"
+                                        placeholder="DDD" class="form-control">
                                     </div>
                                     <label for="phone" class="col-sm-1 col-form-label">Telefone:</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control phone" name="phone" id="phone" placeholder="Telefone" >
+                                        <the-mask name="phone" id="phone" :mask="['####-####','#####-####']"
+                                        placeholder="Telefone" class="form-control">
                                     </div>
                                     <label for="contact" class="col-sm-1 col-form-label">Contato:</label>
                                     <div class="col-sm-3">
@@ -79,7 +84,8 @@
                         </div>
                         <ul class="nav nav-tabs" id="clientTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="adress-tab" data-toggle="tab" href="#adress-fields" role="tab" aria-controls="adress-fields"
+                                <a class="nav-link active" id="adress-tab" data-toggle="tab" href="#adress-fields" role="tab"
+                                aria-controls="adress-fields"
                                 aria-selected="true">Endereço</a>
                             </li>
                             <li class="nav-item">
@@ -134,8 +140,8 @@
                                             </div>
                                             <label for="cep" class="col-sm-1 col-form-label">CEP: </label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" name="cep" id="cep" data-mask="99999-999" selectonfocus="true" clearifnotmatch="true">
-                                                <small class="form-text text-muted" id="loading-cep"></small>
+                                                <the-mask name="cep" id="cep" :mask="'#####-###'"
+                                                placeholder="CEP" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -147,11 +153,13 @@
                                          <div class="form-group row">
                                             <label for="ddd_2" class="col-sm-1 col-form-label">DDD: </label>
                                             <div class="col-sm-2">
-                                                <input type="text" class="form-control" name="ddd_2" id="ddd_2" placeholder="DDD 2" >
+                                                <the-mask name="ddd_2" id="ddd_2" :mask="'##'"
+                                                    placeholder="DDD" class="form-control">
                                             </div>
                                             <label for="phone_2" class="col-sm-1 col-form-label">Telefone:</label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control phone" name="phone_2" id="phone_2" placeholder="Telefone 2" >
+                                                <the-mask name="phone_2" id="phone_2" :mask="['####-####','#####-####']"
+                                                placeholder="Telefone" class="form-control">
                                             </div>
                                             <label for="mail" class="col-sm-1 col-form-label">Email: </label>
                                             <div class="col-sm-4">
@@ -191,7 +199,8 @@
                                         <div class="form-group row">
                                             <label for="id_type_client_activity" class="col-sm-2 col-form-label">Atividade </label>
                                             <div class="col-sm-5">
-                                                <select  class="form-control custom-select" name="id_type_client_activity" id="id_type_client_activity" required>
+                                                <select  class="form-control custom-select" name="id_type_client_activity"
+                                                id="id_type_client_activity" required>
                                                     @foreach ($activitys as $activity)
                                                         <option value="{{ $activity->id }}">{{ $activity->name }}</option>
                                                     @endforeach
