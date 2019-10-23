@@ -77,8 +77,7 @@
                                             </div>
                                             <label for="value" class="col-sm-1 col-form-label">Preço Unitário: </label>
                                             <div class="col-sm-2">
-                                                <input type="text" class="form-control" name="value" id="value" placeholder="Valor"
-                                                data-mask="#.##0,00" selectonfocus="true" clearifnotmatch="true" data-mask-reverse="true">
+                                                <mask-money-component :name="'value'" :id="'value'" :placeholder="'Valor'"></mask-money-component>
                                             </div>
                                         </div>
                                     </div>

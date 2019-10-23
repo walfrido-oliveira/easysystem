@@ -89,6 +89,12 @@
             @yield('content')
         </main>
     </div>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{asset('js/inputmask.js') }}"></script>
+    <script src="{{asset('js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{asset('js/script.js') }}"></script>
+
 </body>
-@include('layouts.footer')
 </html>

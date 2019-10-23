@@ -91,9 +91,8 @@
                                             </div>
                                             <label for="value" class="col-sm-1 col-form-label">Preço Unitário: </label>
                                             <div class="col-sm-2">
-                                                <input type="text" class="form-control" name="value" id="value" placeholder="Valor"
-                                                data-mask="#.##0,00" selectonfocus="true" clearifnotmatch="true" data-mask-reverse="true"
-                                                value="{{ $service->value }}">
+                                                <mask-money-component :name="'value'" :id="'value'" :value="{{ $service->value }}"
+                                                    :placeholder="'Valor'"></mask-money-component>
                                             </div>
                                         </div>
                                     </div>
@@ -167,6 +166,8 @@
                             <button type="submit" class="btn btn-primary">Salvar</button>
                             <a href="{{ route('service.index') }}" class="btn btn-success">Voltar</a>
                         </div>
+                        <mask-component :name="'cnpj'" :id="'cnpj'" :mask="['###.###.###-##', '##.###.###/####-##']" :value="'29.612.669/0001-16'" :placeholder="'CNPJ'"></mask-component>
+
                     </form>
                 </div>
             </div>

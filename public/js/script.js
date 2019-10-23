@@ -259,3 +259,4 @@ $('.phone').blur(function(event) {
       $('.phone').mask('0000-00009');
    }
 });
+

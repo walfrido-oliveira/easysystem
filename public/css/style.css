@@ -366,3 +366,12 @@ img{
     padding: 6px 12px;
     cursor: pointer;
 }
+
+.card-header {
+    border: 1px solid #293a4a;
+    background-color: rgba(41,58,74,0.95);
+}
+
+.card {
+    margin-top: 50px;
+}
