@@ -181,7 +181,7 @@ CREATE TABLE `clients` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `cnpj_UNIQUE` (`cnpj`),
   KEY `clients_id_type_client_activity_foreign_idx` (`id_type_client_activity`),
-  CONSTRAINT `clients_id_type_client_activity_foreign` FOREIGN KEY (`id_type_client_activity`) REFERENCES `type_client_activitys` (`id`)
+  CONSTRAINT `clients_id_type_client_activity_foreign` FOREIGN KEY (`id_type_client_activity`) REFERENCES `type_client_activities` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -191,7 +191,7 @@ CREATE TABLE `clients` (
 
 LOCK TABLES `clients` WRITE;
 /*!40000 ALTER TABLE `clients` DISABLE KEYS */;
-INSERT INTO `clients` VALUES (6,'00567892000107','VISOMES COMERCIAL METROLOGICA LTDA','VISOMES',11,'5662-9911','Eu','R JOAQUIM DOS SANTOS','181','RIO BONITO','fundos','SP','SAO PAULO','04823080',11,'5667-2644','walfrido_16@hotmail.com.br','http://easysystem','123','456','789','0111-3/01',0,0,'2019-10-14 19:25:32','2019-10-17 21:11:07',1,1,'clients/00000000000000000006/U9NxW9WptAZlOLMzaQsPxLm1wxrxhctzAAYn3mzj.jpeg','zxcxcxzczxczxczxc'),(7,'11111111111111','Teste','Teste',11,'1111-11111','Walfirdo','Rua Crestins','308','Jardim Leônidas Moreira','teste','SP','São Paulo','05792060',11,'1111-11222','walfrido_16@hotmail.com.br','http://easysystem','444','222','111','0111-3/99',0,1,'2019-10-16 21:07:59','2019-10-16 22:24:14',7,1,'clients/00000000000000000007/9GRmcpHY4UQzcMJJmH4GaDyP5DyzuHQngaqNbF5A.png','dfvdfvdfvdfvdfvdfvdfvdfv');
+INSERT INTO `clients` VALUES (6,'00567892000107','VISOMES COMERCIAL METROLOGICA LTDA','VISOMES',11,'56629911','Eu','R JOAQUIM DOS SANTOS','181','RIO BONITO','fundos','SP','SAO PAULO','05792060',11,'56672644','walfrido_16@hotmail.com.br','http://easysystem','123','456','789','0111-3/01',0,0,'2019-10-14 19:25:32','2019-10-23 22:23:26',1,1,'clients/00000000000000000006/U9NxW9WptAZlOLMzaQsPxLm1wxrxhctzAAYn3mzj.jpeg','zxcxcxzczxczxczxc'),(7,'11111111111111','Teste','Teste',11,'1111-11111','Walfirdo','Rua Crestins','308','Jardim Leônidas Moreira','teste','SP','São Paulo','05792060',11,'1111-11222','walfrido_16@hotmail.com.br','http://easysystem','444','222','111','0111-3/99',0,1,'2019-10-16 21:07:59','2019-10-16 22:24:14',7,1,'clients/00000000000000000007/9GRmcpHY4UQzcMJJmH4GaDyP5DyzuHQngaqNbF5A.png','dfvdfvdfvdfvdfvdfvdfvdfv');
 /*!40000 ALTER TABLE `clients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -325,6 +325,63 @@ INSERT INTO `payments` VALUES (1,'VISA','2019-10-01 16:38:51','2019-10-01 16:38:
 UNLOCK TABLES;
 
 --
+-- Table structure for table `service_categories`
+--
+
+DROP TABLE IF EXISTS `service_categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `service_categories` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `service_category_type_id` bigint(20) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `service_category_service_category_type_id_foreign_idx` (`service_category_type_id`),
+  CONSTRAINT `service_category_service_category_type_id_foreign` FOREIGN KEY (`service_category_type_id`) REFERENCES `service_category_types` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `service_categories`
+--
+
+LOCK TABLES `service_categories` WRITE;
+/*!40000 ALTER TABLE `service_categories` DISABLE KEYS */;
+INSERT INTO `service_categories` VALUES (1,'Clientes - Venda de Mercadoria Fabricadas',1,NULL,NULL,1),(2,'Clientes - Serviços Prestados',1,NULL,NULL,1),(3,'Clientes - Revenda de Mercadoria',1,NULL,NULL,1),(4,'Dividendos Recebidos',2,NULL,NULL,1),(5,'Juros de Aplicações',2,NULL,NULL,1),(6,'Devoluções de Compra de Mercadoria de Revenda',3,NULL,NULL,1),(7,'Devoluções de Compra de Material de Consumo',3,NULL,NULL,1),(8,'Devoluções de Compra de Matéria Prima',3,NULL,NULL,1),(9,'Devoluções de Compra de Ativo',3,NULL,NULL,1),(10,'Devoluções de Compra de Serviços',3,NULL,NULL,1),(11,'Adiantamento de Clientes',4,NULL,NULL,1),(12,'Reembolso de Despesas',4,NULL,NULL,1),(13,'Empréstimos Bancários',4,NULL,NULL,1),(14,'Venda de Ativos',4,NULL,NULL,1);
+/*!40000 ALTER TABLE `service_categories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `service_category_types`
+--
+
+DROP TABLE IF EXISTS `service_category_types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `service_category_types` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `service_category_types`
+--
+
+LOCK TABLES `service_category_types` WRITE;
+/*!40000 ALTER TABLE `service_category_types` DISABLE KEYS */;
+INSERT INTO `service_category_types` VALUES (1,'Receitas Diretas',NULL,NULL,1),(2,'Receitas Indiretas',NULL,NULL,1),(3,'Devoluções',NULL,NULL,1),(4,'Outras Entradas',NULL,NULL,1);
+/*!40000 ALTER TABLE `service_category_types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `service_types`
 --
 
@@ -375,14 +432,18 @@ CREATE TABLE `services` (
   `taxation_id` bigint(20) unsigned DEFAULT NULL,
   `cm` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `service_type_id` int(11) DEFAULT NULL,
+  `nbs` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `service_category_id` bigint(20) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `services_area_id_foreign` (`area_id`),
   KEY `services_taxation_id_foreign_idx` (`taxation_id`),
   KEY `services_service_type_id_foreign_idx` (`service_type_id`),
-  CONSTRAINT `services_service_type_tse_id_foreign` FOREIGN KEY (`service_type_id`) REFERENCES `service_types` (`tse_id`),
+  KEY `services_service_category_id_foreign_idx` (`service_category_id`),
+  CONSTRAINT `services_service_category_id_foreign` FOREIGN KEY (`service_category_id`) REFERENCES `service_categories` (`id`),
   CONSTRAINT `services_area_id_foreign` FOREIGN KEY (`area_id`) REFERENCES `areas` (`id`),
+  CONSTRAINT `services_service_type_tse_id_foreign` FOREIGN KEY (`service_type_id`) REFERENCES `service_types` (`tse_id`),
   CONSTRAINT `services_taxation_id_foreign` FOREIGN KEY (`taxation_id`) REFERENCES `taxations` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -391,7 +452,7 @@ CREATE TABLE `services` (
 
 LOCK TABLES `services` WRITE;
 /*!40000 ALTER TABLE `services` DISABLE KEYS */;
-INSERT INTO `services` VALUES (1,'OK    Teste',1,'RBC','INTERNO',100.01,'2019-09-30 21:50:14','2019-10-22 16:54:20',1,'qweqw',1,NULL,NULL),(3,'OK',10,'ACREDITADO','EXTERNO',126.00,'2019-10-01 04:03:57','2019-10-22 16:34:08',1,'1-2',1,NULL,NULL),(4,'iasbiabsduasdbuiasbd',11,'RBC','INTERNO',22.00,'2019-10-01 04:13:48','2019-10-01 04:13:48',1,'rrr',1,NULL,NULL),(5,'cvxcvxcv',15,'ACREDITADO','EXTERNO',30.00,'2019-10-22 16:35:28','2019-10-22 16:35:28',1,'cxvxcvxc',1,NULL,NULL),(6,'sdasdas',2,'ACREDITADO','EXTERNO',12.22,'2019-10-22 22:28:32','2019-10-22 22:28:32',1,'sdsdsd',11,'21212',101);
+INSERT INTO `services` VALUES (1,'OK    Teste',1,'RBC','INTERNO',0.01,'2019-09-30 21:50:14','2019-10-23 23:14:50',1,'qweqw',1,NULL,NULL,NULL,14),(3,'OK',10,'ACREDITADO','EXTERNO',126.00,'2019-10-01 04:03:57','2019-10-22 16:34:08',1,'1-2',1,NULL,NULL,NULL,NULL),(4,'iasbiabsduasdbuiasbd',11,'RBC','INTERNO',22.00,'2019-10-01 04:13:48','2019-10-01 04:13:48',1,'rrr',1,NULL,NULL,NULL,NULL),(5,'cvxcvxcv',15,'ACREDITADO','EXTERNO',30.00,'2019-10-22 16:35:28','2019-10-22 16:35:28',1,'cxvxcvxc',1,NULL,NULL,NULL,NULL),(6,'sdasdas',2,'ACREDITADO','EXTERNO',12.22,'2019-10-22 22:28:32','2019-10-22 22:28:32',1,'sdsdsd',11,'21212',101,NULL,NULL),(7,'wdqdqwdqwd',2,'ACREDITADO','EXTERNO',0.01,'2019-10-23 20:19:11','2019-10-23 20:19:11',1,'wswsws',9,'111',101,NULL,NULL);
 /*!40000 ALTER TABLE `services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -450,13 +511,13 @@ INSERT INTO `transports` VALUES (1,'SEDEX','2019-10-01 17:02:40','2019-10-01 17:
 UNLOCK TABLES;
 
 --
--- Table structure for table `type_client_activitys`
+-- Table structure for table `type_client_activities`
 --
 
-DROP TABLE IF EXISTS `type_client_activitys`;
+DROP TABLE IF EXISTS `type_client_activities`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `type_client_activitys` (
+CREATE TABLE `type_client_activities` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `active` tinyint(1) DEFAULT '1',
@@ -468,13 +529,13 @@ CREATE TABLE `type_client_activitys` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `type_client_activitys`
+-- Dumping data for table `type_client_activities`
 --
 
-LOCK TABLES `type_client_activitys` WRITE;
-/*!40000 ALTER TABLE `type_client_activitys` DISABLE KEYS */;
-INSERT INTO `type_client_activitys` VALUES (1,'mqTsNxtOzE',1,NULL,NULL),(2,'5SQzbr6Rwg',1,NULL,NULL),(3,'DODiHMBSR6',1,NULL,NULL),(4,'lXw427K9KX',1,NULL,NULL),(5,'y3TFq9jFwEl',1,NULL,'2019-10-14 16:14:38'),(7,'Walfrido',1,'2019-10-14 16:14:43','2019-10-14 16:14:43');
-/*!40000 ALTER TABLE `type_client_activitys` ENABLE KEYS */;
+LOCK TABLES `type_client_activities` WRITE;
+/*!40000 ALTER TABLE `type_client_activities` DISABLE KEYS */;
+INSERT INTO `type_client_activities` VALUES (1,'mqTsNxtOzE',1,NULL,NULL),(2,'5SQzbr6Rwg',1,NULL,NULL),(3,'DODiHMBSR6',1,NULL,NULL),(4,'lXw427K9KX',1,NULL,NULL),(5,'y3TFq9jFwEl',1,NULL,'2019-10-14 16:14:38'),(7,'Walfrido',1,'2019-10-14 16:14:43','2019-10-14 16:14:43');
+/*!40000 ALTER TABLE `type_client_activities` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -553,4 +614,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-22 16:45:13
+-- Dump completed on 2019-10-23 17:22:04
