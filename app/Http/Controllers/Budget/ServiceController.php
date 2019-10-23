@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use \App\Role\UserRole;
 use App\Budget\Area;
 use App\Budget\Taxation;
+use App\Budget\ServiceCategory;
+use App\Budget\ServiceCategoryType;
 use DB;
 
 class ServiceController extends Controller
@@ -51,8 +53,12 @@ class ServiceController extends Controller
 
         $taxations = Taxation::where('active',1)->get();
 
+        $categorys = ServiceCategory::where('active',1)->orderBy('service_category_type_id')->get();
+
+        $categoryTypes = ServiceCategoryType::where('active',1)->get();
+
         return view('adm.comercial.budget.service.create',
-                compact('areas','types','locals','taxations'));
+                compact('areas','types','locals','taxations','categorys','categoryTypes'));
     }
 
     /**
@@ -118,8 +124,13 @@ class ServiceController extends Controller
 
         $taxations = Taxation::where('active',1)->get();
 
+        $categorys = ServiceCategory::where('active',1)->orderBy('service_category_type_id')->get();
+
+        $categoryTypes = ServiceCategoryType::where('active',1)->get();
+
         return view('adm.comercial.budget.service.edit',
-                compact('service','areas','types','locals','taxations'));
+                compact('service','areas','types','locals','taxations',
+                        'categorys','categoryTypes'));
     }
 
     /**

@@ -57,7 +57,7 @@
                                 <div class="row mt-3">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group row">
-                                            <label for="local" class="col-sm-2 col-form-label">Tributação dos Serviços:</label>
+                                            <label for="taxation_id" class="col-sm-2 col-form-label">Tributação dos Serviços:</label>
                                             <div class="col-sm-5">
                                                 <select  class="form-control custom-select" name="taxation_id" id="taxation_id" required>
                                                     @foreach ($taxations as $taxation)
@@ -69,7 +69,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <label for="cm" class="col-sm-2 col-form-label">Código do Serviço Municipal: </label>
+                                            <label for="cm" class="col-sm-2 col-form-label">Código do Serviço Municipal:</label>
                                             <div class="col-sm-3">
                                                 <input type="text" class="form-control" name="cm" id="value" placeholder="Código"
                                                 value="{{ $service->cm }}">
@@ -79,26 +79,48 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group row">
                                             <label for="service_type_id" class="col-sm-2 col-form-label">Código do Serviço LC 116:</label>
-                                            <div class="col-sm-2 pr-0">
+                                            <div class="col-sm-4 pr-0">
                                                 <input type="text" class="form-control" name="service_type_id" id="service_type_id"
                                                     placeholder="Código do Serviço" value="{{ $service->service_type_id }}">
                                             </div>
-                                            <div class="pl-0">
+                                            <div class="pl-0 col-sm-1">
                                                 <label class="custom-file-upload">
                                                     <input type="button"  name="search_service_type" id="search_service_type">
                                                     <i class="fa fa-search"></i>
                                                 </label>
                                             </div>
-                                            <label for="value" class="col-sm-1 col-form-label">Preço Unitário: </label>
-                                            <div class="col-sm-2">
-                                                <mask-money-component :name="'value'" :id="'value'" :value="{{ $service->value }}"
-                                                    :placeholder="'Valor'"></mask-money-component>
+                                            <label for="nbs" class="col-sm-2 col-form-label">Código NBS:</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" name="nbs" id="nbs"
+                                                    placeholder="Código NBS - Nomenclatura Brasileira de Serviços"
+                                                value="{{ $service->nbs }}">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group row">
-
+                                            <label for="service_category_id" class="col-sm-2 col-form-label">Categoria:</label>
+                                            <div class="col-sm-5">
+                                                <select  class="form-control custom-select" name="service_category_id" id="service_category_id" required>
+                                                    @foreach ($categoryTypes as $types)
+                                                    <optgroup label="{{ $types->name }}">
+                                                        @foreach ($categorys as $category)
+                                                            @if($category->service_category_type_id == $types->id)
+                                                                @if ($category->id == $service->service_category_id)
+                                                                    <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                                                                @else
+                                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                                @endif
+                                                            @endif
+                                                        @endforeach
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <label for="value" class="col-sm-2 col-form-label">Preço Unitário: </label>
+                                            <div class="col-sm-3">
+                                                <mask-money-component :name="'value'" :id="'value'" :value="{{ $service->value }}"
+                                                    :placeholder="'Valor'"></mask-money-component>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

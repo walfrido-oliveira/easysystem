@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Client;
+namespace App\Budget;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Activity extends Model
+class ServiceCategoryType extends Model
 {
     protected $fillable = [
         'name','active'
     ];
-
-    protected $table = 'type_client_activities';
 }
