@@ -28,7 +28,7 @@
                                 <div class="form-group row">
                                     <label for="desc" class="col-sm-2 col-form-label">Descrição: </label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="desc" id="desc" placeholder="Descrição">
+                                        <input type="text" class="form-control" name="desc" id="desc" placeholder="Descrição" required>
                                     </div>
                                 </div>
                             </div>
@@ -36,7 +36,8 @@
                                 <div class="form-group row">
                                     <label for="local" class="col-sm-2 col-form-label">Tributação dos Serviços:</label>
                                     <div class="col-sm-5">
-                                        <select  class="form-control custom-select" name="taxation_id" id="taxation_id" required>
+                                        <select  class="form-control custom-select" name="taxation_id" id="taxation_id">
+                                            <option disabled selected value> -- selecione uma opção -- </option>
                                             @foreach ($taxations as $taxation)
                                                 <option value="{{ $taxation->id }}">{{ $taxation->name }}</option>
                                             @endforeach
@@ -72,11 +73,12 @@
                                 <div class="form-group row">
                                     <label for="service_category_id" class="col-sm-2 col-form-label">Categoria:</label>
                                     <div class="col-sm-5">
-                                        <select  class="form-control custom-select" name="service_category_id" id="service_category_id" required>
-                                            @foreach ($categoryTypes as $types)
-                                                <optgroup label="{{ $types->name }}">
+                                        <select  class="form-control custom-select" name="service_category_id" id="service_category_id">
+                                            <option disabled selected value> -- selecione uma opção -- </option>
+                                            @foreach ($categoryTypes as $type)
+                                                <optgroup label="{{ $type->name }}">
                                                 @foreach ($categorys as $category)
-                                                    @if($category->service_category_type_id == $types->id)
+                                                    @if($category->service_category_type_id == $type->id)
                                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                                     @endif
                                                 @endforeach
@@ -204,7 +206,8 @@
                                         <div class="form-group row">
                                             <label for="area_id" class="col-sm-1 col-form-label">Área: </label>
                                             <div class="col-sm-6">
-                                                <select  class="form-control custom-select" name="area_id" id="area_id" required>
+                                                <select  class="form-control custom-select" name="area_id" id="area_id">
+                                                    <option disabled selected value> -- selecione uma opção -- </option>
                                                     @foreach ($areas as $area)
                                                         <option value="{{ $area->id }}">{{ $area->name }}</option>
                                                     @endforeach
@@ -212,7 +215,8 @@
                                             </div>
                                             <label for="type" class="col-sm-1 col-form-label">Tipo: </label>
                                             <div class="col-sm-3">
-                                                <select  class="form-control custom-select" name="type" id="type" required>
+                                                <select  class="form-control custom-select" name="type" id="type">
+                                                    <option disabled selected value> -- selecione uma opção -- </option>
                                                     @foreach ($types as $type)
                                                         <option value="{{ $type }}">{{ $type }}</option>
                                                     @endforeach
@@ -224,7 +228,8 @@
                                         <div class="form-group row">
                                             <label for="local" class="col-sm-1 col-form-label">Local: </label>
                                             <div class="col-sm-3">
-                                                <select  class="form-control custom-select" name="local" id="local" required>
+                                                <select  class="form-control custom-select" name="local" id="local">
+                                                    <option disabled selected value> -- selecione uma opção -- </option>
                                                     @foreach ($locals as $local)
                                                         <option value="{{ $local }}">{{ $local }}</option>
                                                     @endforeach
@@ -236,7 +241,7 @@
                                         <div class="form-group row">
                                             <label for="range" class="col-sm-1 col-form-label">Faixa: </label>
                                             <div class="col-sm-10">
-                                                <textarea class="form-control" name="range" id="range" placeholder="Faixa" required ></textarea>
+                                                <textarea class="form-control" name="range" id="range" placeholder="Faixa"></textarea>
                                             </div>
                                         </div>
                                     </div>

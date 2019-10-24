@@ -34,7 +34,7 @@
                                     <label for="desc" class="col-sm-2 col-form-label">Descrição:</label>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control" name="desc" id="desc"
-                                        value="{{ $service->desc }}" placeholder="Descrição">
+                                        value="{{ $service->desc }}" placeholder="Descrição" required>
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +42,8 @@
                                 <div class="form-group row">
                                     <label for="taxation_id" class="col-sm-2 col-form-label">Tributação dos Serviços:</label>
                                     <div class="col-sm-5">
-                                        <select  class="form-control custom-select" name="taxation_id" id="taxation_id" required>
+                                        <select  class="form-control custom-select" name="taxation_id" id="taxation_id">
+                                            <option disabled selected value> -- selecione uma opção -- </option>
                                             @foreach ($taxations as $taxation)
                                                 @if ($taxation->id == $service->taxation_id)
                                                     <option value="{{ $taxation->id }}" selected>{{ $taxation->name }}</option>
@@ -83,11 +84,12 @@
                                 <div class="form-group row">
                                     <label for="service_category_id" class="col-sm-2 col-form-label">Categoria:</label>
                                     <div class="col-sm-5">
-                                        <select  class="form-control custom-select" name="service_category_id" id="service_category_id" required>
-                                            @foreach ($categoryTypes as $types)
-                                                <optgroup label="{{ $types->name }}">
+                                        <select  class="form-control custom-select" name="service_category_id" id="service_category_id">
+                                            <option disabled selected value> -- selecione uma opção -- </option>
+                                            @foreach ($categoryTypes as $type)
+                                                <optgroup label="{{ $type->name }}">
                                                 @foreach ($categorys as $category)
-                                                    @if($category->service_category_type_id == $types->id)
+                                                    @if($category->service_category_type_id == $type->id)
                                                         @if ($category->id == $service->service_category_id)
                                                             <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
                                                         @else
@@ -151,7 +153,8 @@
                                         <div class="form-group row">
                                             <label for="confins_aliquot" class="col-sm-2 col-form-label">% Alíquota do COFINS:</label>
                                             <div class="col-sm-2">
-                                                <mask-money-component :name="'confins_aliquot'" :id="'confins_aliquot'" :value="{{ $service->confins_aliquot }}"
+                                                <mask-money-component :name="'confins_aliquot'" :id="'confins_aliquot'"
+                                                :value="{{ $service->confins_aliquot }}"
                                                     :placeholder="'Alíquota do CONFINS'" :precision="4" :max="99999" :min="0"></mask-money-component>
                                             </div>
                                             <div class="custom-control custom-checkbox col-sm-2">
@@ -220,7 +223,8 @@
                                         <div class="form-group row">
                                             <label for="area_id" class="col-sm-1 col-form-label">Área: </label>
                                             <div class="col-sm-6">
-                                                <select  class="form-control custom-select" name="area_id" id="area_id" required>
+                                                <select  class="form-control custom-select" name="area_id" id="area_id">
+                                                    <option disabled selected value> -- selecione uma opção -- </option>
                                                     @foreach ($areas as $area)
                                                         @if ($area->id == $service->area_id)
                                                             <option value="{{ $area->id }}" selected>{{ $area->name }}</option>
@@ -232,7 +236,8 @@
                                             </div>
                                             <label for="type" class="col-sm-1 col-form-label">Tipo: </label>
                                             <div class="col-sm-3">
-                                                <select  class="form-control custom-select" name="type" id="type" required>
+                                                <select  class="form-control custom-select" name="type" id="type">
+                                                    <option disabled selected value> -- selecione uma opção -- </option>
                                                     @foreach ($types as $type)
                                                         @if ($type == $service->type)
                                                             <option value="{{ $type }}" selected>{{ $type }}</option>
@@ -248,7 +253,8 @@
                                         <div class="form-group row">
                                             <label for="local" class="col-sm-1 col-form-label">Local: </label>
                                             <div class="col-sm-3">
-                                                <select  class="form-control custom-select" name="local" id="local" required>
+                                                <select  class="form-control custom-select" name="local" id="local">
+                                                    <option disabled selected value> -- selecione uma opção -- </option>
                                                     @foreach ($locals as $local)
                                                         @if ($local == $service->local)
                                                             <option value="{{ $local }}" selected>{{ $local }}</option>

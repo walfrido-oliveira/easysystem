@@ -15,7 +15,7 @@ function seacherServices() {
         }
       }
     }
-  }
+}
 
 $(".add-service").click(function(event) {
     event.preventDefault();
@@ -92,9 +92,9 @@ $(".allownumericwithoutdecimal").on("keypress keyup blur",function (event) {
     if(this.files[0].size > maxAllowedSize){
         alert("Tamanho máximo permitido: 50kb!");
         this.value = "";
-     } else {
+    } else {
         document.getElementById('output_logo').src = window.URL.createObjectURL(this.files[0])
-     }
+    }
 });
 
 $("#cep").blur(function (e) {
