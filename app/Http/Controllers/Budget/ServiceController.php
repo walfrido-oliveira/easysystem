@@ -109,6 +109,48 @@ class ServiceController extends Controller
 
         $categoryTypes = ServiceCategoryType::where('active',1)->get();
 
+        if ($service->iss_withheld)
+        {
+            $service->iss_withheld = 'checked';
+        } else {
+            $service->iss_withheld = '';
+        }
+
+        if ($service->pis_withheld)
+        {
+            $service->pis_withheld = 'checked';
+        } else {
+            $service->pis_withheld = '';
+        }
+
+        if ($service->confins_withheld)
+        {
+            $service->confins_withheld = 'checked';
+        } else {
+            $service->confins_withheld = '';
+        }
+
+        if ($service->csll_withheld)
+        {
+            $service->csll_withheld = 'checked';
+        } else {
+            $service->csll_withheld = '';
+        }
+
+        if ($service->ir_withheld)
+        {
+            $service->ir_withheld = 'checked';
+        } else {
+            $service->ir_withheld = '';
+        }
+
+        if ($service->inss_withheld)
+        {
+            $service->inss_withheld = 'checked';
+        } else {
+            $service->inss_withheld = '';
+        }
+
         return view('adm.comercial.budget.service.edit',
                 compact('service','areas','types','locals','taxations',
                         'categorys','categoryTypes'));
@@ -171,6 +213,48 @@ class ServiceController extends Controller
      */
     private function cleanData($data)
     {
+        if (isset($data['iss_withheld']))
+        {
+            $data['iss_withheld'] = true;
+        } else {
+            $data['iss_withheld'] = false;
+        }
+
+        if (isset($data['pis_withheld']))
+        {
+            $data['pis_withheld'] = true;
+        } else {
+            $data['pis_withheld'] = false;
+        }
+
+        if (isset($data['confins_withheld']))
+        {
+            $data['confins_withheld'] = true;
+        } else {
+            $data['confins_withheld'] = false;
+        }
+
+        if (isset($data['csll_withheld']))
+        {
+            $data['csll_withheld'] = true;
+        } else {
+            $data['csll_withheld'] = false;
+        }
+
+        if (isset($data['ir_withheld']))
+        {
+            $data['ir_withheld'] = true;
+        } else {
+            $data['ir_withheld'] = false;
+        }
+
+        if (isset($data['inss_withheld']))
+        {
+            $data['inss_withheld'] = true;
+        } else {
+            $data['inss_withheld'] = false;
+        }
+
         $data['value'] = str_replace('.','',$data['value'] );
         $data['value'] = str_replace(',','.',$data['value'] );
 

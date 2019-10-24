@@ -104,11 +104,98 @@
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="fin-fields" role="tabpanel" aria-labelledby="fin-tab">
                                 <div class="row mt-3">
-                                    <label for="iss_aliquot" class="col-sm-2 col-form-label">% Alíquota do ISS:</label>
-                                        <div class="col-sm-2">
-                                            <mask-money-component :name="'iss_aliquot'" :id="'iss_aliquot'"
-                                                :placeholder="'Alíquota do ISS'" :precision="4" :max="99999" :min="0"></mask-money-component>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group row">
+                                            <label for="iss_aliquot" class="col-sm-2 col-form-label">% Alíquota do ISS:</label>
+                                            <div class="col-sm-2">
+                                                <mask-money-component :name="'iss_aliquot'" :id="'iss_aliquot'"
+                                                    :placeholder="'Alíquota do ISS'" :precision="4" :max="99999" :min="0"></mask-money-component>
+                                            </div>
+                                            <div class="custom-control custom-checkbox col-sm-2">
+                                                <input class="custom-control-input" type="checkbox" id="iss_withheld" name="iss_withheld" >
+                                                <label class="custom-control-label" for="iss_withheld" >
+                                                    Retido?
+                                                </label>
+                                            </div>
+                                            <label for="pis_aliquot" class="col-sm-2 col-form-label">% Alíquota do PIS:</label>
+                                            <div class="col-sm-2">
+                                                <mask-money-component :name="'pis_aliquot'" :id="'pis_aliquot'"
+                                                    :placeholder="'Alíquota do PIS'" :precision="4" :max="99999" :min="0"></mask-money-component>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input" type="checkbox" id="pis_withheld"
+                                                    name="pis_withheld" >
+                                                <label class="custom-control-label" for="pis_withheld" >
+                                                    Retido?
+                                                </label>
+                                            </div>
                                         </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group row">
+                                            <label for="confins_aliquot" class="col-sm-2 col-form-label">% Alíquota do COFINS:</label>
+                                            <div class="col-sm-2">
+                                                <mask-money-component :name="'confins_aliquot'" :id="'confins_aliquot'"
+                                                    :placeholder="'Alíquota do CONFINS'" :precision="4" :max="99999" :min="0"></mask-money-component>
+                                            </div>
+                                            <div class="custom-control custom-checkbox col-sm-2">
+                                                <input class="custom-control-input" type="checkbox" id="confins_withheld"
+                                                name="confins_withheld">
+                                                <label class="custom-control-label" for="confins_withheld" >
+                                                    Retido?
+                                                </label>
+                                            </div>
+                                            <label for="csll_aliquot" class="col-sm-2 col-form-label">% Alíquota do COFINS:</label>
+                                            <div class="col-sm-2">
+                                                <mask-money-component :name="'csll_aliquot'" :id="'csll_aliquot'"
+                                                    :placeholder="'Alíquota do CONFINS'" :precision="4" :max="99999" :min="0"></mask-money-component>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input" type="checkbox" id="csll_withheld"
+                                                name="csll_withheld">
+                                                <label class="custom-control-label" for="csll_withheld" >
+                                                    Retido?
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group row">
+                                            <label for="ir_aliquot" class="col-sm-2 col-form-label">% Alíquota do IR:</label>
+                                            <div class="col-sm-2">
+                                                <mask-money-component :name="'ir_aliquot'" :id="'ir_aliquot'"
+                                                    :placeholder="'Alíquota do IR'" :precision="4" :max="99999" :min="0"></mask-money-component>
+                                            </div>
+                                            <div class="custom-control custom-checkbox col-sm-2">
+                                                <input class="custom-control-input" type="checkbox" id="ir_withheld"
+                                                name="ir_withheld" >
+                                                <label class="custom-control-label" for="ir_withheld" >
+                                                    Retido?
+                                                </label>
+                                            </div>
+                                            <label for="inss_aliquot" class="col-sm-2 col-form-label">% Alíquota do INSS:</label>
+                                            <div class="col-sm-2">
+                                                <mask-money-component :name="'inss_aliquot'" :id="'inss_aliquot'"
+                                                    :placeholder="'Alíquota do INSS'" :precision="4" :max="99999" :min="0"></mask-money-component>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input" type="checkbox" id="inss_withheld"
+                                                name="inss_withheld" >
+                                                <label class="custom-control-label" for="inss_withheld" >
+                                                    Retido?
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group row">
+                                            <label for="inss_decrease" class="col-sm-2 col-form-label">% Redução Base Cálc. INSS:</label>
+                                            <div class="col-sm-2">
+                                                <mask-money-component :name="'inss_decrease'" :id="'inss_decrease'"
+                                                    :placeholder="'Alíquota do IR'" :precision="4" :max="99999" :min="0"></mask-money-component>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="lab-fields" role="tabpanel" aria-labelledby="lab-tab">

@@ -98,6 +98,7 @@ class ClientController extends Controller
     {
         $activitys = Activity::where('active',1)->get();
         $ufs = UF::all();
+
         if ($client->simples_nacional)
         {
             $client->simples_nacional = 'checked';
