@@ -58,63 +58,9 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'cnpj' => 'required|max:18|unique:clients',
-            'razao_social' => 'required|max:255',
-            'nome_fantasia' => 'required|max:255',
-            'id_type_client_activity' => 'required',
-            'ddd' => 'max:99',
-            'phone' => 'max:255',
-            'contact' => 'max:255',
-            'adress' => 'max:255',
-            'number' => 'max:255',
-            'district' => 'max:255',
-            'complement' => 'max:255',
-            'state' => 'max:2',
-            'city' => 'max:255',
-            'ddd_2' => 'max:99',
-            'phone_2' => 'max:99',
-            'mail' => 'max:255',
-            'website' => 'max:255',
-            'ie' => 'max:255',
-            'im' => 'max:255',
-            'suframa' => 'max:255',
-            'cnae' => 'max:255',
-            'logo' => 'max:255',
-            'obs' => 'max:255',
-        ],
-        [
-            'cnpj.required' => 'O campo CNPJ é obrigatório',
-            'cnpj.max' => 'O CNPJ não está em um formato correto',
-            'cnpj.unique' => 'CNPJ já cadastrado',
-            'id_type_client_activity.required' => 'O campo tipo atividade é obrigatório',
-            'ddd.max' => 'O campo ddd permite no máximo o valor 99'
-        ]
-        );
+        $request->validate($this->rules(), $this->mesagens());
 
-        $data = $request->all();
-
-        if (isset($data['simples_nacional']))
-        {
-            $data['simples_nacional'] = true;
-        } else {
-            $data['simples_nacional'] = false;
-        }
-
-        if (isset($data['produtor_rural']))
-        {
-            $data['produtor_rural'] = true;
-        } else {
-            $data['produtor_rural'] = false;
-        }
-
-        $data['cnpj'] = str_replace('.','',$data['cnpj']);
-        $data['cnpj'] = str_replace('/','',$data['cnpj']);
-        $data['cnpj'] = str_replace('-','',$data['cnpj']);
-        $data['cep'] = str_replace('-','',$data['cep']);
-        $data['cep'] = str_replace('.','',$data['cep']);
-        $data['phone'] = str_replace('-','',$data['phone']);
-        $data['phone_2'] = str_replace('-','',$data['phone_2']);
+        $data = $this->cleanData($request->all());
 
         $client = Client::create($data);
 
@@ -179,63 +125,9 @@ class ClientController extends Controller
     public function update(Request $request, Client $client)
     {
 
-        $request->validate([
-            'cnpj' => 'required|max:18|unique:clients',
-            'razao_social' => 'required|max:255',
-            'nome_fantasia' => 'required|max:255',
-            'id_type_client_activity' => 'required',
-            'ddd' => 'max:99',
-            'phone' => 'max:255',
-            'contact' => 'max:255',
-            'adress' => 'max:255',
-            'number' => 'max:255',
-            'district' => 'max:255',
-            'complement' => 'max:255',
-            'state' => 'max:2',
-            'city' => 'max:255',
-            'ddd_2' => 'max:99',
-            'phone_2' => 'max:99',
-            'mail' => 'max:255',
-            'website' => 'max:255',
-            'ie' => 'max:255',
-            'im' => 'max:255',
-            'suframa' => 'max:255',
-            'cnae' => 'max:255',
-            'logo' => 'max:255',
-            'obs' => 'max:255',
-        ],
-        [
-            'cnpj.required' => 'O campo CNPJ é obrigatório',
-            'cnpj.max' => 'O CNPJ não está em um formato correto',
-            'cnpj.unique' => 'CNPJ já cadastrado',
-            'id_type_client_activity.required' => 'O campo tipo atividade é obrigatório',
-            'ddd.max' => 'O campo ddd permite no máximo o valor 99'
-        ]
-        );
+        $request->validate($this->rules(), $this->mesagens());
 
-        $data = $request->all();
-
-        if (isset($data['simples_nacional']))
-        {
-            $data['simples_nacional'] = true;
-        } else {
-            $data['simples_nacional'] = false;
-        }
-
-        if (isset($data['produtor_rural']))
-        {
-            $data['produtor_rural'] = true;
-        } else {
-            $data['produtor_rural'] = false;
-        }
-
-        $data['cnpj'] = str_replace('.','',$data['cnpj']);
-        $data['cnpj'] = str_replace('/','',$data['cnpj']);
-        $data['cnpj'] = str_replace('-','',$data['cnpj']);
-        $data['cep'] = str_replace('-','',$data['cep']);
-        $data['cep'] = str_replace('.','',$data['cep']);
-        $data['phone'] = str_replace('-','',$data['phone']);
-        $data['phone_2'] = str_replace('-','',$data['phone_2']);
+        $data = $this->cleanData($request->all());
 
         if (! is_null($request->logo))
         {
@@ -262,5 +154,89 @@ class ClientController extends Controller
 
         return redirect()->route('client.index')
                         ->with('success','Cliente deletado com sucesso');
+    }
+
+    /**
+     * Remove caracters
+     *
+     * @return array
+     */
+    private function cleanData($data)
+    {
+        if (isset($data['simples_nacional']))
+        {
+            $data['simples_nacional'] = true;
+        } else {
+            $data['simples_nacional'] = false;
+        }
+
+        if (isset($data['produtor_rural']))
+        {
+            $data['produtor_rural'] = true;
+        } else {
+            $data['produtor_rural'] = false;
+        }
+
+        $data['cnpj'] = str_replace('.','',$data['cnpj']);
+        $data['cnpj'] = str_replace('/','',$data['cnpj']);
+        $data['cnpj'] = str_replace('-','',$data['cnpj']);
+
+        $data['cep'] = str_replace('-','',$data['cep']);
+        $data['cep'] = str_replace('.','',$data['cep']);
+
+        $data['phone'] = str_replace('-','',$data['phone']);
+        $data['phone_2'] = str_replace('-','',$data['phone_2']);
+
+        return $data;
+    }
+
+    /**
+     * Set rules validation
+     *
+     * @return array
+     */
+    private function rules()
+    {
+        return array(
+            'cnpj' => 'required|max:18|unique:clients',
+            'razao_social' => 'required|max:255',
+            'nome_fantasia' => 'required|max:255',
+            'id_type_client_activity' => 'required',
+            'ddd' => 'max:99',
+            'phone' => 'max:255',
+            'contact' => 'max:255',
+            'adress' => 'max:255',
+            'number' => 'max:255',
+            'district' => 'max:255',
+            'complement' => 'max:255',
+            'state' => 'max:2',
+            'city' => 'max:255',
+            'ddd_2' => 'max:99',
+            'phone_2' => 'max:99',
+            'mail' => 'max:255',
+            'website' => 'max:255',
+            'ie' => 'max:255',
+            'im' => 'max:255',
+            'suframa' => 'max:255',
+            'cnae' => 'max:255',
+            'logo' => 'max:255',
+            'obs' => 'max:255',
+        );
+    }
+
+    /**
+     * Set mesagens validation
+     *
+     * @return array
+     */
+    private function mesagens()
+    {
+        return array(
+            'cnpj.required' => 'O campo CNPJ é obrigatório',
+            'cnpj.max' => 'O CNPJ não está em um formato correto',
+            'cnpj.unique' => 'CNPJ já cadastrado',
+            'id_type_client_activity.required' => 'O campo tipo atividade é obrigatório',
+            'ddd.max' => 'O campo ddd permite no máximo o valor 99',
+        );
     }
 }

@@ -8,6 +8,7 @@
 
     export default {
         components : {TheMask},
+
         props : ['name','id','mask','value','placeholder']
     }
 </script>

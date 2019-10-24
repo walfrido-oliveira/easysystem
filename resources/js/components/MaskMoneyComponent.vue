@@ -1,25 +1,57 @@
 <template>
-    <money v-model="value" v-bind="money" :value="value" :placeholder="placeholder" class="form-control" :name="name" :id="id"></money>
+  <vue-numeric currency=""  decimal-separator="," separator="." v-model="currentValue" class="form-control"
+       :precision="currentPrecision" output-type="text" :max="currentMax" :min="currentMin"></vue-numeric>
 </template>
 
 <script>
-  import {Money} from 'v-money'
+import VueNumeric from 'vue-numeric'
 
-  export default {
-    components: {Money},
-    props : ['name','id','mask','value','placeholder'],
+export default {
+  name: 'App',
 
-    data () {
-      return {
-        money: {
-          decimal: ',',
-          thousands: '.',
-          prefix: '',
-          suffix: '',
-          precision: 2,
-          masked: true
+  components: {VueNumeric},
+
+  props : ['value','precision','max','min'],
+
+  computed: {
+      valueProp: {
+        get() {return this.currentValue},
+        set(val) {
+            this.value = val;
+            this.$emit('vue-numeric', this.currentValue);
         }
-      }
-    }
-  }
+      },
+      precisionProp: {
+        get() {return this.currentPrecision},
+        set(val) {
+            this.currentPrecision = val;
+            his.$emit('vue-numeric', this.currentPrecision);
+        }
+      },
+      maxProp: {
+        get() {return this.currentMax},
+        set(val) {
+            this.currentMax = val;
+            his.$emit('vue-numeric', this.currentMax);
+        }
+      },
+      minProp: {
+        get() {return this.currentMin},
+        set(val) {
+            this.currentMin = val;
+            his.$emit('vue-numeric', this.currentMin);
+        }
+      },
+  },
+
+  data() {
+      return {
+          price: '',
+          currentValue: this.value,
+          currentPrecision: this.precision,
+          currentMax: this.max,
+          currentMin: this.min,
+      };
+  },
+}
 </script>

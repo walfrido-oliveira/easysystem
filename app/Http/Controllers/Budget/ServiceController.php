@@ -69,28 +69,9 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'desc' => 'required|max:255',
-            'area_id' => 'required',
-            'type' => 'required|max:255',
-            'local' => 'required|max:255',
-            'value' => 'required|regex:/^\d+(\,\d{1,2})?$/',
-            'range' => 'required',
-        ],
-        [
-            'desc.required' => 'O campo descrição é obrigatório',
-            'area_id.required' => 'O campo área é obrigatório',
-            'type' => 'O campo tipo é obrigatório',
-            'local.required' => 'O campo local é obrigatório',
-            'value.required' => 'O campo valor é obrigatório',
-            'value.regex' => 'O campo valor deve ser um número',
-            'range.required' => 'O campo faixa é obrigatório'
-        ]
-        );
+        $request->validate($this->rules(), $this->mesagens());
 
-        $data = $request->all();
-        $data['value'] = str_replace('.','',$data['value'] );
-        $data['value'] = str_replace(',','.',$data['value'] );
+        $data = $this->cleanData($request->all());
 
         Service::create($data);
 
@@ -142,28 +123,9 @@ class ServiceController extends Controller
      */
     public function update(Request $request, Service $service)
     {
-        $request->validate([
-            'desc' => 'required|max:255',
-            'area_id' => 'required',
-            'type' => 'required|max:255',
-            'local' => 'required|max:255',
-            'value' => 'required|regex:/^\d+(\,\d{1,2})?$/',
-            'range' => 'required',
-        ],
-        [
-            'desc.required' => 'O campo descrição é obrigatório',
-            'area_id.required' => 'O campo área é obrigatório',
-            'type' => 'O campo tipo é obrigatório',
-            'local.required' => 'O campo local é obrigatório',
-            'value.required' => 'O campo valor é obrigatório',
-            'value.regex' => 'O campo valor deve ser um número',
-            'range.required' => 'O campo faixa é obrigatório'
-        ]
-        );
+        $request->validate($this->rules(), $this->mesagens());
 
-        $data = $request->all();
-        $data['value'] = str_replace('.','',$data['value'] );
-        $data['value'] = str_replace(',','.',$data['value'] );
+        $data = $this->cleanData($request->all());
 
         $service->update($data);
 
@@ -200,5 +162,74 @@ class ServiceController extends Controller
 
         return isset($matches[1]) ? $matches[1] : [];
 
+    }
+
+    /**
+     * Remove caracters
+     *
+     * @return array
+     */
+    private function cleanData($data)
+    {
+        $data['value'] = str_replace('.','',$data['value'] );
+        $data['value'] = str_replace(',','.',$data['value'] );
+
+        $data['iss_aliquot'] = str_replace('.','',$data['iss_aliquot'] );
+        $data['iss_aliquot'] = str_replace(',','.',$data['iss_aliquot'] );
+
+        $data['pis_aliquot'] = str_replace('.','',$data['pis_aliquot'] );
+        $data['pis_aliquot'] = str_replace(',','.',$data['pis_aliquot'] );
+
+        $data['confins_aliquot'] = str_replace('.','',$data['confins_aliquot'] );
+        $data['confins_aliquot'] = str_replace(',','.',$data['confins_aliquot'] );
+
+        $data['csll_aliquot'] = str_replace('.','',$data['csll_aliquot'] );
+        $data['csll_aliquot'] = str_replace(',','.',$data['csll_aliquot'] );
+
+        $data['ir_aliquot'] = str_replace('.','',$data['ir_aliquot'] );
+        $data['ir_aliquot'] = str_replace(',','.',$data['ir_aliquot'] );
+
+        $data['inss_aliquot'] = str_replace('.','',$data['inss_aliquot'] );
+        $data['inss_aliquot'] = str_replace(',','.',$data['inss_aliquot'] );
+
+        $data['inss_decrease'] = str_replace('.','',$data['inss_decrease'] );
+        $data['inss_decrease'] = str_replace(',','.',$data['inss_decrease'] );
+
+        return $data;
+    }
+
+    /**
+     * Set rules validation
+     *
+     * @return array
+     */
+    private function rules()
+    {
+        return array(
+            'desc' => 'required|max:255',
+            'area_id' => 'required',
+            'type' => 'required|max:255',
+            'local' => 'required|max:255',
+            'value' => 'required|regex:/^\d+(\,\d{1,2})?$/',
+            'range' => 'required',
+        );
+    }
+
+    /**
+     * Set mesagens validation
+     *
+     * @return array
+     */
+    private function mesagens()
+    {
+        return array(
+            'desc.required' => 'O campo descrição é obrigatório',
+            'area_id.required' => 'O campo área é obrigatório',
+            'type' => 'O campo tipo é obrigatório',
+            'local.required' => 'O campo local é obrigatório',
+            'value.required' => 'O campo valor é obrigatório',
+            'value.regex' => 'O campo valor deve ser um número',
+            'range.required' => 'O campo faixa é obrigatório',
+        );
     }
 }
