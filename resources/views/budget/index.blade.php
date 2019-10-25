@@ -33,7 +33,7 @@
                                     </select>
 
                                 </div>
-                                <table class="table table-bordered" id="services">
+                                <table class="table" id="services">
                                     <tr>
                                         <th></th>
                                         <th>Quantidade</th>

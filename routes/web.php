@@ -72,6 +72,6 @@ Route::resource('/home/comercial/orcamento/transport','Budget\TransportControlle
 Route::resource('/home/comercial/client/client','Client\ClientController')->middleware('auth');
 Route::resource('/home/comercial/client/activity','Client\ActivityController')->middleware('auth');
 
-
+Route::get('/home/comercial/client/clients','Client\ClientController@getCliets')->middleware('auth');
 
 

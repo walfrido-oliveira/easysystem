@@ -28,8 +28,8 @@
                                             <td class="column2">{{ $budget->client }}</td>
                                             <td class="column3">
                                                 <form action="{{ route('budget.destroy',$budget->id) }}" method="POST">
-                                                    <a class="btn btn-primary" href="{{ route('budget.edit',$budget->id) }}">
-                                                        <i class="fa fa-edit"></i>
+                                                    <a class="btn btn-primary" href="{{ route('budget.show',$budget->id) }}">
+                                                        <i class="fa fa-eye"></i>
                                                     </a>
                                                     @csrf
                                                     @method('DELETE')

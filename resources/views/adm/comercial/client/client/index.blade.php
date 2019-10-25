@@ -61,4 +61,12 @@
     </div>
 </div>
 
+<?php $routes = array(); ?>
+@foreach ($clients as $client)
+    <?php $routes[] = route('client.edit',$client->id); ?>
+@endforeach
+
+<table-filter-component action="{{ route('client.destroy',1) }}"
+    href=@json($routes) csrf="{{csrf_token()}}"></table-filter-component>
+
 @endsection

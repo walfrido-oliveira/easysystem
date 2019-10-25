@@ -53,7 +53,7 @@ ul {
     list-style-type: none;
 }
 
-.thumb > li a{
+.thumb > li a {
     border-width: 1px;
     border-style: solid;
     border-image: none;
@@ -64,7 +64,7 @@ ul {
     display: block;
 }
 
-.thumb > li a:hover{
+.thumb > li a:hover {
     border-color: rgba(41,58,74,0.95);
     box-shadow: 0px 0px 7px rgba(41,58,74,0.95);
     text-decoration: none;
@@ -355,6 +355,13 @@ tbody tr:hover {
         padding-right: 15px;
     }
 }
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid
+    #dee2e6;
+    color: #FFF;
+}
 /*////////////////////////////////////////////////////////////[ End Table ]*/
 
 
@@ -371,6 +378,7 @@ tbody tr:hover {
 .card-header {
     border: 1px solid #293a4a;
     background-color: rgba(41,58,74,0.95);
+    color: #FFF;
 }
 
 .pb-6, .py-6 {

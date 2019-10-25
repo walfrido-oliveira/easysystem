@@ -240,4 +240,57 @@ class ClientController extends Controller
             'ddd.max' => 'O campo ddd permite no máximo o valor 99',
         );
     }
+
+    public function getCliets(Request $request)
+    {
+        DB::enableQueryLog();
+       // dd(json_decode($request));
+
+        $json = json_decode($request->queryParams);
+
+        if (isset($json->sort))
+        {
+            $sort = $json->sort;
+        }
+
+        if (isset($json->filters))
+        {
+            $filters = $json->filters;
+        }
+
+        if (isset($json->per_page))
+        {
+            $per_page = $json->per_page;
+        }
+        else
+        {
+            $per_page = 10;
+        }
+
+        $filtersArray = array();
+
+        if (!empty($filters))
+        {
+            foreach ($filters as $key => $value)
+            {
+                $filtersArray[] = [$filters[$key]->name,'like','%'.$filters[$key]->text.'%'];
+            }
+        }
+
+        if (!empty($sort) && !empty($filters))
+        {
+            $query = Client::where($filtersArray)->orderBy($sort[0]->name, $sort[0]->order)->paginate($per_page);
+        }
+        else if (!empty($sort))
+        {
+            $query = Client::where('active',1)->orderBy($sort[0]->name, $sort[0]->order)->paginate($per_page);
+        }
+        else
+        {
+            $query = Client::where($filtersArray)->paginate($per_page);
+        }
+
+        //dd(DB::getQueryLog());
+        return ['data' => $query];
+    }
 }
