@@ -16,26 +16,12 @@
                         </div>
                     @endif
 
-                    <?php $hrefs = array(); ?>
-                    <?php $actions = array(); ?>
-                    @foreach ($clients as $client)
-                        <?php $hrefs[$client->id] =  route('client.edit',$client->id); ?>
-                        <?php $actions[$client->id] = route('client.destroy',$client->id); ?>
-                    @endforeach
-
-                    <table-filter-component action=@json($actions)  href=@json($hrefs) csrf="{{csrf_token()}}" ></table-filter-component>
-                </div>
-                {!! $clients->links() !!}
-                <div class="row p-3">
-                    <a href="{{ route('client.create') }}" class="btn btn-success">Novo</a>
-                </div>
+                    <table-filter-component action=@json($actions)  href=@json($hrefs) csrf="{{ csrf_token() }}"
+                    new_route="{{ route('client.create') }}" sort_value=@json($sort)></table-filter-component>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
 
 @endsection

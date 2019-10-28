@@ -32,9 +32,71 @@ class ClientController extends Controller
      */
     public function index()
     {
+
         $clients = Client::where('active',1)->paginate(10);
 
-        return view('adm.comercial.client.client.index',compact('clients'))
+        $hrefs = array();
+
+        $actions = array();
+
+        $columns = array();
+
+        $sort = array();
+
+        foreach ($clients as $key => $value)
+        {
+            $hrefs[$value->id] =  route('client.edit',$value->id);
+            $actions[$value->id] = route('client.destroy',$value->id);
+        }
+
+        $columns = array(
+            [
+                "label" => "#",
+                "name" => "id",
+                "filter" =>
+                [
+                    "type" => "simple",
+                    "placeholder" => "id",
+                    "case_sensitive" => "true",
+                    "showClearButton" => "true",
+                    "filterOnPressEnter" => "true",
+                    "debounceRate" => "1000",
+                    "placeholder" => "Código do Cliente",
+                ],
+                "sort" => "true",
+                "uniqueId" => "true",
+            ],
+            [
+                "label" => "Razão Social",
+                "name" => "razao_social",
+                "filter" =>
+                [
+                    "type" => "simple",
+                    "placeholder" => "Razão Social",
+                    "case_sensitive" => "true",
+                    "showClearButton" => "true",
+                    "filterOnPressEnter" => "true",
+                    "debounceRate" => "1000",
+                    "placeholder" => "Razão Social",
+                ],
+                "sort" => "true",
+            ],
+            [
+                "label" => "Ações",
+                "name" => "actions",
+                "sort" =>  "false",
+            ]
+            );
+
+        $sort = array(
+            array(
+            "name" => "id",
+            "order" => "desc"
+            )
+        );
+
+        return view('adm.comercial.client.client.index',
+        compact('clients','hrefs','actions','columns','sort'))
         ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -295,7 +357,6 @@ class ClientController extends Controller
             $query = Client::where($filtersArray)->paginate($per_page);
         }
 
-        //dd(DB::getQueryLog());
         return ['data' => $query];
     }
 }

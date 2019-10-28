@@ -2397,10 +2397,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
-  props: ['href', 'action', 'csrf'],
+  props: ['href', 'action', 'csrf', 'new_route', 'sort_value'],
   data: function data() {
     return {
       rows: [],
@@ -2434,6 +2442,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name: "actions",
         sort: false
       }],
+      actions: [{
+        btn_text: "Novo",
+        event_name: "click",
+        "class": "btn btn-primary"
+      }],
       config: {
         checkbox_rows: false,
         rows_selectable: false,
@@ -2453,24 +2466,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         card_mode: false,
         pagination: true,
         pagination_info: false,
-        per_page: 1,
-        per_page_options: [1, 5, 10, 15]
+        per_page: 10,
+        per_page_options: [10, 15, 20]
       },
       queryParams: {
-        sort: [{
-          "name": "id",
-          "order": "asc"
-        }],
+        sort: JSON.parse(this.sort_value),
         filters: [],
         global_search: "",
-        per_page: 1,
+        per_page: 10,
         page: 1
       },
       total_rows: 0,
       showLoader: true,
       hrefArray: JSON.parse(this.href),
-      actionArray: JSON.parse(this.action),
-      index: 0
+      actionArray: JSON.parse(this.action)
     };
   },
   methods: {
@@ -2494,6 +2503,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         self.showLoader = false;
         console.log(error);
       });
+    },
+    openNew: function openNew() {
+      window.open(this.new_route, "_self");
     }
   },
   components: {
@@ -37914,9 +37926,12 @@ var render = function() {
         rows: _vm.rows,
         columns: _vm.columns,
         config: _vm.config,
-        "total-rows": _vm.total_rows
+        "total-rows": _vm.total_rows,
+        actions: _vm.actions,
+        new_route: _vm.new_route,
+        sort_value: _vm.sort_value
       },
-      on: { "on-change-query": _vm.onChangeQuery },
+      on: { "on-change-query": _vm.onChangeQuery, click: _vm.openNew },
       scopedSlots: _vm._u([
         {
           key: "column_actions",

@@ -1,6 +1,13 @@
 <template>
-        <vue-bootstrap4-table :rows="rows" :columns="columns" :config="config"
-        @on-change-query="onChangeQuery" :total-rows="total_rows">
+        <vue-bootstrap4-table :rows="rows"
+                              :columns="columns"
+                              :config="config"
+                              @on-change-query="onChangeQuery"
+                              :total-rows="total_rows"
+                              :actions="actions"
+                              @click="openNew"
+                              :new_route="new_route"
+                              :sort_value="sort_value">
             <template slot="paginataion-previous-button">
                 Anterior
             </template>
@@ -25,6 +32,7 @@
                         </button>
                     </form>
                 </span>
+
              </template>
         </vue-bootstrap4-table>
 </template>
@@ -35,7 +43,7 @@ import VueBootstrap4Table from 'vue-bootstrap4-table'
 export default {
     name: 'App',
 
-     props : ['href','action','csrf'],
+     props : ['href','action','csrf','new_route','sort_value'],
 
     data: function() {
         return {
@@ -74,6 +82,13 @@ export default {
                     sort: false,
                 },
                 ],
+            actions: [
+                {
+                    btn_text: "Novo",
+                    event_name: "click",
+                    class: "btn btn-primary"
+                }
+            ],
             config: {
                 checkbox_rows: false,
                 rows_selectable: false,
@@ -93,14 +108,14 @@ export default {
                 card_mode: false,
                 pagination: true,
                 pagination_info: false,
-                per_page: 1,
-                per_page_options: [1,5,10,15],
+                per_page: 10,
+                per_page_options: [10,15,20],
             },
             queryParams: {
-                sort: [{"name":"id","order":"asc"}],
+                sort: JSON.parse(this.sort_value),
                 filters: [],
                 global_search: "",
-                per_page: 1,
+                per_page: 10,
                 page: 1,
             },
             total_rows: 0,
@@ -108,8 +123,6 @@ export default {
 
             hrefArray: JSON.parse(this.href),
             actionArray: JSON.parse(this.action),
-
-            index: 0
         }
     },
     methods: {
@@ -135,6 +148,9 @@ export default {
                     self.showLoader = false;
                     console.log(error);
                 });
+        },
+        openNew() {
+            window.open(this.new_route,"_self");
         },
     },
     components: {
