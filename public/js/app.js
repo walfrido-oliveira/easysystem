@@ -2397,9 +2397,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
@@ -2408,7 +2405,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       rows: [],
       columns: [{
-        label: "id",
+        label: "#",
         name: "id",
         filter: _defineProperty({
           type: "simple",
@@ -2421,7 +2418,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         sort: true,
         uniqueId: true
       }, {
-        label: "First Name",
+        label: "Razão Social",
         name: "razao_social",
         filter: {
           type: "simple",
@@ -2470,7 +2467,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         page: 1
       },
       total_rows: 0,
-      showLoader: true
+      showLoader: true,
+      hrefArray: JSON.parse(this.href),
+      actionArray: JSON.parse(this.action),
+      index: 0
     };
   },
   methods: {
@@ -2487,8 +2487,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           "page": this.queryParams.page
         }
       }).then(function (response) {
-        console.log(response); //xsaxs
-
         self.rows = response.data.data.data;
         self.total_rows = response.data.data.total;
         self.showLoader = true;
@@ -37910,111 +37908,90 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { attrs: { id: "app" } },
-    [
-      _c(
-        "vue-bootstrap4-table",
+    "vue-bootstrap4-table",
+    {
+      attrs: {
+        rows: _vm.rows,
+        columns: _vm.columns,
+        config: _vm.config,
+        "total-rows": _vm.total_rows
+      },
+      on: { "on-change-query": _vm.onChangeQuery },
+      scopedSlots: _vm._u([
         {
-          attrs: {
-            rows: _vm.rows,
-            columns: _vm.columns,
-            config: _vm.config,
-            "total-rows": _vm.total_rows
-          },
-          on: { "on-change-query": _vm.onChangeQuery },
-          scopedSlots: _vm._u([
-            {
-              key: "column_actions",
-              fn: function(props) {
-                return [
-                  _c("i", [
-                    _vm._v(
-                      "\n                " +
-                        _vm._s(props.column.label) +
-                        "\n            "
-                    )
-                  ])
-                ]
-              }
-            },
-            {
-              key: "actions",
-              fn: function(props) {
-                return [
-                  _c("span", [
-                    _c(
-                      "form",
-                      {
-                        attrs: {
-                          action:
-                            "http://easysystem/home/comercial/client/client/" +
-                            props.row.id,
-                          method: "POST"
-                        }
-                      },
-                      [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn btn-primary",
-                            attrs: { href: _vm.href }
-                          },
-                          [_c("i", { staticClass: "fa fa-edit" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "btn btn-primary",
-                            attrs: { to: { name: "create" } }
-                          },
-                          [_vm._v("Create Post")]
-                        ),
-                        _vm._v(" "),
-                        _c("input", {
-                          attrs: { type: "hidden", name: "_token" },
-                          domProps: { value: _vm.csrf }
-                        }),
-                        _vm._v(" "),
-                        _c("input", {
-                          attrs: {
-                            type: "hidden",
-                            name: "_method",
-                            value: "DELETE"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-danger",
-                            attrs: { type: "submit" }
-                          },
-                          [_c("i", { staticClass: "fa fa-trash" })]
-                        )
-                      ],
-                      1
-                    )
-                  ])
-                ]
-              }
-            }
-          ])
+          key: "column_actions",
+          fn: function(props) {
+            return [
+              _c("i", [
+                _vm._v(
+                  "\n            " + _vm._s(props.column.label) + "\n        "
+                )
+              ])
+            ]
+          }
         },
-        [
-          _c("template", { slot: "paginataion-previous-button" }, [
-            _vm._v("\n            Anterior\n        ")
-          ]),
-          _vm._v(" "),
-          _c("template", { slot: "paginataion-next-button" }, [
-            _vm._v("\n            Próximo\n        ")
-          ])
-        ],
-        2
-      )
+        {
+          key: "actions",
+          fn: function(props) {
+            return [
+              _c("span", [
+                _c(
+                  "form",
+                  {
+                    attrs: {
+                      action: _vm.actionArray[props.row.id],
+                      method: "POST"
+                    }
+                  },
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { href: _vm.hrefArray[props.row.id] }
+                      },
+                      [_c("i", { staticClass: "fa fa-edit" })]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      attrs: { type: "hidden", name: "_token" },
+                      domProps: { value: _vm.csrf }
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      attrs: {
+                        type: "hidden",
+                        name: "_method",
+                        value: "DELETE"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "submit" }
+                      },
+                      [_c("i", { staticClass: "fa fa-trash" })]
+                    )
+                  ]
+                )
+              ])
+            ]
+          }
+        }
+      ])
+    },
+    [
+      _c("template", { slot: "paginataion-previous-button" }, [
+        _vm._v("\n        Anterior\n    ")
+      ]),
+      _vm._v(" "),
+      _c("template", { slot: "paginataion-next-button" }, [
+        _vm._v("\n        Próximo\n    ")
+      ])
     ],
-    1
+    2
   )
 }
 var staticRenderFns = []

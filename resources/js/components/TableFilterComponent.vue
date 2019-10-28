@@ -1,5 +1,4 @@
 <template>
-    <div id="app">
         <vue-bootstrap4-table :rows="rows" :columns="columns" :config="config"
         @on-change-query="onChangeQuery" :total-rows="total_rows">
             <template slot="paginataion-previous-button">
@@ -13,13 +12,12 @@
                     {{props.column.label}}
                 </i>
             </template>
-            <template slot="actions" slot-scope="props">
+            <template slot="actions" slot-scope="props" >
                 <span>
-                    <form :action="'http://easysystem/home/comercial/client/client/'+props.row.id" method="POST">
-                        <a class="btn btn-primary" :href="href">
+                    <form :action="actionArray[props.row.id]" method="POST">
+                        <a class="btn btn-primary" :href="hrefArray[props.row.id]">
                             <i class="fa fa-edit"></i>
                         </a>
-                        <router-link :to="{ name: 'create' }" class="btn btn-primary">Create Post</router-link>
                         <input type="hidden" name="_token" :value="csrf">
                         <input type="hidden" name="_method" value="DELETE">
                         <button type="submit" class="btn btn-danger">
@@ -29,7 +27,6 @@
                 </span>
              </template>
         </vue-bootstrap4-table>
-    </div>
 </template>
 
 <script>
@@ -44,7 +41,7 @@ export default {
         return {
             rows: [],
             columns: [{
-                    label: "id",
+                    label: "#",
                     name: "id",
                     filter: {
                         type: "simple",
@@ -59,7 +56,7 @@ export default {
                     uniqueId: true
                 },
                 {
-                    label: "First Name",
+                    label: "Razão Social",
                     name: "razao_social",
                     filter: {
                         type: "simple",
@@ -108,6 +105,11 @@ export default {
             },
             total_rows: 0,
             showLoader: true,
+
+            hrefArray: JSON.parse(this.href),
+            actionArray: JSON.parse(this.action),
+
+            index: 0
         }
     },
     methods: {
@@ -125,8 +127,6 @@ export default {
                     }
                 })
                 .then(function(response) {
-                    console.log(response);
-                    //xsaxs
                     self.rows = response.data.data.data;
                     self.total_rows = response.data.data.total;
                     self.showLoader = true;
@@ -135,14 +135,16 @@ export default {
                     self.showLoader = false;
                     console.log(error);
                 });
-            }
+        },
+    },
+    components: {
+        VueBootstrap4Table
+    },
 
-        },
-        components: {
-            VueBootstrap4Table
-        },
-        mounted() {
-            this.fetchData();
-        },
+    mounted() {
+        this.fetchData();
+    },
+
+
 }
 </script>

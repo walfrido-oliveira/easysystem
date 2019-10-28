@@ -241,9 +241,14 @@ class ClientController extends Controller
         );
     }
 
+    /**
+     * Get clients list
+     *
+     * @return JSON
+     */
     public function getCliets(Request $request)
     {
-        DB::enableQueryLog();
+        //DB::enableQueryLog();
        // dd(json_decode($request));
 
         $json = json_decode($request->queryParams);

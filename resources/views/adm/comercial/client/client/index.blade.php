@@ -16,40 +16,14 @@
                         </div>
                     @endif
 
-                    <div class="limiter">
-                        <div class="wrap-table100">
-                            <div class="table100">
-                                <table>
-                                    <thead>
-                                        <tr class="table100-head">
-                                            <th class="column1">#</th>
-                                            <th class="column2">Nome</th>
-                                            <th class="column3" >Ação</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($clients as $client)
-                                        <tr>
-                                            <td class="column1">{{ str_pad((string)$client->id, 5, "0", STR_PAD_LEFT)  }}</td>
-                                            <td class="column2">{{ $client->nome_fantasia }}</td>
-                                            <td class="column3">
-                                                <form action="{{ route('client.destroy',$client->id) }}" method="POST">
-                                                    <a class="btn btn-primary" href="{{ route('client.edit',$client->id) }}">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <?php $hrefs = array(); ?>
+                    <?php $actions = array(); ?>
+                    @foreach ($clients as $client)
+                        <?php $hrefs[$client->id] =  route('client.edit',$client->id); ?>
+                        <?php $actions[$client->id] = route('client.destroy',$client->id); ?>
+                    @endforeach
+
+                    <table-filter-component action=@json($actions)  href=@json($hrefs) csrf="{{csrf_token()}}" ></table-filter-component>
                 </div>
                 {!! $clients->links() !!}
                 <div class="row p-3">
@@ -61,12 +35,7 @@
     </div>
 </div>
 
-<?php $routes = array(); ?>
-@foreach ($clients as $client)
-    <?php $routes[] = route('client.edit',$client->id); ?>
-@endforeach
 
-<table-filter-component action="{{ route('client.destroy',1) }}"
-    href=@json($routes) csrf="{{csrf_token()}}"></table-filter-component>
+
 
 @endsection
