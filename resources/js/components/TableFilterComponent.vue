@@ -7,7 +7,8 @@
                               :actions="actions"
                               @click="openNew"
                               :new_route="new_route"
-                              :sort_value="sort_value">
+                              :sort_value="sort_value"
+                              :classes="classes">
             <template slot="paginataion-previous-button">
                 Anterior
             </template>
@@ -43,45 +44,36 @@ import VueBootstrap4Table from 'vue-bootstrap4-table'
 export default {
     name: 'App',
 
-     props : ['href','action','csrf','new_route','sort_value'],
+     props : ['href','action','csrf','new_route','sort_value','array_coluns','get_router'],
 
     data: function() {
         return {
             rows: [],
-            columns: [{
-                    label: "#",
-                    name: "id",
-                    filter: {
-                        type: "simple",
-                        placeholder: "id",
-                        case_sensitive: true,
-                        showClearButton: true,
-                        filterOnPressEnter: true,
-                        debounceRate: 1000,
-                        placeholder: "Código do Cliente"
+
+            columns: JSON.parse(this.array_coluns),
+
+            classes: {
+                    tableWrapper: "outer-table-div-class wrapper-class-two",
+                    table : {
+                        "table-striped my-class" : true,
+                        "table-bordered my-class-two" : function(rows) {
+                            return true
+                        }
                     },
-                    sort: true,
-                    uniqueId: true
-                },
-                {
-                    label: "Razão Social",
-                    name: "razao_social",
-                    filter: {
-                        type: "simple",
-                        case_sensitive: true,
-                        showClearButton: true,
-                        filterOnPressEnter: true,
-                        debounceRate: 1000,
-                        placeholder: "Razão Social"
+                    row : {
+                        "my-row my-row2" : true,
+                        "function-class" : function(row) {
+                            return row.id == 1
+                        }
                     },
-                    sort: true,
+                    cell : {
+                        "my-cell my-cell2" : true,
+                        "text-danger" : function(row,column,cellValue) {
+                            return column.name == "salary" && row.salary > 2500
+                        }
+                    }
                 },
-                {
-                    label: "Ações",
-                    name: "actions",
-                    sort: false,
-                },
-                ],
+
             actions: [
                 {
                     btn_text: "Novo",
@@ -89,6 +81,7 @@ export default {
                     class: "btn btn-primary"
                 }
             ],
+
             config: {
                 checkbox_rows: false,
                 rows_selectable: false,
@@ -111,6 +104,7 @@ export default {
                 per_page: 10,
                 per_page_options: [10,15,20],
             },
+
             queryParams: {
                 sort: JSON.parse(this.sort_value),
                 filters: [],
@@ -124,6 +118,7 @@ export default {
             hrefArray: JSON.parse(this.href),
             actionArray: JSON.parse(this.action),
         }
+
     },
     methods: {
         onChangeQuery(queryParams) {
@@ -133,7 +128,7 @@ export default {
         },
         fetchData() {
             let self = this;
-            axios.get('/home/comercial/client/clients', {
+            axios.get(this.get_router, {
                 params: {
                     "queryParams": this.queryParams,
                     "page": this.queryParams.page

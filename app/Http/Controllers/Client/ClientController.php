@@ -50,43 +50,32 @@ class ClientController extends Controller
         }
 
         $columns = array(
-            [
+            array(
                 "label" => "#",
                 "name" => "id",
-                "filter" =>
-                [
-                    "type" => "simple",
-                    "placeholder" => "id",
-                    "case_sensitive" => "true",
-                    "showClearButton" => "true",
-                    "filterOnPressEnter" => "true",
-                    "debounceRate" => "1000",
-                    "placeholder" => "Código do Cliente",
-                ],
                 "sort" => "true",
                 "uniqueId" => "true",
-            ],
-            [
-                "label" => "Razão Social",
-                "name" => "razao_social",
+                "initial_sort_order" => "desc",
                 "filter" =>
-                [
-                    "type" => "simple",
-                    "placeholder" => "Razão Social",
-                    "case_sensitive" => "true",
-                    "showClearButton" => "true",
-                    "filterOnPressEnter" => "true",
-                    "debounceRate" => "1000",
-                    "placeholder" => "Razão Social",
-                ],
-                "sort" => "true",
-            ],
-            [
-                "label" => "Ações",
+                    array(
+                        "type" => "simple"
+                    )
+            ),
+            array(
+                "label" => "Razão\tSocial",
+                "name" => "razao_social",
+                "sort" =>  "true",
+                "filter" =>
+                    array(
+                        "type" => "simple"
+                    )
+            ),
+            array(
+                "label" => "Acões",
                 "name" => "actions",
-                "sort" =>  "false",
-            ]
-            );
+                "sort" =>  "false"
+            )
+        );
 
         $sort = array(
             array(

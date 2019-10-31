@@ -34,7 +34,57 @@ class ServiceController extends Controller
     {
         $services = Service::where('active',1)->paginate(10);
 
-        return view('adm.comercial.budget.service.index',compact('services'))
+        $hrefs = array();
+
+        $actions = array();
+
+        $columns = array();
+
+        $sort = array();
+
+        foreach ($services as $key => $value)
+        {
+            $hrefs[$value->id] =  route('service.edit',$value->id);
+            $actions[$value->id] = route('service.destroy',$value->id);
+        }
+
+        $columns = array(
+            array(
+                "label" => "#",
+                "name" => "id",
+                "sort" => "true",
+                "uniqueId" => "true",
+                "initial_sort_order" => "desc",
+                "filter" =>
+                    array(
+                        "type" => "simple"
+                    )
+            ),
+            array(
+                "label" => "Descrição",
+                "name" => "desc",
+                "sort" =>  "true",
+                "filter" =>
+                    array(
+                        "type" => "simple"
+                    )
+            ),
+            array(
+                "label" => "Acões",
+                "name" => "actions",
+                "sort" =>  "false"
+            )
+        );
+
+        $sort = array(
+            array(
+            "name" => "id",
+            "order" => "desc"
+            )
+        );
+
+        return view('adm.comercial.budget.service.index',
+        compact('services','hrefs','actions','columns','sort'))
         ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -58,7 +108,7 @@ class ServiceController extends Controller
         $categoryTypes = ServiceCategoryType::where('active',1)->get();
 
         return view('adm.comercial.budget.service.create',
-                compact('areas','types','locals','taxations','categorys','categoryTypes'));
+            compact('areas','types','locals','taxations','categorys','categoryTypes'));
     }
 
     /**
@@ -315,5 +365,60 @@ class ServiceController extends Controller
             'value.regex' => 'O campo valor deve ser um número',
             'range.required' => 'O campo faixa é obrigatório',
         );
+    }
+
+    /**
+     * Get areas list
+     *
+     * @return JSON
+     */
+    public function getServices(Request $request)
+    {
+
+        $json = json_decode($request->queryParams);
+
+        if (isset($json->sort))
+        {
+            $sort = $json->sort;
+        }
+
+        if (isset($json->filters))
+        {
+            $filters = $json->filters;
+        }
+
+        if (isset($json->per_page))
+        {
+            $per_page = $json->per_page;
+        }
+        else
+        {
+            $per_page = 10;
+        }
+
+        $filtersArray = array();
+
+        if (!empty($filters))
+        {
+            foreach ($filters as $key => $value)
+            {
+                $filtersArray[] = [$filters[$key]->name,'like','%'.$filters[$key]->text.'%'];
+            }
+        }
+
+        if (!empty($sort) && !empty($filters))
+        {
+            $query = Service::where($filtersArray)->orderBy($sort[0]->name, $sort[0]->order)->paginate($per_page);
+        }
+        else if (!empty($sort))
+        {
+            $query = Service::where('active',1)->orderBy($sort[0]->name, $sort[0]->order)->paginate($per_page);
+        }
+        else
+        {
+            $query = Service::where($filtersArray)->paginate($per_page);
+        }
+
+        return ['data' => $query];
     }
 }

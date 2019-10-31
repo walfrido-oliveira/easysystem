@@ -10,43 +10,17 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="limiter">
-                        <div class="wrap-table100">
-                            <div class="table100">
-                                <table>
-                                    <thead>
-                                        <tr class="table100-head">
-                                            <th class="column1">#</th>
-                                            <th class="column2">Descrição</th>
-                                            <th class="column3">Ação</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($services as $service)
-                                        <tr>
-                                            <td class="column1">{{ str_pad((string)$service->id, 5, "0", STR_PAD_LEFT)  }}</td>
-                                            <td class="column2">{{ $service->desc }}</td>
-                                            <td class="column3">
-                                                <form action="{{ route('service.destroy',$service->id) }}" method="POST">
-                                                    <a class="btn btn-primary" href="{{ route('service.edit',$service->id) }}">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            <p>{{ $message }}</p>
                         </div>
-                    </div>
-                    {!! $services->links() !!}
-                    <div class="row p-3">
-                        <a href="{{ route('service.create') }}" class="btn btn-success">Novo</a>
-                    </div>
+                    @endif
+
+                    <table-filter-component action=@json($actions)  href=@json($hrefs) csrf="{{ csrf_token() }}"
+                    new_route="{{ route('service.create') }}" sort_value=@json($sort) array_coluns=@json($columns)
+                    get_router="/home/comercial/orcamento/services"></table-filter-component>
+
                 </div>
             </div>
         </div>

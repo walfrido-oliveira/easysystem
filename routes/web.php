@@ -72,6 +72,9 @@ Route::resource('/home/comercial/orcamento/transport','Budget\TransportControlle
 Route::resource('/home/comercial/client/client','Client\ClientController')->middleware('auth');
 Route::resource('/home/comercial/client/activity','Client\ActivityController')->middleware('auth');
 
+//tables routes
 Route::get('/home/comercial/client/clients','Client\ClientController@getCliets')->middleware('auth');
+Route::get('/home/comercial/orcamento/areas','Budget\AreaController@getAreas')->middleware('auth');
+Route::get('/home/comercial/orcamento/services','Budget\ServiceController@getServices')->middleware('auth');
 
 
