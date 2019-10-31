@@ -43,11 +43,11 @@ class HelperController extends Controller
     }
 
     /**
-     * Get informations of client by cnpj cod
+     * Get informations of CNPJ
      *
      * @return json
      */
-    public function getClientInformations(Request $request)
+    public function getCNPJInformations(Request $request)
     {
         $url = config('app.receitaws.URL') .
         $request->cnpj;

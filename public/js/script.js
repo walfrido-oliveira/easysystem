@@ -117,7 +117,7 @@ $("#search_cnpj_modal").click(function(event) {
     input = $('#cnpjModalValue').val().replace(/[^0-9]/g,'');
     $.ajax({
         type : 'get',
-        url : '/helper/client',
+        url : '/helper/cnpj',
         data:{'cnpj':input},
         success:function(data) {
             var result = data.result;

@@ -10,45 +10,19 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="limiter">
-                        <div class="wrap-table100">
-                            <div class="table100">
-                                <table>
-                                    <thead>
-                                        <tr class="table100-head">
-                                            <th class="column1">#</th>
-                                            <th class="column2">Nome</th>
-                                            <th class="column3" >Ação</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($activitys as $activity)
-                                        <tr>
-                                            <td class="column1">{{ str_pad((string)$activity->id, 5, "0", STR_PAD_LEFT)  }}</td>
-                                            <td class="column2">{{ $activity->name }}</td>
-                                            <td class="column3">
-                                                <form action="{{ route('activity.destroy',$activity->id) }}" method="POST">
-                                                    <a class="btn btn-primary" href="{{ route('activity.edit',$activity->id) }}">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                            </table>
+
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            <p>{{ $message }}</p>
                         </div>
-                    </div>
+                    @endif
+
+                    <table-filter-component action=@json($actions)  href=@json($hrefs) csrf="{{ csrf_token() }}"
+                    new_route="{{ route('activity.create') }}" sort_value=@json($sort) array_coluns=@json($columns)
+                    get_router="/home/comercial/client/activitys"></table-filter-component>
+
                 </div>
-                {!! $activitys->links() !!}
-                <div class="row p-3">
-                    <a href="{{ route('activity.create') }}" class="btn btn-success">Novo</a>
-                </div>
+
                 </div>
             </div>
         </div>

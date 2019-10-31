@@ -29,7 +29,56 @@ class TransportController extends Controller
     {
         $transports = Transport::where('active',1)->paginate(10);
 
-        return view('adm.comercial.budget.transport.index',compact('transports'))
+        $hrefs = array();
+
+        $actions = array();
+
+        $columns = array();
+
+        $sort = array();
+
+        foreach ($transports as $key => $value)
+        {
+            $hrefs[$value->id] =  route('transport.edit',$value->id);
+            $actions[$value->id] = route('transport.destroy',$value->id);
+        }
+
+        $columns = array(
+            array(
+                "label" => "#",
+                "name" => "id",
+                "sort" => true,
+                "uniqueId" => true,
+                "initial_sort_order" => "desc",
+                "filter" =>
+                    array(
+                        "type" => "simple"
+                    )
+            ),
+            array(
+                "label" => "Nome",
+                "name" => "name",
+                "sort" =>  true,
+                "filter" =>
+                    array(
+                        "type" => "simple"
+                    )
+            ),
+            array(
+                "label" => "Acões",
+                "name" => "actions",
+            )
+        );
+
+        $sort = array(
+            array(
+            "name" => "id",
+            "order" => "desc"
+            )
+        );
+
+        return view('adm.comercial.budget.transport.index',
+        compact('transports','hrefs','actions','columns','sort'))
         ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -123,5 +172,60 @@ class TransportController extends Controller
 
         return redirect()->route('transport.index')
                         ->with('success','Forma de transporte deletada com sucesso');
+    }
+
+    /**
+     * Get transpots list
+     *
+     * @return JSON
+     */
+    public function getTransports(Request $request)
+    {
+
+        $json = json_decode($request->queryParams);
+
+        if (isset($json->sort))
+        {
+            $sort = $json->sort;
+        }
+
+        if (isset($json->filters))
+        {
+            $filters = $json->filters;
+        }
+
+        if (isset($json->per_page))
+        {
+            $per_page = $json->per_page;
+        }
+        else
+        {
+            $per_page = 10;
+        }
+
+        $filtersArray = array();
+
+        if (!empty($filters))
+        {
+            foreach ($filters as $key => $value)
+            {
+                $filtersArray[] = [$filters[$key]->name,'like','%'.$filters[$key]->text.'%'];
+            }
+        }
+
+        if (!empty($sort) && !empty($filters))
+        {
+            $query = Transport::where($filtersArray)->orderBy($sort[0]->name, $sort[0]->order)->paginate($per_page);
+        }
+        else if (!empty($sort))
+        {
+            $query = Transport::where('active',1)->orderBy($sort[0]->name, $sort[0]->order)->paginate($per_page);
+        }
+        else
+        {
+            $query = Transport::where($filtersArray)->paginate($per_page);
+        }
+
+        return ['data' => $query];
     }
 }

@@ -168,6 +168,6 @@ img{
     border-color:     #636b6f;
 }
 
-i {
+a > i {
     color: #fff;
 }

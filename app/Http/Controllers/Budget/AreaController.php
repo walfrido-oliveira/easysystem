@@ -47,8 +47,8 @@ class AreaController extends Controller
             array(
                 "label" => "#",
                 "name" => "id",
-                "sort" => "true",
-                "uniqueId" => "true",
+                "sort" => true,
+                "uniqueId" => true,
                 "initial_sort_order" => "desc",
                 "filter" =>
                     array(
@@ -58,7 +58,7 @@ class AreaController extends Controller
             array(
                 "label" => "Nome",
                 "name" => "name",
-                "sort" =>  "true",
+                "sort" =>  true,
                 "filter" =>
                     array(
                         "type" => "simple"
@@ -67,7 +67,6 @@ class AreaController extends Controller
             array(
                 "label" => "Acões",
                 "name" => "actions",
-                "sort" =>  "false"
             )
         );
 

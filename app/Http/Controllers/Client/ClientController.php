@@ -53,8 +53,8 @@ class ClientController extends Controller
             array(
                 "label" => "#",
                 "name" => "id",
-                "sort" => "true",
-                "uniqueId" => "true",
+                "sort" => true,
+                "uniqueId" => true,
                 "initial_sort_order" => "desc",
                 "filter" =>
                     array(
@@ -64,7 +64,7 @@ class ClientController extends Controller
             array(
                 "label" => "Razão\tSocial",
                 "name" => "razao_social",
-                "sort" =>  "true",
+                "sort" =>  true,
                 "filter" =>
                     array(
                         "type" => "simple"
@@ -73,7 +73,7 @@ class ClientController extends Controller
             array(
                 "label" => "Acões",
                 "name" => "actions",
-                "sort" =>  "false"
+                "sort" => false,
             )
         );
 

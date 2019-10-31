@@ -27,7 +27,9 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'EasySystem') }}
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -60,8 +62,9 @@
                         @else
                             <li class="nav-item dropdown">
 
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                     <i class="fa fa-user fa-2x"></i> <span class="caret"></span>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#"
+                                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                     <i class="fa fa-user fa-2x" style="color:#212529"></i> <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
