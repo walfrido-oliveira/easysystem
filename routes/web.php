@@ -115,13 +115,31 @@ Route::get('/helper/cep','Helper\HelperController@getAdressInformations')->middl
 Route::get('/helper/cnpj','Helper\HelperController@getCNPJInformations')->middleware('auth');
 Route::get('/home/comercial/budget/service_type/search','Budget\ServiceTypeController@search')->middleware('auth');
 
-Route::get('/home/comercial','AdmController@index')->middleware('auth')->name('home.comercial');
-Route::get('/home/comercial/budget','AdmController@showBudget')->middleware('auth')->name('comercial.budget');
-Route::get('/home/comercial/client','AdmController@showClient')->middleware('auth')->name('comercial.client');
+/*
+/* Acesso Routers
+*/
+
+//Acesso resources
+Route::resource('users','User\UserController')->middleware('auth');
+
+//Acesso Menus
+Route::get('/home/acess','AdmController@showAcess')->middleware('auth')->name('home.acess');
+Route::get('/home/acess/user','AdmController@showUser')->middleware('auth')->name('acess.user');
+
+//tables routes
+Route::get('/home/acess/user/users','User\UserController@getUsers')->middleware('auth');
+
+/*
+/* Comercial Routers
+*/
+
 Route::get('orcamento','Budget\BudgetController@create')->name('orcamento.create');
 Route::post('orcamento/store','Budget\BudgetController@store')->name('orcamento.store');
 
-Route::resource('users','User\UserController')->middleware('auth');
+//Comercial Menus
+Route::get('/home/comercial','AdmController@showComercial')->middleware('auth')->name('home.comercial');
+Route::get('/home/comercial/budget','AdmController@showBudget')->middleware('auth')->name('comercial.budget');
+Route::get('/home/comercial/client','AdmController@showClient')->middleware('auth')->name('comercial.client');
 
 //Comercial resources
 Route::resource('/home/comercial/budget/area','Budget\AreaController')->middleware('auth');
@@ -130,14 +148,12 @@ Route::resource('budget','Budget\BudgetController')->except(['create', 'store'])
     ->middleware('check_user_role:' . UserRole::ROLE_ADMIN);
 Route::resource('/home/comercial/budget/payment','Budget\PaymentController')->middleware('auth');
 Route::resource('/home/comercial/budget/transport','Budget\TransportController')->middleware('auth');
-
 Route::resource('/home/comercial/client/client','Client\ClientController')->middleware('auth');
 Route::resource('/home/comercial/client/activity','Client\ActivityController')->middleware('auth');
 
 //tables routes
-Route::get('/home/comercial/client/clients','Client\ClientController@getCliets')->middleware('auth');
+Route::get('/home/comercial/client/clients','Client\ClientController@getClients')->middleware('auth');
 Route::get('/home/comercial/client/activitys','Client\ActivityController@getActivitys')->middleware('auth');
-
 Route::get('/home/comercial/budget/areas','Budget\AreaController@getAreas')->middleware('auth');
 Route::get('/home/comercial/budget/services','Budget\ServiceController@getServices')->middleware('auth');
 Route::get('/home/comercial/budget/payments','Budget\PaymentController@getPayments')->middleware('auth');

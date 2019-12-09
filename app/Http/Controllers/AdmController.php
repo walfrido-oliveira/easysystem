@@ -22,7 +22,7 @@ class AdmController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function showComercial()
     {
         return view('adm.comercial.index');
     }
@@ -45,6 +45,16 @@ class AdmController extends Controller
     public function showClient()
     {
         return view('adm.comercial.client.index');
+    }
+
+    /**
+     * Show the acess view.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function showAcess()
+    {
+        return view('adm.acess.index');
     }
 
 

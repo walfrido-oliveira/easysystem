@@ -297,7 +297,7 @@ class ClientController extends Controller
      *
      * @return JSON
      */
-    public function getCliets(Request $request)
+    public function getClients(Request $request)
     {
         //DB::enableQueryLog();
        // dd(json_decode($request));

@@ -19,17 +19,19 @@
                                 <div class="title">Comercial</div>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="{{ route('home.acess') }}">
                                     <img src="{{URL::asset('/img/icons/padlock.png')}}" alt="Acessos">
                                 </a>
                                 <div class="title">Acesso</div>
                             </li>
+                            <!--
                             <li>
                                 <a href="#">
                                     <img src="{{URL::asset('/img/icons/service.png')}}" alt="Serviços">
                                 </a>
                                 <div class="title">Serviços</div>
                             </li>
+                            -->
                         </ul>
                     </nav>
                 </div>
