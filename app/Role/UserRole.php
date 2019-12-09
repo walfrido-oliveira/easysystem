@@ -13,6 +13,7 @@ class UserRole {
     const ROLE_FINANCE = 'ROLE_FINANCE';
     const ROLE_ACCOUNT_MANAGER = 'ROLE_ACCOUNT_MANAGER';
     const ROLE_SUPPORT = 'ROLE_SUPPORT';
+    const ROLE_USER = 'ROLE_USER';
 
     /**
      * @var array
@@ -30,7 +31,8 @@ class UserRole {
         self::ROLE_FINANCE => [
             self::ROLE_SUPPORT
         ],
-        self::ROLE_SUPPORT => []
+        self::ROLE_SUPPORT => [],
+        self::ROLE_USER => [],
     ];
 
     /**
@@ -52,11 +54,12 @@ class UserRole {
     public static function getRoleList()
     {
         return [
-            static::ROLE_ADMIN =>'Admin',
-            static::ROLE_MANAGEMENT => 'Management',
-            static::ROLE_ACCOUNT_MANAGER => 'Account Manager',
-            static::ROLE_FINANCE => 'Finance',
-            static::ROLE_SUPPORT => 'Support',
+            static::ROLE_ADMIN =>'Administradores',
+            static::ROLE_MANAGEMENT => 'Gerentes',
+            static::ROLE_ACCOUNT_MANAGER => 'Gerestes de Contas',
+            static::ROLE_FINANCE => 'Financeiro',
+            static::ROLE_SUPPORT => 'Supporte',
+            static::ROLE_USER => 'Usuários'
         ];
     }
 

@@ -251,3 +251,10 @@ $(document).on('click', '#service_results tbody tr', function(event) {
     $('#searchServiceValue').val('');
 });
 
+$('#active_checkbox').change(function() {
+    if($(this).is(":checked")) {
+        $('#active').val(1);
+    } else {
+        $('#active').val(0);
+    }
+});

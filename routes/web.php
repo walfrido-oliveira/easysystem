@@ -81,7 +81,7 @@ Route::get('test', function() {
 
 });
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => false, 'verify' => true]);
 
 Route::get('/home', function() {
     if (Auth::user()->type === 'adm')
@@ -92,7 +92,8 @@ Route::get('/home', function() {
     {
         return view('user.home');
     }
-})->middleware('auth')->name('home');
+})->middleware(['verified','auth'])->name('home');
+
 
 Route::get('storage/app/{filename?}', function ($filename)
 {
