@@ -71,16 +71,12 @@
                                     <label for="type" class="col-sm-1 col-form-label">{{ __('Tipo: ') }}</label>
                                     <div class="col-sm-5">
                                         <select  class="form-control custom-select" name="type" id="type" >
-                                            <option value="adm">Administrador</option>
-                                            <option value="user">Cliente</option>
+                                            <option value="adm">{{ __('Administrador') }}</option>
+                                            <option value="user">{{ __('Cliente') }}</option>
                                         </select>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group row">
                                     <div class="col-sm-1">{{ __('Status: ') }}</div>
-                                        <div class="col-sm-10">
+                                        <div class="col-sm-5">
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input" type="checkbox" id="active_checkbox" name="active_checkbox" checked>
                                                 <label class="custom-control-label" for="active_checkbox">
@@ -88,6 +84,25 @@
                                                 </label>
                                                 <input type="hidden" value="1" name="active" id='active'>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12" style="display: none" id='client_list'>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <button type="button" class="btn btn-success btn-sm" id="search_client_id">+ Adicionar Cliente</button>
+                                    </div>
+                                    <div class="col-sm-12 pt-3">
+                                        <table class="table table-sm table-hover" id="clients">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Razão Social</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -102,4 +117,6 @@
         </div>
     </div>
 </div>
+
+@include('adm.acess.user.clientmodal')
 @endsection

@@ -46,12 +46,8 @@
                                             <option value="user" {{ $user->type == "user" ? 'selected' : '' }}>Cliente</option>
                                         </select>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group row">
                                     <div class="col-sm-1">{{ __('Status: ') }}</div>
-                                        <div class="col-sm-10">
+                                        <div class="col-sm-5">
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input" type="checkbox" id="active_checkbox" name="active_checkbox"
                                                 {{ $user->active ? 'checked' : '' }}>
@@ -60,6 +56,42 @@
                                                 </label>
                                                 <input type="hidden" value="1" name="active" id='active'>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12" style="display: none" id='client_list'>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <button type="button" class="btn btn-success btn-sm" id="search_client_id">+ Adicionar Cliente</button>
+                                    </div>
+                                    <div class="col-sm-12 pt-3">
+                                        <table class="table table-sm table-hover" id="clients">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Razão Social</th>
+                                                    <th>Ação</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($clients as $client)
+                                                    <tr id='user_client_{{ $client->id }}'>
+                                                        <td>
+                                                            {{ $client->client_id }}
+                                                            <input type="hidden" name="clients[R{{ $client->client_id }}][client_id]"
+                                                             value="{{ $client->client_id }}" id="client_id_{{ $client->client_id }}">
+                                                        </td>
+                                                        <td>{{ $client->client->razao_social }}</td>
+                                                        <td>
+                                                            <a href="#" class="btn btn-danger del_user_client" id="{{ 'del_client' . $client->id }}"
+                                                                data-id="{{ $client->id }}">
+                                                                <i class="fa fa-trash"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -74,4 +106,6 @@
         </div>
     </div>
 </div>
+
+@include('adm.acess.user.clientmodal')
 @endsection

@@ -180,7 +180,15 @@ $("#close_cnpj_modal").click(function(event) {
 
 
 $("#search_cnae").click(function(event) {
+    var tbody = $("#cnae_results tbody");
+    tbody.empty();
     $('#searchCNAE').modal('toggle');
+});
+
+$("#search_client_id").click(function(event) {
+    var tbody = $("#client_results tbody");
+    tbody.empty();
+    $('#searchClient').modal('toggle');
 });
 
 $("#search_service_type").click(function(event) {
@@ -213,6 +221,26 @@ $('#searchCNAEValue').on('keyup',function() {
     });
 });
 
+$('#searchClientValue').on('keyup',function() {
+    $value=$(this).val();
+    $.ajax({
+        type : 'get',
+        url : '/home/comercial/client/client/search',
+        data:{'search':$value},
+        success:function(data) {
+            var result = data.result;
+            var tbody = $("#client_results tbody");
+            tbody.empty();
+            result.forEach(function(element) {
+                tbody.append('<tr id="'+element.id+
+                             '"><td>'+element.id+
+                             '</td><td>'+element.razao_social+
+                             '</td></tr>');
+            });
+        }
+    });
+});
+
 $('#searchServiceValue').on('keyup',function() {
     $value=$(this).val();
     $.ajax({
@@ -233,6 +261,39 @@ $('#searchServiceValue').on('keyup',function() {
     });
 });
 
+$('#type').on('change', function() {
+    if (this.value == 'user'){
+        $('#client_list').show();
+    } else {
+        $('#client_list').hide();
+    }
+});
+
+$(".del_user_client").click(function(event) {
+
+    if (confirm("Deseja realmente excluír?")) {
+        var id= $(this).data("id");
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type : 'POST',
+            url : '/home/acess/user-client/' + id,
+            data:{  '_method' :  'DELETE',
+                    '_token'  :  $('meta[name="csrf-token"]').attr('content')},
+            success:function(data) {
+                $('#user_client_'+id).remove();
+            }
+        });
+    } else {
+        return false;
+    }
+});
+
 $(document).on('click', '#cnae_results tbody tr', function(event) {
     var value = $(this).find('td').eq(0).text();
     $('#cnae').val(value);
@@ -240,6 +301,27 @@ $(document).on('click', '#cnae_results tbody tr', function(event) {
     var tbody = $("#cnae_results tbody");
     tbody.empty();
     $('#searchCNAEValue').val('');
+});
+
+$(document).on('click', '#client_results tbody tr', function(event) {
+    var id = $(this).find('td').eq(0).text();
+    var razao_socail = $(this).find('td').eq(1).text();
+
+    if ($('#clients tr > td:contains('+id+') + td:contains('+razao_socail+')').length > 0) {
+        alert('Esse cliente já foi adicionado');
+        return;
+    }
+
+    var tbody = $("#clients tbody");
+    tbody.append('<tr id="'+id+'">'+
+                 '<td>'+id+'<input type="hidden" name="clients[R'+id+'][client_id]" value="'+id+'" id="client_id_'+id+'"></td>'+
+                 '<td>'+razao_socail+'</td>'+
+                 '</tr>');
+
+    $('#searchClient').modal('toggle');
+    var tbody = $("#client_results tbody");
+    tbody.empty();
+    $('#searchClientValue').val('');
 });
 
 $(document).on('click', '#service_results tbody tr', function(event) {
@@ -258,3 +340,5 @@ $('#active_checkbox').change(function() {
         $('#active').val(0);
     }
 });
+
+

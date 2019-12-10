@@ -109,7 +109,11 @@ Route::get('storage/app/{filename?}', function ($filename)
 })->where('filename', '(.*)');
 
 
+/*
+/* JSON
+*/
 Route::get('/home/comercial/client/cnae/search','Client\CnaeController@search')->middleware('auth');
+Route::get('/home/comercial/client/client/search','Client\ClientController@search')->middleware('auth');
 Route::get('/helper/cep','Helper\HelperController@getAdressInformations')->middleware('auth');
 Route::get('/helper/cnpj','Helper\HelperController@getCNPJInformations')->middleware('auth');
 Route::get('/home/comercial/budget/service_type/search','Budget\ServiceTypeController@search')->middleware('auth');
@@ -119,7 +123,8 @@ Route::get('/home/comercial/budget/service_type/search','Budget\ServiceTypeContr
 */
 
 //Acesso resources
-Route::resource('users','User\UserController')->middleware('auth');
+Route::resource('home/acess/users','User\UserController')->middleware('auth');
+Route::resource('home/acess/user-client','User\UserHasClientController')->middleware('auth');
 
 //Acesso Menus
 Route::get('/home/acess','AdmController@showAcess')->middleware('auth')->name('home.acess');

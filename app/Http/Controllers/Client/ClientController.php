@@ -11,6 +11,7 @@ use Storage;
 use Image;
 use \App\UF;
 Use DB;
+use Response;
 
 class ClientController extends Controller
 {
@@ -202,8 +203,7 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        $client->delete();
-
+       $client->delete();
         return redirect()->route('client.index')
                         ->with('success','Cliente deletado com sucesso');
     }
@@ -347,5 +347,29 @@ class ClientController extends Controller
         }
 
         return ['data' => $query];
+    }
+
+    /**
+     * Display a listing of the resource by name
+     *
+     *  @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        if ($request->ajax())
+        {
+
+            $clients = Client::where('razao_social','LIKE','%'.$request->search.'%')
+            ->orWhere('nome_fantasia','LIKE','%'.$request->search.'%')
+            ->get();
+
+            if ($clients)
+            {
+                $term = $request->term;
+                $sen['sucess'] = true;
+                $sen['result'] = $clients->toArray();
+                return Response::json( $sen );
+            }
+        }
     }
 }

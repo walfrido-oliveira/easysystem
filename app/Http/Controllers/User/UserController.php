@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use \App\Role\UserRole;
 use App\User;
 use Hash;
+Use App\User\UserHasClient;
 
 class UserController extends Controller
 {
@@ -152,7 +153,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('adm.acess.user.edit',compact('user'));
+        $clients = $users = UserHasClient::where('user_id',$user->id)->get();
+
+        return view('adm.acess.user.edit',compact('user','clients'));
     }
 
     /**
@@ -177,12 +180,21 @@ class UserController extends Controller
 
         if ($data['type'] === 'adm')
         {
-            $user->addRole(UserRole::ROLE_ADMIN);
+            $user->addRole(UserRole::ROLE_ADMIN)->save();
         } else if($data['type'] == 'user') {
-            $user->addRole(UserRole::ROLE_USER);
+            $user->addRole(UserRole::ROLE_USER)->save();
         }
 
-        $user->save();
+        $data = $data['clients'];
+
+        foreach ($data as $key => $value) {
+            UserHasClient::create([
+                'user_id' => $user->id,
+                'client_id' => $value['client_id'],
+            ]
+            );
+        }
+
         $user->sendEmailVerificationNotification();
 
         return redirect()->route('users.index')
@@ -215,6 +227,24 @@ class UserController extends Controller
             $user->addRole(UserRole::ROLE_ADMIN)->save();
         } else if($data['type'] == 'user') {
             $user->addRole(UserRole::ROLE_USER)->save();
+        }
+
+        if (isset($data['clients']))
+        {
+            $data = $data['clients'];
+
+            foreach ($data as $key => $value) {
+                $client = UserHasClient::where('user_id',$user->id)->where('client_id',$value['client_id'])->get()->count();
+                if ($client == 0) {
+                    UserHasClient::create([
+                        'user_id' => $user->id,
+                        'client_id' => $value['client_id'],
+                    ]
+                    );
+                } else {
+
+                }
+            }
         }
 
         return redirect()->route('users.index')
