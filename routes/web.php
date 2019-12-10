@@ -14,8 +14,6 @@ use Elibyy\TCPDF\Facades\TCPDF;
 |
 */
 
-
-
 Route::get('/', function () {
     return view('welcome');
 });

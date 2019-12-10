@@ -7,8 +7,6 @@ use App\Http\Controllers\Controller;
 use \App\Role\UserRole;
 use App\User;
 use Hash;
-use App\Mail\WelcomeMail;
-use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -174,7 +172,7 @@ class UserController extends Controller
         }
 
         $user->save();
-        Mail::to($user->email)->send(new WelcomeMail($user));
+        $user->sendEmailVerificationNotification();
 
         return redirect()->route('users.index')
             ->with('success','Usuário adicionado com sucesso');
