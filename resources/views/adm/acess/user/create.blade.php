@@ -79,11 +79,15 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group row">
-                                    <label for="type" class="col-sm-1 col-form-label">{{ __('Ativo: ') }}</label>
-                                    <div class="col-sm-5">
-                                        <input class="custom-control-input" type="checkbox" id="active_checkbox" name="active_checkbox" checked>
-                                        <label class="custom-control-label" for="active_checkbox">{{ __('Ativo') }}</label>
-                                        <input type="hidden" value="1" name="active" id='active'>
+                                    <div class="col-sm-1">{{ __('Status: ') }}</div>
+                                        <div class="col-sm-10">
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input" type="checkbox" id="active_checkbox" name="active_checkbox" checked>
+                                                <label class="custom-control-label" for="active_checkbox">
+                                                {{ __('Ativo') }}
+                                                </label>
+                                                <input type="hidden" value="1" name="active" id='active'>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

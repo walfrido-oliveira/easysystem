@@ -145,6 +145,17 @@ class UserController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Client\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(User $user)
+    {
+        return view('adm.acess.user.edit',compact('user'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -152,7 +163,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate($this->rules(), $this->mesagens());
+        $request->validate($this->rules(true), $this->mesagens());
 
         $data = $request->all();
 
@@ -188,18 +199,23 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
 
-        $request->validate($this->rules(), $this->mesagens());
+        $request->validate($this->rules(false), $this->mesagens());
 
         $data = $request->all();
 
         $user->update([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
             'type' => $data['type'],
-            'roles' => $data['roles'],
             'active' => $data['active'],
         ]);
+
+        $user->setRoles([])->save();
+
+        if ($data['type'] === 'adm')
+        {
+            $user->addRole(UserRole::ROLE_ADMIN)->save();
+        } else if($data['type'] == 'user') {
+            $user->addRole(UserRole::ROLE_USER)->save();
+        }
 
         return redirect()->route('users.index')
                         ->with('success','Usuário atualizado com sucesso');
@@ -224,14 +240,21 @@ class UserController extends Controller
      *
      * @return array
      */
-    private function rules()
+    private function rules($is_new)
     {
-        return array(
-            'name' => 'required|max:255|unique:users',
-            'email' => 'required|max:255|unique:users',
-            'password' => 'required|min:8|confirmed',
-            'type' => 'required',
-        );
+        if ($is_new == true)
+        {
+            return array(
+                'name' => 'required|max:255|unique:users',
+                'email' => 'required|max:255|unique:users',
+                'password' => 'required|min:8|confirmed',
+                'type' => 'required',
+            );
+        } else {
+            return array(
+                'type' => 'required',
+            );
+        }
     }
 
     /**

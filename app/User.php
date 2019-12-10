@@ -53,6 +53,22 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * @param string $role
+     * @return $this
+    */
+    public function removeRole(string $role)
+    {
+        $roles = $this->getRoles();
+        //dd($roles);
+        //dd($roles[$role]);
+        unset($roles[array_search($role,$roles)]);
+
+        $roles = array_unique($roles);
+        $this->setRoles($roles);
+        return $this;
+    }
+
+    /**
      * @param array $roles
      * @return $this
     */

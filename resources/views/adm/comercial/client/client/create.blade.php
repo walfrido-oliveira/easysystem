@@ -222,23 +222,23 @@
                                         <div class="form-group row">
                                             <div class="col-sm-2">Simples Nacional?</div>
                                             <div class="col-sm-10">
-                                            <div class="custom-control custom-checkbox">
-                                                <input class="custom-control-input" type="checkbox" id="simples_nacional" name="simples_nacional">
-                                                <label class="custom-control-label" for="simples_nacional">
-                                                Sim
-                                                </label>
-                                            </div>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input class="custom-control-input" type="checkbox" id="simples_nacional" name="simples_nacional">
+                                                    <label class="custom-control-label" for="simples_nacional">
+                                                    Sim
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-2">Produtor Rural?</div>
                                             <div class="col-sm-10">
-                                            <div class="custom-control custom-checkbox">
-                                                <input class="custom-control-input" type="checkbox" id="produtor_rural" name="produtor_rural">
-                                                <label class="custom-control-label" for="produtor_rural">
-                                                Sim
-                                                </label>
-                                            </div>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input class="custom-control-input" type="checkbox" id="produtor_rural" name="produtor_rural">
+                                                    <label class="custom-control-label" for="produtor_rural">
+                                                    Sim
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
