@@ -585,15 +585,17 @@ DROP TABLE IF EXISTS `user_has_clients`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_has_clients` (
-  `id` bigint(20) unsigned NOT NULL,
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) unsigned NOT NULL,
   `client_id` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`,`user_id`,`client_id`),
   KEY `user_has_clients_user_id_foreign_idx` (`user_id`),
   KEY `user_has_clients_clients_id_foreign_idx` (`client_id`),
-  CONSTRAINT `user_has_clients_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `user_has_clients_clients_id_foreign` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `user_has_clients_clients_id_foreign` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `user_has_clients_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -602,6 +604,7 @@ CREATE TABLE `user_has_clients` (
 
 LOCK TABLES `user_has_clients` WRITE;
 /*!40000 ALTER TABLE `user_has_clients` DISABLE KEYS */;
+INSERT INTO `user_has_clients` VALUES (9,13,6,'2019-12-11 00:43:52','2019-12-11 00:43:52'),(10,13,7,'2019-12-11 00:43:52','2019-12-11 00:43:52');
 /*!40000 ALTER TABLE `user_has_clients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -626,7 +629,7 @@ CREATE TABLE `users` (
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -635,7 +638,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Walfrido','walfrido_15@hotmail.com.br','2019-12-09 23:11:32','$2y$10$.dlZich9APjg/ItYjWFQmu9ljI1UQiGAznwfDbcr2FrBO2E3OmYlu','a7M4XAgMup6PdeST8nhJtqfPXO1bXQZdf2cUjCaghgQfWUbfBBkVIl9h5FMH',NULL,'2019-12-09 23:11:32','adm','[\"ROLE_ADMIN\"]',1),(10,'OKOKOK','walfrido_15@hotmail.com','2019-12-10 17:06:24','$2y$10$i5PaB80UAklti/KkpjBBv.4wYa4BhRiPpAcnSo2.GjvPkNrHT9Xga','mXEczmOQTX4fOoGffRZTZ9jWhoNcibXosKkWimgfa4COlLylHwQJIZmdbSG6','2019-12-10 16:41:43','2019-12-10 20:06:36','user','[\"ROLE_USER\"]',1);
+INSERT INTO `users` VALUES (13,'teste','walfrido_15@hotmail.com','2019-12-10 23:31:59','$2y$10$oMbIiPmaDWIQ96xMRwppKOorNHbBhXpvgrolrtSLmPoiJuOUB9meK','tJXszHiaarkdxmAOwJR2yaNqBhqii6JUY41EewU2ne1OLzMwH6LzLa4FHyzt','2019-12-10 22:16:00','2019-12-11 00:49:10','user','[\"ROLE_ADMIN\"]',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -656,4 +659,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-10 14:17:12
+-- Dump completed on 2019-12-10 18:51:54
