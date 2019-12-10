@@ -191,7 +191,7 @@ CREATE TABLE `clients` (
 
 LOCK TABLES `clients` WRITE;
 /*!40000 ALTER TABLE `clients` DISABLE KEYS */;
-INSERT INTO `clients` VALUES (6,'00567892000107','VISOMES COMERCIAL METROLOGICA LTDA','VISOMES',11,'56629911','Eu','R JOAQUIM DOS SANTOS','181','RIO BONITO','fundos','SP','SAO PAULO','05792060',11,'56672644','walfrido_16@hotmail.com.br','http://easysystem','123','456','789','0111-3/01',0,0,'2019-10-14 19:25:32','2019-10-23 22:23:26',1,1,'clients/00000000000000000006/U9NxW9WptAZlOLMzaQsPxLm1wxrxhctzAAYn3mzj.jpeg','zxcxcxzczxczxczxc'),(7,'11111111111111','Teste','Teste',11,'1111-11111','Walfirdo','Rua Crestins','308','Jardim Leônidas Moreira','teste','SP','São Paulo','05792060',11,'1111-11222','walfrido_16@hotmail.com.br','http://easysystem','444','222','111','0111-3/99',0,1,'2019-10-16 21:07:59','2019-10-16 22:24:14',7,1,'clients/00000000000000000007/9GRmcpHY4UQzcMJJmH4GaDyP5DyzuHQngaqNbF5A.png','dfvdfvdfvdfvdfvdfvdfvdfv');
+INSERT INTO `clients` VALUES (6,'00567892000107','VISOMES COMERCIAL METROLOGICA LTDA','VISOMES',11,'56629911','Eu','R JOAQUIM DOS SANTOS','181','RIO BONITO','fundos','SP','SAO PAULO','05792060',11,'56672644','walfrido_16@hotmail.com.br','http://easysystem','123','456','789','0111-3/01',0,0,'2019-10-14 19:25:32','2019-10-24 19:30:21',1,1,'clients/00000000000000000006/U9NxW9WptAZlOLMzaQsPxLm1wxrxhctzAAYn3mzj.jpeg','zxcxcxzczxczxczxc'),(7,'11111111111111','Teste','Teste',11,'1111-11111','Walfirdo','Rua Crestins','308','Jardim Leônidas Moreira','teste','SP','São Paulo','05792060',11,'1111-11222','walfrido_16@hotmail.com.br','http://easysystem','444','222','111','0111-3/99',0,1,'2019-10-16 21:07:59','2019-10-16 22:24:14',7,1,'clients/00000000000000000007/9GRmcpHY4UQzcMJJmH4GaDyP5DyzuHQngaqNbF5A.png','dfvdfvdfvdfvdfvdfvdfvdfv');
 /*!40000 ALTER TABLE `clients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -421,26 +421,39 @@ DROP TABLE IF EXISTS `services`;
 CREATE TABLE `services` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `desc` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `area_id` bigint(20) unsigned NOT NULL,
-  `type` enum('RBC','ACREDITADO') COLLATE utf8_unicode_ci NOT NULL,
-  `local` enum('INTERNO','EXTERNO') COLLATE utf8_unicode_ci NOT NULL,
-  `value` decimal(10,2) NOT NULL,
+  `area_id` bigint(20) unsigned DEFAULT NULL,
+  `type` enum('RBC','ACREDITADO') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `local` enum('INTERNO','EXTERNO') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `value` decimal(10,2) NOT NULL DEFAULT '0.00',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
-  `range` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `range` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `taxation_id` bigint(20) unsigned DEFAULT NULL,
   `cm` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `service_type_id` int(11) DEFAULT NULL,
   `nbs` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `service_category_id` bigint(20) unsigned DEFAULT NULL,
+  `iss_aliquot` decimal(10,4) NOT NULL DEFAULT '0.0000',
+  `pis_aliquot` decimal(10,4) NOT NULL DEFAULT '0.0000',
+  `confins_aliquot` decimal(10,4) NOT NULL DEFAULT '0.0000',
+  `csll_aliquot` decimal(10,4) NOT NULL DEFAULT '0.0000',
+  `ir_aliquot` decimal(10,4) NOT NULL DEFAULT '0.0000',
+  `inss_aliquot` decimal(10,4) NOT NULL DEFAULT '0.0000',
+  `inss_decrease` decimal(10,4) NOT NULL DEFAULT '0.0000',
+  `iss_withheld` tinyint(1) NOT NULL DEFAULT '0',
+  `pis_withheld` tinyint(1) NOT NULL DEFAULT '0',
+  `confins_withheld` tinyint(1) NOT NULL DEFAULT '0',
+  `csll_withheld` tinyint(1) NOT NULL DEFAULT '0',
+  `ir_withheld` tinyint(1) NOT NULL DEFAULT '0',
+  `inss_withheld` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `services_area_id_foreign` (`area_id`),
   KEY `services_taxation_id_foreign_idx` (`taxation_id`),
   KEY `services_service_type_id_foreign_idx` (`service_type_id`),
   KEY `services_service_category_id_foreign_idx` (`service_category_id`),
-  CONSTRAINT `services_service_category_id_foreign` FOREIGN KEY (`service_category_id`) REFERENCES `service_categories` (`id`),
+  KEY `services_area_id_foreign` (`area_id`),
   CONSTRAINT `services_area_id_foreign` FOREIGN KEY (`area_id`) REFERENCES `areas` (`id`),
+  CONSTRAINT `services_service_category_id_foreign` FOREIGN KEY (`service_category_id`) REFERENCES `service_categories` (`id`),
   CONSTRAINT `services_service_type_tse_id_foreign` FOREIGN KEY (`service_type_id`) REFERENCES `service_types` (`tse_id`),
   CONSTRAINT `services_taxation_id_foreign` FOREIGN KEY (`taxation_id`) REFERENCES `taxations` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -452,7 +465,7 @@ CREATE TABLE `services` (
 
 LOCK TABLES `services` WRITE;
 /*!40000 ALTER TABLE `services` DISABLE KEYS */;
-INSERT INTO `services` VALUES (1,'OK    Teste',1,'RBC','INTERNO',0.01,'2019-09-30 21:50:14','2019-10-23 23:14:50',1,'qweqw',1,NULL,NULL,NULL,14),(3,'OK',10,'ACREDITADO','EXTERNO',126.00,'2019-10-01 04:03:57','2019-10-22 16:34:08',1,'1-2',1,NULL,NULL,NULL,NULL),(4,'iasbiabsduasdbuiasbd',11,'RBC','INTERNO',22.00,'2019-10-01 04:13:48','2019-10-01 04:13:48',1,'rrr',1,NULL,NULL,NULL,NULL),(5,'cvxcvxcv',15,'ACREDITADO','EXTERNO',30.00,'2019-10-22 16:35:28','2019-10-22 16:35:28',1,'cxvxcvxc',1,NULL,NULL,NULL,NULL),(6,'sdasdas',2,'ACREDITADO','EXTERNO',12.22,'2019-10-22 22:28:32','2019-10-22 22:28:32',1,'sdsdsd',11,'21212',101,NULL,NULL),(7,'wdqdqwdqwd',2,'ACREDITADO','EXTERNO',0.01,'2019-10-23 20:19:11','2019-10-23 20:19:11',1,'wswsws',9,'111',101,NULL,NULL);
+INSERT INTO `services` VALUES (1,'OK',1,'RBC','INTERNO',0.01,'2019-09-30 21:50:14','2019-10-24 20:23:29',1,'qweqw',1,NULL,NULL,NULL,14,100.0000,60.0000,90.0000,50.0000,80.0000,1.0000,89.0000,1,0,1,1,0,1),(3,'OK',10,'ACREDITADO','EXTERNO',126.00,'2019-10-01 04:03:57','2019-10-22 16:34:08',1,'1-2',1,NULL,NULL,NULL,NULL,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0,0,0,0,0,0),(4,'iasbiabsduasdbuiasbd',11,'RBC','INTERNO',22.00,'2019-10-01 04:13:48','2019-10-01 04:13:48',1,'rrr',1,NULL,NULL,NULL,NULL,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0,0,0,0,0,0),(5,'cvxcvxcv',15,'ACREDITADO','EXTERNO',30.00,'2019-10-22 16:35:28','2019-10-22 16:35:28',1,'cxvxcvxc',1,NULL,NULL,NULL,NULL,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0,0,0,0,0,0),(6,'sdasdas',2,'ACREDITADO','EXTERNO',12.22,'2019-10-22 22:28:32','2019-10-22 22:28:32',1,'sdsdsd',11,'21212',101,NULL,NULL,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0,0,0,0,0,0),(7,'wdqdqwdqwd',2,'ACREDITADO','EXTERNO',0.01,'2019-10-23 20:19:11','2019-10-23 20:19:11',1,'wswsws',9,'111',101,NULL,NULL,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -582,9 +595,10 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `roles` text COLLATE utf8_unicode_ci,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -593,7 +607,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Walfrido','walfrido_15@hotmail.com',NULL,'$2y$10$.dlZich9APjg/ItYjWFQmu9ljI1UQiGAznwfDbcr2FrBO2E3OmYlu','GSESr4dzmU6xH1apy8lqweaA3gQKc54vwnRKCHvQhnpaPhb3kCBOlH103bzo',NULL,'2019-09-23 23:24:47','adm','[\"ROLE_ADMIN\"]');
+INSERT INTO `users` VALUES (1,'Walfrido','walfrido_15@hotmail.com.br','2019-12-09 23:11:32','$2y$10$.dlZich9APjg/ItYjWFQmu9ljI1UQiGAznwfDbcr2FrBO2E3OmYlu','a7M4XAgMup6PdeST8nhJtqfPXO1bXQZdf2cUjCaghgQfWUbfBBkVIl9h5FMH',NULL,'2019-12-09 23:11:32','adm','[\"ROLE_ADMIN\"]',1),(10,'OKOKOK','walfrido_15@hotmail.com','2019-12-10 17:06:24','$2y$10$i5PaB80UAklti/KkpjBBv.4wYa4BhRiPpAcnSo2.GjvPkNrHT9Xga','mXEczmOQTX4fOoGffRZTZ9jWhoNcibXosKkWimgfa4COlLylHwQJIZmdbSG6','2019-12-10 16:41:43','2019-12-10 20:06:36','user','[\"ROLE_USER\"]',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -614,4 +628,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-23 17:22:04
+-- Dump completed on 2019-12-10 14:10:34
