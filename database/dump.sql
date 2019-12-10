@@ -578,6 +578,34 @@ INSERT INTO `ufs` VALUES (1,'AC','Acre'),(2,'AL','Alagoas'),(3,'AM','Amazonas'),
 UNLOCK TABLES;
 
 --
+-- Table structure for table `user_has_clients`
+--
+
+DROP TABLE IF EXISTS `user_has_clients`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_has_clients` (
+  `id` bigint(20) unsigned NOT NULL,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `client_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_has_clients_user_id_foreign_idx` (`user_id`),
+  KEY `user_has_clients_clients_id_foreign_idx` (`client_id`),
+  CONSTRAINT `user_has_clients_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `user_has_clients_clients_id_foreign` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_has_clients`
+--
+
+LOCK TABLES `user_has_clients` WRITE;
+/*!40000 ALTER TABLE `user_has_clients` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_has_clients` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -628,4 +656,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-10 14:10:34
+-- Dump completed on 2019-12-10 14:17:12
