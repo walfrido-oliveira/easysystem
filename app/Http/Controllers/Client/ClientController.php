@@ -110,7 +110,7 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate($this->rules(), $this->mesagens());
+        $request->validate($this->rules());
 
         $data = $this->cleanData($request->all());
 
@@ -118,8 +118,7 @@ class ClientController extends Controller
 
         if (! is_null($request->logo))
         {
-            $logo = $request->logo->store('clients/' .
-                                           str_pad((string)$client->id, 20, "0", STR_PAD_LEFT));
+            $logo = $request->logo->store($client->path);
             $data['logo'] = $logo;
         }
 
@@ -178,14 +177,13 @@ class ClientController extends Controller
     public function update(Request $request, Client $client)
     {
 
-        $request->validate($this->rules(), $this->mesagens());
+        $request->validate($this->rules());
 
         $data = $this->cleanData($request->all());
 
         if (! is_null($request->logo))
         {
-            $logo = $request->logo->store('clients/' .
-                                          str_pad((string)$client->id, 20, "0", STR_PAD_LEFT));
+            $logo = $request->logo->store($client->path);
             $data['logo'] = $logo;
         }
 
@@ -271,24 +269,8 @@ class ClientController extends Controller
             'im' => 'max:255',
             'suframa' => 'max:255',
             'cnae' => 'max:255',
-            'logo' => 'max:255',
+            'logo' => 'image',
             'obs' => 'max:255',
-        );
-    }
-
-    /**
-     * Set mesagens validation
-     *
-     * @return array
-     */
-    private function mesagens()
-    {
-        return array(
-            'cnpj.required' => 'O campo CNPJ é obrigatório',
-            'cnpj.max' => 'O CNPJ não está em um formato correto',
-            'cnpj.unique' => 'CNPJ já cadastrado',
-            'id_type_client_activity.required' => 'O campo tipo atividade é obrigatório',
-            'ddd.max' => 'O campo ddd permite no máximo o valor 99',
         );
     }
 

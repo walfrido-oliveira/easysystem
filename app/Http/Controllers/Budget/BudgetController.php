@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Budget\Budget;
 use App\Budget\Payment;
 use App\Budget\Transport;
+use Storage;
 
 class BudgetController extends Controller
 {
@@ -40,7 +41,7 @@ class BudgetController extends Controller
         $columns = array(
             array(
                 "label" => "#",
-                "name" => "id",
+                "name" => "internal_id",
                 "sort" => "true",
                 "uniqueId" => true,
                 "initial_sort_order" => "desc",
@@ -51,7 +52,7 @@ class BudgetController extends Controller
             ),
             array(
                 "label" => "Cliente",
-                "name" => "client",
+                "name" => "client.razao_social",
                 "sort" =>  true,
                 "filter" =>
                     array(
@@ -102,33 +103,22 @@ class BudgetController extends Controller
      */
     public function store(Request $request)
     {
-
-        $request->validate([
-            'contact' => 'required|max:255',
-            'client' => 'required|max:255',
-            'client_id' => 'required|max:255',
-            'phone' => 'required|max:255',
-            'mail' => 'required|max:255',
-            'payment_id' => 'required',
-            'transport_id' => 'required',
-            'services' => 'required',
-        ],
-        [
-            'contact.required' => 'O campo contato é obrigatório',
-            'client.required' => 'O campo empresa é obrigatório',
-            'cliente_id.required' => 'O campo CNPJ é obrigatório',
-            'phone.required' => 'O telefone é obrigatório',
-            'mail.required' => 'O campo email é obrigatório',
-            'payment_id.required' => 'Selecione uma forma de pagamento',
-            'transport_id.required' => 'Seleciona uma forma de transporte',
-            'services.required' => 'Selecione um serviço',
-        ]);
+        $request->validate($this->rules());
 
         $budget = Budget::create($request->all());
 
-        $data = $request->all()['services'];
+        Storage::disk('local')->makeDirectory($budget->path);
 
-        foreach ($data as $key => $value) {
+        $files = $request->file('files_budget');
+        if($request->hasFile('files_budget')) {
+            foreach ($files as $value) {
+                $value->store($budget->path);
+            }
+        }
+
+        //$data = $request->all()['services'];
+
+        /*foreach ($data as $key => $value) {
             BudgetHasService::create([
                 'budget_id' => $budget->id,
                 'service_id' => $value['service_id'],
@@ -136,9 +126,9 @@ class BudgetController extends Controller
                 'obs' => $value['obs'],
             ]
             );
-        }
+        }*/
 
-        return redirect()->route('home');
+        return redirect()->route('budget.index');
     }
 
     /**
@@ -227,17 +217,37 @@ class BudgetController extends Controller
 
         if (!empty($sort) && !empty($filters))
         {
-            $query = Budget::where($filtersArray)->orderBy($sort[0]->name, $sort[0]->order)->paginate($per_page);
+            $query = Budget::with('client')->where($filtersArray)->orderBy($sort[0]->name, $sort[0]->order)->paginate($per_page);
         }
         else if (!empty($sort))
         {
-            $query = Budget::where('active',1)->orderBy($sort[0]->name, $sort[0]->order)->paginate($per_page);
+            $query = Budget::with('client')->where('active',1)->orderBy($sort[0]->name, $sort[0]->order)->paginate($per_page);
         }
         else
         {
-            $query = Budget::where($filtersArray)->paginate($per_page);
+            $query = Budget::with('client')->where($filtersArray)->paginate($per_page);
         }
 
         return ['data' => $query];
+    }
+
+    /**
+     * Set rules validation
+     *
+     * @return array
+     */
+    private function rules()
+    {
+        return array(
+            'contact' => 'required|max:255',
+            'client_id' => 'required',
+            'phone' => 'required|max:255',
+            'mail' => 'required|max:255',
+            'payment_id' => 'required',
+            'transport_id' => 'required',
+            'internal_id' => 'unique:budgets',
+            'files.*' => 'mimes:pdf,doc,docx,xlsx,dot'
+        );
+
     }
 }

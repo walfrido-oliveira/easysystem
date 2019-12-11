@@ -84,7 +84,7 @@ DROP TABLE IF EXISTS `budgets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `budgets` (
-  `id` bigint(20) unsigned NOT NULL,
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `contact` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `client_id` bigint(20) unsigned NOT NULL,
   `phone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -94,6 +94,7 @@ CREATE TABLE `budgets` (
   `obs` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `internal_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `budgets_payment_id_foreign` (`payment_id`),
   KEY `budgets_transport_id_foreign` (`transport_id`),
@@ -101,7 +102,7 @@ CREATE TABLE `budgets` (
   CONSTRAINT `budgets_client_id_foreign` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `budgets_payment_id_foreign` FOREIGN KEY (`payment_id`) REFERENCES `payments` (`id`),
   CONSTRAINT `budgets_transport_id_foreign` FOREIGN KEY (`transport_id`) REFERENCES `transports` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -110,6 +111,7 @@ CREATE TABLE `budgets` (
 
 LOCK TABLES `budgets` WRITE;
 /*!40000 ALTER TABLE `budgets` DISABLE KEYS */;
+INSERT INTO `budgets` VALUES (1,'Walfrido',6,'(85) 991639737','walfrido_16@hotmail.com.br',1,1,'wqeqwe','2019-12-11 16:37:38','2019-12-11 16:37:38','04295-05779/2019');
 /*!40000 ALTER TABLE `budgets` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -658,4 +660,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-11 10:25:43
+-- Dump completed on 2019-12-11 11:00:39

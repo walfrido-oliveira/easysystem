@@ -8,7 +8,7 @@ class Budget extends Model
 {
     protected $fillable = [
         'contact','client_id','phone',
-        'mail','payment_id','transport_id','obs'
+        'mail','payment_id','transport_id','obs','internal_id'
     ];
 
     public function client()
@@ -29,5 +29,10 @@ class Budget extends Model
     public function services()
     {
         return $this->hasMany('App\Budget\BudgetHasService','budget_id','id');
+    }
+
+    public function getPathAttribute()
+    {
+        return $this->client->path . '\\budgets\\' . str_pad((string)$this->id, 20, "0", STR_PAD_LEFT);
     }
 }
