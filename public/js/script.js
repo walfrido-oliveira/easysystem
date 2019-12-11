@@ -273,6 +273,22 @@ $('#searchServiceValue').on('keyup',function() {
     });
 });
 
+$('.signer_pdf').on('click',function(e) {
+
+    e.preventDefault();
+
+    var url = $(this).data("url");
+
+    $.ajax({
+        type : 'get',
+        url : '/pdf/signer',
+        data:{'pdf_path':url},
+        success:function(data) {
+            window.open("data:application/pdf," + escape(data.result));
+        }
+    });
+});
+
 $('#type').on('change', function() {
     if (this.value == 'user'){
         $('#client_list').show();
@@ -366,7 +382,23 @@ $('#active_checkbox').change(function() {
 $(document).ready(function(){
     $('.add_more').click(function(e){
         e.preventDefault();
-        $(this).after("<input type='file' accept='application/pdf' name='files_budget[]' id='files_budget' multiple='multiple'/>");
+        $('input[type="file"]').trigger('click');
     });
+});
+
+$('#files_budget').change(function(e) {
+    var files = e.target.files;
+    var tbody = $("#files_table tbody");
+    //tbody.empty();
+    for(var i=0; i< this.files.length; i++) {
+        var file = this.files[i];
+        name = file.name.toLowerCase();
+        size = file.size;
+        type = file.type;
+        tbody.append('<tr>'+
+                 '<td>'+name+'</td>'+
+                 '</tr>');
+
+    }
 });
 

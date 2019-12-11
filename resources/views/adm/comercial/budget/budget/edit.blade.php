@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
                 <div class="card-header">
-                    @include('adm.comercial.budget.budget.header')
+                    @include('adm.comercial.budget.area.header')
                 </div>
 
                 <div class="card-body">
@@ -20,15 +20,16 @@
                             </ul>
                         </div>
                     @endif
-                    <form method="POST" action="{{ route('budget.store') }}" id="budget" enctype="multipart/form-data">
+                    <form action="{{ route('budget.update',$budget->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group row">
                                     <label for="client_id" class="col-sm-1 col-form-label">Número:</label>
                                     <div class="col-sm-3">
                                         <input type="text" name="internal_id" id="internal_id" class="form-control"
-                                        placeholder="Número de Orçmento" required value="{{ old('internal_id') }}">
+                                        placeholder="Número de Orçmento" required value="{{ $budget->internal_id }}">
                                     </div>
                                 </div>
                             </div>
@@ -37,8 +38,8 @@
                                     <label for="cnpj" class="col-sm-1 col-form-label">Cliente:</label>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control" name="client" id="client" placeholder="Cliente"
-                                        readonly value="{{ old('client') }}">
-                                        <input type="hidden" class="form-control" name="client_id" id="client_id" value="{{ old('client_id') }}">
+                                        readonly value="{{ $budget->client->razao_social }}">
+                                        <input type="hidden" class="form-control" name="client_id" id="client_id" value="{{ $budget->client_id }}">
                                     </div>
                                     <div class="col-sm-1 pl-0">
                                         <label class="custom-file-upload">
@@ -48,7 +49,7 @@
                                     </div>
                                     <label for="client_id" class="col-sm-1 col-form-label">CNPJ:</label>
                                     <div class="col-sm-3">
-                                        <input type="text" name="cnpj" id="cnpj" class="form-control" placeholder="CNPJ/CPF" readonly value="{{ old('cnpj') }}">
+                                        <input type="text" name="cnpj" id="cnpj" class="form-control" placeholder="CNPJ/CPF" readonly value="{{ $budget->client->cnpj }}">
                                     </div>
                                 </div>
                             </div>
@@ -56,15 +57,15 @@
                                 <div class="form-group row">
                                     <label for="contact" class="col-sm-1 col-form-label">Contato: </label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" name="contact" id="contact" placeholder="Contato" required value="{{ old('contact') }}">
+                                        <input type="text" class="form-control" name="contact" id="contact" placeholder="Contato" required value="{{ $budget->contact }}">
                                     </div>
                                     <label for="phone" class="col-sm-1 col-form-label">Telefone: </label>
                                     <div class="col-sm-3">
-                                        <input type="text" name="phone" id="phone" class="form-control" placeholder="Telefone" required value="{{ old('phone') }}">
+                                        <input type="text" name="phone" id="phone" class="form-control" placeholder="Telefone" required value="{{ $budget->phone }}">
                                     </div>
                                     <label for="mail" class="col-sm-1 col-form-label">Email: </label>
                                     <div class="col-sm-3">
-                                        <input type="mail" name="mail" id="mail" class="form-control" placeholder="Email" required value="{{ old('mail') }}">
+                                        <input type="mail" name="mail" id="mail" class="form-control" placeholder="Email" required value="{{ $budget->mail }}">
                                     </div>
                                 </div>
                             </div>
@@ -73,17 +74,17 @@
                                     <label for="payment_id" class="col-sm-1 col-form-label">Pagamento:</label>
                                     <div class="col-sm-5">
                                         <select  class="form-control custom-select" name="payment_id" id="payment_id" required>
-                                        @foreach ($payments as $payment)
-                                            <option value="{{ $payment->id }}">{{ $payment->name }}</option>
-                                        @endforeach
+                                            @foreach ($payments as $payment)
+                                                <option value="{{ $payment->id }}" {{ $budget->payment_id == $payment->id ? 'Selected' : '' }}>{{ $payment->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <label for="transport_id" class="col-sm-1 col-form-label">Transporte: </label>
                                     <div class="col-sm-5">
                                         <select  class="form-control custom-select" name="transport_id" id="transport_id" required>
-                                        @foreach ($transports as $transport)
-                                            <option value="{{ $transport->id }}">{{ $transport->name }}</option>
-                                        @endforeach
+                                            @foreach ($transports as $transport)
+                                                <option value="{{ $transport->id }}" {{ $budget->transport_id == $transport->id ? 'Selected' : '' }}>{{ $transport->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -92,7 +93,7 @@
                                 <div class="form-group row">
                                     <label for="obs" class="col-sm-1 col-form-label">Obs.: </label>
                                     <div class="col-sm-11">
-                                        <textarea class="form-control" name="obs" id="obs" placeholder="Observações" required>{{ old('obs') }}</textarea>
+                                        <textarea class="form-control" name="obs" id="obs" placeholder="Observações" required>{{ $budget->obs }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -107,9 +108,22 @@
                                             <thead>
                                                 <tr>
                                                     <th>Arquivo</th>
+                                                    <th>Ações</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach ($files as $file)
+                                                    <tr>
+                                                        <td>{{ $file->name }}</td>
+                                                        <td>
+                                                            <a href="#" class="btn btn-success signer_pdf" id="{{ 'signer_pdf' . $file->id }}"
+                                                                data-url="{{ $file->url }}">
+                                                                <i class="fa fa-pencil"></i>
+                                                            </a>
+                                                        </td>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -125,6 +139,7 @@
             </div>
         </div>
     </div>
+</div>
 
 @include('modals.clientmodal')
 @endsection

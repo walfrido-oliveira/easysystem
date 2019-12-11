@@ -112,6 +112,7 @@ class BudgetController extends Controller
         Storage::disk('local')->makeDirectory($budget->path);
 
         $files = $request->file('files_budget');
+
         if($request->hasFile('files_budget')) {
             foreach ($files as $value) {
                 $url = $value->store($budget->path);
@@ -126,19 +127,8 @@ class BudgetController extends Controller
             }
         }
 
-        //$data = $request->all()['services'];
-
-        /*foreach ($data as $key => $value) {
-            BudgetHasService::create([
-                'budget_id' => $budget->id,
-                'service_id' => $value['service_id'],
-                'count' => $value['count'],
-                'obs' => $value['obs'],
-            ]
-            );
-        }*/
-
-        return redirect()->route('budget.index');
+        return redirect()->route('budget.index')
+        ->with('success','Orçamento adicionado com sucesso');
     }
 
     /**
@@ -160,7 +150,17 @@ class BudgetController extends Controller
      */
     public function edit(Budget $budget)
     {
-        //
+        $files = BudgetFiles::where('budget_id',$budget->id)->get();
+
+        $areas = Area::where('active',1)->get();
+
+        $services = Service::where('active',1)->get();
+
+        $payments = Payment::where('active',1)->get();
+
+        $transports = Transport::where('active',1)->get();
+
+        return view('adm.comercial.budget.budget.edit',compact('budget','files','areas','services','payments','transports'));
     }
 
     /**
@@ -172,7 +172,30 @@ class BudgetController extends Controller
      */
     public function update(Request $request, Budget $budget)
     {
-        //
+        $request->validate($this->rules());
+
+        $budget->update($request->all());
+
+        Storage::disk('local')->makeDirectory($budget->path);
+
+        $files = $request->file('files_budget');
+
+        if($request->hasFile('files_budget')) {
+            foreach ($files as $value) {
+                $url = $value->store($budget->path);
+                $name = $value->getClientOriginalName();
+                $mime = $value->getMimeType();
+                BudgetFiles::create([
+                    'budget_id' => $budget->id,
+                    'url' => $url,
+                    'name' => $name,
+                    'mime' => $mime
+                ]);
+            }
+        }
+
+        return redirect()->route('budget.index')
+        ->with('success','Orçamento atualizado com sucesso');
     }
 
     /**
@@ -255,7 +278,6 @@ class BudgetController extends Controller
             'mail' => 'required|max:255',
             'payment_id' => 'required',
             'transport_id' => 'required',
-            'internal_id' => 'unique:budgets',
             'files.*' => 'mimes:pdf,doc,docx,xlsx,dot'
         );
 
