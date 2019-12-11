@@ -10,7 +10,9 @@ use App\Http\Controllers\Controller;
 use App\Budget\Budget;
 use App\Budget\Payment;
 use App\Budget\Transport;
+use App\Budget\BudgetFiles;
 use Storage;
+use File;
 
 class BudgetController extends Controller
 {
@@ -112,7 +114,15 @@ class BudgetController extends Controller
         $files = $request->file('files_budget');
         if($request->hasFile('files_budget')) {
             foreach ($files as $value) {
-                $value->store($budget->path);
+                $url = $value->store($budget->path);
+                $name = $value->getClientOriginalName();
+                $mime = $value->getMimeType();
+                BudgetFiles::create([
+                    'budget_id' => $budget->id,
+                    'url' => $url,
+                    'name' => $name,
+                    'mime' => $mime
+                ]);
             }
         }
 

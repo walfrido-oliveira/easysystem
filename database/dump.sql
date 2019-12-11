@@ -45,6 +45,36 @@ INSERT INTO `areas` VALUES (1,'Walfrido',NULL,'2019-09-24 21:54:59',1),(2,'jT6WN
 UNLOCK TABLES;
 
 --
+-- Table structure for table `budget_files`
+--
+
+DROP TABLE IF EXISTS `budget_files`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `budget_files` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `budget_id` bigint(20) unsigned NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `name` varchar(55) NOT NULL,
+  `mime` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `budgets_files_budget_foregein_idx` (`budget_id`),
+  CONSTRAINT `budgets_files_budget_foregein` FOREIGN KEY (`budget_id`) REFERENCES `budgets` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `budget_files`
+--
+
+LOCK TABLES `budget_files` WRITE;
+/*!40000 ALTER TABLE `budget_files` DISABLE KEYS */;
+/*!40000 ALTER TABLE `budget_files` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `budget_has_services`
 --
 
@@ -96,13 +126,14 @@ CREATE TABLE `budgets` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `internal_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `internal_id_UNIQUE` (`internal_id`),
   KEY `budgets_payment_id_foreign` (`payment_id`),
   KEY `budgets_transport_id_foreign` (`transport_id`),
   KEY `budgets_client_id_foreign_idx` (`client_id`),
   CONSTRAINT `budgets_client_id_foreign` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `budgets_payment_id_foreign` FOREIGN KEY (`payment_id`) REFERENCES `payments` (`id`),
   CONSTRAINT `budgets_transport_id_foreign` FOREIGN KEY (`transport_id`) REFERENCES `transports` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,7 +142,7 @@ CREATE TABLE `budgets` (
 
 LOCK TABLES `budgets` WRITE;
 /*!40000 ALTER TABLE `budgets` DISABLE KEYS */;
-INSERT INTO `budgets` VALUES (1,'Walfrido',6,'(85) 991639737','walfrido_16@hotmail.com.br',1,1,'wqeqwe','2019-12-11 16:37:38','2019-12-11 16:37:38','04295-05779/2019');
+INSERT INTO `budgets` VALUES (14,'Walfrido',6,'11111-1111','walfrido_16@hotmail.com.br',1,1,'sAS','2019-12-11 20:52:44','2019-12-11 20:52:44','1234444wwwwwwwwwwwffwewqewWq');
 /*!40000 ALTER TABLE `budgets` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -192,7 +223,7 @@ CREATE TABLE `clients` (
 
 LOCK TABLES `clients` WRITE;
 /*!40000 ALTER TABLE `clients` DISABLE KEYS */;
-INSERT INTO `clients` VALUES (6,'00567892000107','VISOMES COMERCIAL METROLOGICA LTDA','VISOMES',11,'56629911','Eu','R JOAQUIM DOS SANTOS','181','RIO BONITO','fundos','SP','SAO PAULO','05792060',11,'56672644','walfrido_16@hotmail.com.br','http://easysystem','123','456','789','0111-3/01',0,0,'2019-10-14 19:25:32','2019-10-24 19:30:21',1,1,'clients/00000000000000000006/U9NxW9WptAZlOLMzaQsPxLm1wxrxhctzAAYn3mzj.jpeg','zxcxcxzczxczxczxc'),(7,'11111111111111','Teste','Teste',11,'1111-11111','Walfirdo','Rua Crestins','308','Jardim Leônidas Moreira','teste','SP','São Paulo','05792060',11,'1111-11222','walfrido_16@hotmail.com.br','http://easysystem','444','222','111','0111-3/99',0,1,'2019-10-16 21:07:59','2019-10-16 22:24:14',7,1,'clients/00000000000000000007/9GRmcpHY4UQzcMJJmH4GaDyP5DyzuHQngaqNbF5A.png','dfvdfvdfvdfvdfvdfvdfvdfv');
+INSERT INTO `clients` VALUES (6,'00567892000107','VISOMES COMERCIAL METROLOGICA LTDA','VISOMES',11,'56629911','Eu','R JOAQUIM DOS SANTOS','181','RIO BONITO','fundos','SP','SAO PAULO','05792060',11,'56672644','walfrido_16@hotmail.com.br','http://easysystem','123','456','789','0111-3/01',0,0,'2019-10-14 19:25:32','2019-12-11 19:51:56',1,1,'clients\\00000000000000000006/QBR3CXX7bA9KsMjeR6IWms6hUUnSTBHTPj3ErkDv.png','zxcxcxzczxczxczxc'),(7,'11111111111111','Teste','Teste',11,'111111111','Walfirdo','Rua Crestins','308','Jardim Leônidas Moreira','teste','SP','São Paulo','05792060',11,'111111222','walfrido_16@hotmail.com.br','http://easysystem','444','222','111','0111-3/99',0,1,'2019-10-16 21:07:59','2019-12-11 19:15:14',7,1,'clients/00000000000000000007/1D1HLgULr9HZ39WR2lBz3cavy9JiANfNcFHYU9XQ.png','dfvdfvdfvdfvdfvdfvdfvdfv');
 /*!40000 ALTER TABLE `clients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -660,4 +691,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-11 11:00:39
+-- Dump completed on 2019-12-11 15:00:27

@@ -363,4 +363,10 @@ $('#active_checkbox').change(function() {
     }
 });
 
+$(document).ready(function(){
+    $('.add_more').click(function(e){
+        e.preventDefault();
+        $(this).after("<input type='file' accept='application/pdf' name='files_budget[]' id='files_budget' multiple='multiple'/>");
+    });
+});
 

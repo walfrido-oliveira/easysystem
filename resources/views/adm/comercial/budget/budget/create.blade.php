@@ -98,12 +98,20 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label  class="custom-file-upload">
-                                            <input type="file" accept="application/pdf" name="files_budget[]" id="files_budget" multiple="multiple"/>
-                                            <i class="fa fa-cloud-upload"></i>Adicionar arquivos
-                                        </label>
-                                        <small class="form-text text-muted">Tamanho máximo permitido: 50kb.</small>
+                                    <div class="col-sm-4 p-2">
+                                        <button type="button" class="btn btn-success btn-sm add_more mb-3">+ Adicionar Arquivos</button>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <table class="table table-sm table-hover" id="clients">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Arquivo</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
