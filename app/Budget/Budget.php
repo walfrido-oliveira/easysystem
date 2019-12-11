@@ -7,9 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Budget extends Model
 {
     protected $fillable = [
-        'contact','client','client_id','phone',
+        'contact','client_id','phone',
         'mail','payment_id','transport_id','obs'
     ];
+
+    public function client()
+    {
+        return $this->hasOne('App\Client\Client','id','client_id');
+    }
 
     public function transport()
     {

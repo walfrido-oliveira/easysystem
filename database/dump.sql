@@ -64,7 +64,7 @@ CREATE TABLE `budget_has_services` (
   KEY `budget_has_services_service_id_foreign` (`service_id`),
   CONSTRAINT `budget_has_services_budget_id_foreign` FOREIGN KEY (`budget_id`) REFERENCES `budgets` (`id`),
   CONSTRAINT `budget_has_services_service_id_foreign` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +73,6 @@ CREATE TABLE `budget_has_services` (
 
 LOCK TABLES `budget_has_services` WRITE;
 /*!40000 ALTER TABLE `budget_has_services` DISABLE KEYS */;
-INSERT INTO `budget_has_services` VALUES (1,1,1,1,'3234234','2019-10-01 19:53:06','2019-10-01 19:53:06'),(2,1,3,4,'sdfsdf','2019-10-01 19:53:06','2019-10-01 19:53:06'),(3,1,4,2,'rty','2019-10-01 19:53:06','2019-10-01 19:53:06'),(4,2,1,1,'3234234','2019-10-01 19:53:25','2019-10-01 19:53:25'),(5,2,3,4,'sdfsdf','2019-10-01 19:53:25','2019-10-01 19:53:25'),(6,2,4,2,'rty','2019-10-01 19:53:25','2019-10-01 19:53:25'),(7,4,1,1,'3234234','2019-10-01 19:56:44','2019-10-01 19:56:44'),(8,4,3,2,'sdfsdf','2019-10-01 19:56:44','2019-10-01 19:56:44'),(9,4,4,3,'rty','2019-10-01 19:56:44','2019-10-01 19:56:44'),(10,5,1,5,'wqeqwsdadasdas','2019-10-01 21:51:57','2019-10-01 21:51:57'),(11,6,1,12333,'fdfsdfsdf','2019-10-01 22:15:08','2019-10-01 22:15:08'),(12,6,3,4324234,'asdasd','2019-10-01 22:15:08','2019-10-01 22:15:08'),(13,6,4,2342342,'asdasd','2019-10-01 22:15:08','2019-10-01 22:15:08');
 /*!40000 ALTER TABLE `budget_has_services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,10 +84,9 @@ DROP TABLE IF EXISTS `budgets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `budgets` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) unsigned NOT NULL,
   `contact` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `client` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `client_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `client_id` bigint(20) unsigned NOT NULL,
   `phone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `mail` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `payment_id` bigint(20) unsigned NOT NULL,
@@ -99,9 +97,11 @@ CREATE TABLE `budgets` (
   PRIMARY KEY (`id`),
   KEY `budgets_payment_id_foreign` (`payment_id`),
   KEY `budgets_transport_id_foreign` (`transport_id`),
+  KEY `budgets_client_id_foreign_idx` (`client_id`),
+  CONSTRAINT `budgets_client_id_foreign` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `budgets_payment_id_foreign` FOREIGN KEY (`payment_id`) REFERENCES `payments` (`id`),
   CONSTRAINT `budgets_transport_id_foreign` FOREIGN KEY (`transport_id`) REFERENCES `transports` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -110,7 +110,6 @@ CREATE TABLE `budgets` (
 
 LOCK TABLES `budgets` WRITE;
 /*!40000 ALTER TABLE `budgets` DISABLE KEYS */;
-INSERT INTO `budgets` VALUES (1,'Walfrido','Walfrido SA','123.123.123','(11) 5662-9911','walfrido_15@hotmail.com',1,1,'fwefwefefew','2019-10-01 19:53:05','2019-10-01 19:53:05'),(2,'Walfrido','Walfrido SA','123.123.123','(11) 5662-9911','walfrido_15@hotmail.com',1,1,'fwefwefefew','2019-10-01 19:53:25','2019-10-01 19:53:25'),(3,'Walfrido','Walfrido SA','123.123.123','(11) 5662-9911','walfrido_15@hotmail.com',1,1,'fwefwefefew','2019-10-01 19:56:14','2019-10-01 19:56:14'),(4,'Walfrido','Walfrido SA','123.123.123','(11) 5662-9911','walfrido_15@hotmail.com',1,1,'fwefwefefew','2019-10-01 19:56:44','2019-10-01 19:56:44'),(5,'Walfrido','Visomes YT','33.777.88.00','(85) 991639737','walfrido_16@hotmail.com.br',3,3,'açlfoas','2019-10-01 21:51:57','2019-10-01 21:51:57'),(6,'Walfrido','Visomes YT','33.777.88.00','991639737','walfrido_16@hotmail.com.br',1,1,'4234234','2019-10-01 22:15:07','2019-10-01 22:15:07');
 /*!40000 ALTER TABLE `budgets` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -659,4 +658,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-10 18:51:54
+-- Dump completed on 2019-12-11 10:25:43

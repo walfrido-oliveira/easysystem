@@ -137,8 +137,8 @@ Route::get('/home/acess/user/users','User\UserController@getUsers')->middleware(
 /* Comercial Routers
 */
 
-Route::get('orcamento','Budget\BudgetController@create')->name('orcamento.create');
-Route::post('orcamento/store','Budget\BudgetController@store')->name('orcamento.store');
+//Route::get('orcamento','Budget\BudgetController@create')->name('orcamento.create');
+//Route::post('orcamento/store','Budget\BudgetController@store')->name('orcamento.store');
 
 //Comercial Menus
 Route::get('/home/comercial','AdmController@showComercial')->middleware('auth')->name('home.comercial');
@@ -146,10 +146,9 @@ Route::get('/home/comercial/budget','AdmController@showBudget')->middleware('aut
 Route::get('/home/comercial/client','AdmController@showClient')->middleware('auth')->name('comercial.client');
 
 //Comercial resources
+Route::resource('/home/comercial/budget/budget','Budget\BudgetController')->middleware('auth');
 Route::resource('/home/comercial/budget/area','Budget\AreaController')->middleware('auth');
 Route::resource('/home/comercial/budget/service','Budget\ServiceController')->middleware('auth');
-Route::resource('budget','Budget\BudgetController')->except(['create', 'store'])->middleware('auth')
-    ->middleware('check_user_role:' . UserRole::ROLE_ADMIN);
 Route::resource('/home/comercial/budget/payment','Budget\PaymentController')->middleware('auth');
 Route::resource('/home/comercial/budget/transport','Budget\TransportController')->middleware('auth');
 Route::resource('/home/comercial/client/client','Client\ClientController')->middleware('auth');

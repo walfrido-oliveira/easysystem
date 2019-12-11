@@ -17,7 +17,7 @@
                     @endif
 
                     <table-filter-component action=@json($actions)  href=@json($hrefs) csrf="{{ csrf_token() }}"
-                        new_route="{{ route('orcamento.create') }}" sort_value=@json($sort) array_coluns=@json($columns)
+                        new_route="{{ route('budget.create') }}" sort_value=@json($sort) array_coluns=@json($columns)
                         get_router="/home/comercial/budget/budgets"></table-filter-component>
                 </div>
             </div>

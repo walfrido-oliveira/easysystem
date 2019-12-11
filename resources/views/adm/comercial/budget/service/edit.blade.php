@@ -291,7 +291,7 @@
     </div>
 </div>
 
-@include('adm.comercial.budget.service.typeservicemodal')
+@include('modals.typeservicemodal')
 
 @endsection
 

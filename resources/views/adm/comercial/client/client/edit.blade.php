@@ -289,8 +289,8 @@
     </div>
 </div>
 
-@include('adm.comercial.client.client.cnaemodal')
-@include('adm.comercial.client.client.clientmodal')
+@include('modals.cnaemodal')
+@include('modals.cnpjmodal')
 
 @endsection
 

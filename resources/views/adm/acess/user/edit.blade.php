@@ -107,5 +107,5 @@
     </div>
 </div>
 
-@include('adm.acess.user.clientmodal')
+@include('modals.clientmodal')
 @endsection

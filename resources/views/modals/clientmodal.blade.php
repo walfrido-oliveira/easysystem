@@ -20,6 +20,7 @@
                     <tr class="modal-datble-head">
                         <th class="column1">#</th>
                         <th class="column2">Razão Social</th>
+                        <th class="column2">CNPJ</th>
                     </tr>
                 </thead>
                 <tbody>

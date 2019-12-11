@@ -91,7 +91,7 @@ class BudgetController extends Controller
 
         $transports = Transport::where('active',1)->get();
 
-        return view('budget.index',compact('areas','services','payments','transports'));
+        return view('adm.comercial.budget.budget.create',compact('areas','services','payments','transports'));
     }
 
     /**

@@ -1,3 +1,9 @@
+function format(value, pattern) {
+    var i = 0,
+        v = value.toString();
+    return pattern.replace(/#/g, _ => v[i++]);
+}
+
 function seacherServices() {
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("area");
@@ -178,7 +184,6 @@ $("#close_cnpj_modal").click(function(event) {
     $('#searchClient').modal('hide');
 });
 
-
 $("#search_cnae").click(function(event) {
     var tbody = $("#cnae_results tbody");
     tbody.empty();
@@ -232,10 +237,17 @@ $('#searchClientValue').on('keyup',function() {
             var tbody = $("#client_results tbody");
             tbody.empty();
             result.forEach(function(element) {
-                tbody.append('<tr id="'+element.id+
-                             '"><td>'+element.id+
-                             '</td><td>'+element.razao_social+
-                             '</td></tr>');
+                var cnpj = element.cnpj;
+                if (cnpj.length < 14 ) {
+                    cnpj = format(cnpj, '###.###.###-##');
+                } else {
+                    cnpj = format(cnpj, '##.###.###/####-##');
+                }
+                tbody.append('<tr id="'+element.id+'">'+
+                             '<td>'+element.id+'</td>'+
+                             '<td>'+element.razao_social+'</td>'+
+                             '<td>'+cnpj+'</td>'+
+                             '</tr>');
             });
         }
     });
@@ -306,6 +318,7 @@ $(document).on('click', '#cnae_results tbody tr', function(event) {
 $(document).on('click', '#client_results tbody tr', function(event) {
     var id = $(this).find('td').eq(0).text();
     var razao_socail = $(this).find('td').eq(1).text();
+    var cnpj = $(this).find('td').eq(2).text();
 
     if ($('#clients tr > td:contains('+id+') + td:contains('+razao_socail+')').length > 0) {
         alert('Esse cliente já foi adicionado');
@@ -317,6 +330,15 @@ $(document).on('click', '#client_results tbody tr', function(event) {
                  '<td>'+id+'<input type="hidden" name="clients[R'+id+'][client_id]" value="'+id+'" id="client_id_'+id+'"></td>'+
                  '<td>'+razao_socail+'</td>'+
                  '</tr>');
+
+    var client = $("#client");
+    client.val(razao_socail);
+
+    var client_id = $("#client_id");
+    client_id.val(id);
+
+    var client_cnpj = $("#cnpj");
+    client_cnpj.val(cnpj);
 
     $('#searchClient').modal('toggle');
     var tbody = $("#client_results tbody");
