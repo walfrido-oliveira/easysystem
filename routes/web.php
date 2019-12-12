@@ -30,23 +30,6 @@ Route::get('/home', function() {
     }
 })->middleware(['verified','auth'])->name('home');
 
-
-Route::get('storage/app/{filename?}', function ($filename)
-{
-    $path = storage_path('app/' . $filename);
-    $path = str_replace('\\','/',$path);
-
-    if (!File::exists($path)) {
-        abort(404,'Arquivo não localizado');
-    }
-    $file = File::get($path);
-    $type = File::mimeType($path);
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-    return $response;
-})->where('filename', '(.*)');
-
-
 /*
 /* JSON
 */
@@ -78,12 +61,16 @@ Route::get('/home/acess/user/users','User\UserController@getUsers')->middleware(
 //Route::get('orcamento','Budget\BudgetController@create')->name('orcamento.create');
 //Route::post('orcamento/store','Budget\BudgetController@store')->name('orcamento.store');
 
-//Comercial Menus
+/*
+/* Comercial Menus
+*/
 Route::get('/home/comercial','AdmController@showComercial')->middleware('auth')->name('home.comercial');
 Route::get('/home/comercial/budget','AdmController@showBudget')->middleware('auth')->name('comercial.budget');
 Route::get('/home/comercial/client','AdmController@showClient')->middleware('auth')->name('comercial.client');
 
-//Comercial resources
+/*
+/* Comercial Resources
+*/
 Route::resource('/home/comercial/budget/budget','Budget\BudgetController')->middleware('auth');
 Route::resource('/home/comercial/budget/area','Budget\AreaController')->middleware('auth');
 Route::resource('/home/comercial/budget/service','Budget\ServiceController')->middleware('auth');
@@ -92,7 +79,9 @@ Route::resource('/home/comercial/budget/transport','Budget\TransportController')
 Route::resource('/home/comercial/client/client','Client\ClientController')->middleware('auth');
 Route::resource('/home/comercial/client/activity','Client\ActivityController')->middleware('auth');
 
-//tables routes
+/*
+/* Tables Ajax
+*/
 Route::get('/home/comercial/client/clients','Client\ClientController@getClients')->middleware('auth');
 Route::get('/home/comercial/client/activitys','Client\ActivityController@getActivitys')->middleware('auth');
 Route::get('/home/comercial/budget/areas','Budget\AreaController@getAreas')->middleware('auth');
@@ -102,5 +91,24 @@ Route::get('/home/comercial/budget/transports','Budget\TransportController@getTr
 Route::get('/home/comercial/budget/budgets','Budget\BudgetController@getBudgets')->middleware('auth');
 
 
-//PDF
-Route::get('/pdf/signer','SignerController@signer')->middleware('auth');
+/*
+/* Files
+*/
+Route::get('/pdf/signer','SignerController@signer')->middleware('auth')->name('pdf.signer');
+Route::get('open/{id}', 'OpenFileController@index')->middleware('auth')->name('file.open');
+Route::get('download/{id}', 'DownloadFileController@index')->middleware('auth')->name('file.download');
+
+Route::get('storage/app/{filename?}', function ($filename)
+{
+    $path = storage_path('app/' . $filename);
+    $path = str_replace('\\','/',$path);
+
+    if (!File::exists($path)) {
+        abort(404,'Arquivo não localizado');
+    }
+    $file = File::get($path);
+    $type = File::mimeType($path);
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    return $response;
+})->where('filename', '(.*)');

@@ -212,6 +212,7 @@ class BudgetController extends Controller
     /**
      * Get budgets list
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return JSON
      */
     public function getBudgets(Request $request)

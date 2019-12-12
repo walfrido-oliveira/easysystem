@@ -116,11 +116,18 @@
                                                     <tr>
                                                         <td>{{ $file->name }}</td>
                                                         <td>
-                                                            <a href="#" class="btn btn-success signer_pdf" id="{{ 'signer_pdf' . $file->id }}"
-                                                                data-url="{{ $file->url }}">
+                                                            <a href="{{ route('pdf.signer', ['id' => $file->id]) }}" class="btn btn-success"
+                                                            target="_blank">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
-                                                        </td>
+                                                            <a href="{{ route('file.open', $file->id) }}" class="btn btn-success"
+                                                            target="_blank">
+                                                                <i class="fa fa-folder-open"></i>
+                                                            </a>
+                                                            <a href="{{ route('file.download', $file->id) }}" class="btn btn-success"
+                                                            target="_blank">
+                                                                <i class="fa fa-download"></i>
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 @endforeach

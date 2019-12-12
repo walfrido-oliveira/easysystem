@@ -3,30 +3,59 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Elibyy\TCPDF\Facades\TCPDF;
+//use Elibyy\TCPDF\Facades\TCPDF;
+use App\Budget\BudgetFiles;
+use \setasign\Fpdi;
+use Storage;
 
 class SignerController extends Controller
 {
 
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('check_user_role:' . UserRole::ROLE_ADMIN);
+    }
 
     /**
      * Siger a PDF file
      *
-     * @param  $pdf_path
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @return \Illuminate\Http\Response
      */
     public function signer(Request $request)
     {
-        //dd($request->pdf_path);
 
-        $pdf_path = $request->pdf_path;
+        $budgetFile = BudgetFiles::Find($request->id);
+
+        $storagePath  = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
+
+        $pdf_path = $storagePath . $budgetFile->url;
 
         $certificate = 'file://'. realpath('../storage/cert/certificate.crt');
         $private_key = 'file://'. realpath('../storage/cert/out.key');
         $image_signature = realpath('../storage/cert/signature.png');
-        //$pdf_path = realpath('../storage/files/teste.pdf');
 
+        //$pdf = new TCPDF();
 
-        $pdf = new TCPDF();
+        $pdf = new \setasign\Fpdi\TcpdfFpdi();
+
+        $pdf->AddPage();
+        $pages = $pdf->setSourceFile($pdf_path);
+        $page = $pdf->ImportPage( 1 );
+        $pdf->useTemplate( $page, 0, 0 );
+
+        //$pdf2->AddPage();
+        //$pages = $pdf2->setSourceFile( $pdf_path );
+        //$page = $pdf2->ImportPage( 1 );
+        //$pdf2->useTemplate( $page, 0, 0 );
+        //$pdf2->Output();
+        //return;
 
         // set additional information
         $info = array(
@@ -37,32 +66,33 @@ class SignerController extends Controller
         );
 
         // set document signature
-        $pdf::setSignature($certificate, $private_key, '', '', 2, $info);
+        $pdf->setSignature($certificate, $private_key, '', '', 2, $info);
 
         // set font
-        $pdf::SetFont('helvetica', '', 12);
+        $pdf->SetFont('helvetica', '', 12);
 
         //set margin
-        $pdf::SetMargins(0,0,0,false);
-        $pdf::setCellPaddings(0,0,0,0);
-        $pdf::setFooterMargin(0);
+        $pdf->SetMargins(0,0,0,false);
+        $pdf->setCellPaddings(0,0,0,0);
+        $pdf->setFooterMargin(0);
 
         // add a page
-        $pdf::AddPage();
+        //$pdf->AddPage();
+
+        //$pdf->useTemplate( $page, 0, 0 );
 
         // print a line of text
-        $text = '<p>Teste de assinatura de certificado</p>';
-        $pdf::writeHTML($text, true, 0, true, 0);
+        //$text = '<p>Teste de assinatura de certificado</p>';
+        //$pdf->writeHTML($text, true, 0, true, 0);
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         // *** set signature appearance ***
 
         // create content for signature (image and/or text)
-        $pdf::Image($image_signature, 180, 261.5, 15, 15, 'PNG');
+        $pdf->Image($image_signature, 180, 261.5, 15, 15, 'PNG');
 
         // define active area for signature appearance
-        $pdf::setSignatureAppearance(180, 261.5, 15, 15);
-        //dd($pdf::getMargins())  ;
+        $pdf->setSignatureAppearance(180, 261.5, 15, 15);
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
         // *** set an empty signature appearance ***
@@ -73,9 +103,9 @@ class SignerController extends Controller
         //Close and output PDF document
         //$pdf->Output('example_052.pdf', 'D');
 
-        $pdf::Output($pdf_path, 'D');
+        $pdf->Output($pdf_path, 'F');
 
-        //return response()->stream($pdf::Output());
+        return response()->file($pdf_path);
     }
 
 }

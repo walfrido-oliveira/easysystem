@@ -14,7 +14,9 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
-        "laravel/ui": "^1.0"
+        "laravel/ui": "^1.0",
+        "setasign/fpdf": "^1.8",
+        "setasign/fpdi": "^2.2"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

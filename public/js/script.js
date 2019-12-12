@@ -273,22 +273,6 @@ $('#searchServiceValue').on('keyup',function() {
     });
 });
 
-$('.signer_pdf').on('click',function(e) {
-
-    e.preventDefault();
-
-    var url = $(this).data("url");
-
-    $.ajax({
-        type : 'get',
-        url : '/pdf/signer',
-        data:{'pdf_path':url},
-        success:function(data) {
-            window.open("data:application/pdf," + escape(data.result));
-        }
-    });
-});
-
 $('#type').on('change', function() {
     if (this.value == 'user'){
         $('#client_list').show();
