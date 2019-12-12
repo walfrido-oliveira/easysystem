@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Storage;
 use App\Budget\BudgetFiles;
-use App\UserHasClient;
+use App\Budget\Budget;
+use App\User\UserHasClient;
+use \App\Role\UserRole;
 
 class OpenFileController extends Controller
 {
@@ -22,6 +24,8 @@ class OpenFileController extends Controller
     /**
      * Open file
      *
+     *  @param  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function index($id)
@@ -29,9 +33,14 @@ class OpenFileController extends Controller
         $file = BudgetFiles::Find($id);
         $url = $file->url;
 
-        $user = auth()->user();
-        $clients = UserHasClient::where('user_id', $user->1)->get();
+        $client_id = $file->budget->client->id;
 
+        $user = auth()->user();
+        $clients = UserHasClient::where('user_id', $user->id)->where('client_id', $client_id)->get();
+
+        if(count($clients) == 0) {
+            abort(404,'Arquivo não localizado');
+        }
 
         $storagePath  = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
 

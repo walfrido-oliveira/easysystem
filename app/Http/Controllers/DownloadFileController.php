@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Storage;
+use App\Budget\Budget;
+use App\User\UserHasClient;
 use App\Budget\BudgetFiles;
+use \App\Role\UserRole;
 
 class DownloadFileController extends Controller
 {
@@ -23,12 +26,23 @@ class DownloadFileController extends Controller
     /**
      * Download file
      *
+     * @param  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function index($id)
     {
         $file = BudgetFiles::Find($id);
         $url = $file->url;
+
+        $client_id = $file->budget->client->id;
+
+        $user = auth()->user();
+        $clients = UserHasClient::where('user_id', $user->id)->where('client_id', $client_id)->get();
+
+        if(count($clients) == 0) {
+            abort(404,'Arquivo não localizado');
+        }
 
         $storagePath  = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
 

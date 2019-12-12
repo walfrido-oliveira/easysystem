@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Budget\BudgetFiles;
 use \setasign\Fpdi;
 use Storage;
+use \App\Role\UserRole;
 
 class SignerController extends Controller
 {
@@ -45,10 +46,15 @@ class SignerController extends Controller
 
         $pdf = new \setasign\Fpdi\TcpdfFpdi();
 
-        $pdf->AddPage();
         $pages = $pdf->setSourceFile($pdf_path);
-        $page = $pdf->ImportPage( 1 );
-        $pdf->useTemplate( $page, 0, 0 );
+        for ($i=0; $i < $pages; $i++) {
+            $pdf->AddPage();
+            $page = $pdf->ImportPage( $i+1 );
+            $pdf->useTemplate( $page, 0, 0 );
+        }
+
+
+
 
         //$pdf2->AddPage();
         //$pages = $pdf2->setSourceFile( $pdf_path );

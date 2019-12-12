@@ -12,6 +12,6 @@ class BudgetFiles extends Model
 
     public function budget()
     {
-        return $this->hasMany('App\Budget\Budget','budget_id','id');
+        return $this->hasOne('App\Budget\Budget','id','budget_id');
     }
 }
