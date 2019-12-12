@@ -59,7 +59,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12" style="display: none" id='client_list'>
+                            <div class="col-xs-12 col-sm-12 col-md-12" style="{{ $user->type == 'user' ? '' : 'display: none' }}" id='client_list'>
                                 <div class="form-group row">
                                     <div class="col-sm-4">
                                         <button type="button" class="btn btn-success btn-sm" id="search_client_id">+ Adicionar Cliente</button>

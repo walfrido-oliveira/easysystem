@@ -24,6 +24,6 @@ class UserHasClient extends Model
 
     public function client()
     {
-        return $this->hasMany('App\Client\Client','id','client_id');
+        return $this->hasOne('App\Client\Client','id','client_id');
     }
 }

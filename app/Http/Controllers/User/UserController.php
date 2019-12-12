@@ -154,7 +154,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $clients = $users = UserHasClient::where('user_id',$user->id)->get();
+        $clients = UserHasClient::where('user_id',$user->id)->get();
 
         return view('adm.acess.user.edit',compact('user','clients'));
     }
