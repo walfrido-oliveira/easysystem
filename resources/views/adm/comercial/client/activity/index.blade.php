@@ -19,7 +19,7 @@
 
                     <table-filter-component action=@json($actions)  href=@json($hrefs) csrf="{{ csrf_token() }}"
                     new_route="{{ route('activity.create') }}" sort_value=@json($sort) array_coluns=@json($columns)
-                    get_router="/home/comercial/client/activitys"></table-filter-component>
+                    get_router="/home/comercial/client/activitys" :edit='true'></table-filter-component>
 
                 </div>
 

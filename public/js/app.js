@@ -2404,12 +2404,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
-  props: ['href', 'action', 'csrf', 'new_route', 'sort_value', 'array_coluns', 'get_router'],
+  props: ['href', 'action', 'csrf', 'new_route', 'sort_value', 'array_coluns', 'get_router', 'edit'],
   data: function data() {
     return {
+      seen: this.edit,
       rows: [],
       columns: JSON.parse(this.array_coluns),
       classes: {
@@ -2434,9 +2436,9 @@ __webpack_require__.r(__webpack_exports__);
         }
       },
       actions: [{
-        btn_text: "Novo",
+        btn_text: this.edit ? "Novo" : '',
         event_name: "click",
-        "class": "btn btn-primary"
+        "class": "btn btn-primary " + (this.edit ? '' : 'd-none')
       }],
       config: {
         checkbox_rows: false,
@@ -37921,7 +37923,8 @@ var render = function() {
         actions: _vm.actions,
         new_route: _vm.new_route,
         sort_value: _vm.sort_value,
-        classes: _vm.classes
+        classes: _vm.classes,
+        edit: _vm.edit
       },
       on: { "on-change-query": _vm.onChangeQuery, click: _vm.openNew },
       scopedSlots: _vm._u([
@@ -37965,22 +37968,26 @@ var render = function() {
                       domProps: { value: _vm.csrf }
                     }),
                     _vm._v(" "),
-                    _c("input", {
-                      attrs: {
-                        type: "hidden",
-                        name: "_method",
-                        value: "DELETE"
-                      }
-                    }),
+                    _vm.seen
+                      ? _c("input", {
+                          attrs: {
+                            type: "hidden",
+                            name: "_method",
+                            value: "DELETE"
+                          }
+                        })
+                      : _vm._e(),
                     _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger",
-                        attrs: { type: "submit" }
-                      },
-                      [_c("i", { staticClass: "fa fa-trash" })]
-                    )
+                    _vm.seen
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger",
+                            attrs: { type: "submit" }
+                          },
+                          [_c("i", { staticClass: "fa fa-trash" })]
+                        )
+                      : _vm._e()
                   ]
                 )
               ])

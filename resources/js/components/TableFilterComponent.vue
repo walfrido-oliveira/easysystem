@@ -8,7 +8,8 @@
                               @click="openNew"
                               :new_route="new_route"
                               :sort_value="sort_value"
-                              :classes="classes">
+                              :classes="classes"
+                              :edit="edit">
             <template slot="paginataion-previous-button">
                 Anterior
             </template>
@@ -27,8 +28,8 @@
                             <i class="fa fa-edit"></i>
                         </a>
                         <input type="hidden" name="_token" :value="csrf">
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="btn btn-danger">
+                        <input type="hidden" name="_method" value="DELETE" v-if="seen">
+                        <button type="submit" class="btn btn-danger" v-if="seen">
                             <i class="fa fa-trash"></i>
                         </button>
                     </form>
@@ -44,10 +45,12 @@ import VueBootstrap4Table from 'vue-bootstrap4-table'
 export default {
     name: 'App',
 
-     props : ['href','action','csrf','new_route','sort_value','array_coluns','get_router'],
+     props : ['href','action','csrf','new_route','sort_value','array_coluns','get_router','edit'],
 
     data: function() {
         return {
+            seen: this.edit,
+
             rows: [],
 
             columns: JSON.parse(this.array_coluns),
@@ -76,9 +79,9 @@ export default {
 
             actions: [
                 {
-                    btn_text: "Novo",
+                    btn_text: this.edit ? "Novo" : '',
                     event_name: "click",
-                    class: "btn btn-primary"
+                    class: "btn btn-primary " + (this.edit ? '' : 'd-none'),
                 }
             ],
 

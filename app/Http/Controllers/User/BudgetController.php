@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Budget;
+namespace App\Http\Controllers\User;
 
 use App\Budget\Area;
 use App\Budget\BudgetHasService;
@@ -26,7 +26,7 @@ class BudgetController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('check_user_role:' . UserRole::ROLE_ADMIN);
+        $this->middleware('check_user_role:' . UserRole::ROLE_USER);
     }
 
    /**
@@ -36,7 +36,15 @@ class BudgetController extends Controller
      */
    public function index()
    {
-        $budgets =  Budget::paginate(10);
+        $user = auth()->user();
+        $clients = UserHasClient::where('user_id', $user->id)->get();
+        $clients_id = [];
+
+        foreach ($clients as $key => $value) {
+            $clients_id[] = $value->client_id;
+        }
+
+        $budgets =  Budget::whereIn('client_id', $clients_id)->paginate(10);
 
         $hrefs = array();
 
@@ -48,8 +56,7 @@ class BudgetController extends Controller
 
         foreach ($budgets as $key => $value)
         {
-            $hrefs[$value->id] =  route('budget.edit',$value->id);
-            $actions[$value->id] = route('budget.destroy',$value->id);
+            $hrefs[$value->id] =  route('user.budget.show',$value->id);
         }
 
         $columns = array(
@@ -86,66 +93,21 @@ class BudgetController extends Controller
             )
         );
 
-        return view('adm.comercial.budget.budget.index',
+        return view('user.budget.budget.index',
         compact('budgets','hrefs','actions','columns','sort'))
         ->with('i', (request()->input('page', 1) - 1) * 5);
    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $areas = Area::where('active',1)->get();
-
-        $services = Service::where('active',1)->get();
-
-        $payments = Payment::where('active',1)->get();
-
-        $transports = Transport::where('active',1)->get();
-
-        return view('adm.comercial.budget.budget.create',compact('areas','services','payments','transports'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $request->validate($this->rules());
-
-        $budget = Budget::create($request->all());
-
-        Storage::disk('local')->makeDirectory($budget->path);
-
-        return redirect()->route('budget.edit', $budget->id)
-        ->with('success','Orçamento adicionado com sucesso');
-    }
-
-    /**
+     /**
      * Display the specified resource.
      *
      * @param  \App\Budget\Budget  $budget
      * @return \Illuminate\Http\Response
      */
-    public function show(Budget $budget)
+    public function show($id)
     {
-        return view('adm.comercial.budget.budget.show',compact('budget'));
-    }
+        $budget = Budget::find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Budget\Budget  $budget
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Budget $budget)
-    {
         $files = BudgetFiles::where('budget_id',$budget->id)->get();
 
         $areas = Area::where('active',1)->get();
@@ -156,38 +118,8 @@ class BudgetController extends Controller
 
         $transports = Transport::where('active',1)->get();
 
-        return view('adm.comercial.budget.budget.edit',
-                compact('budget','files','areas','services','payments','transports'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Budget\Budget  $budget
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Budget $budget)
-    {
-        $request->validate($this->rules());
-
-        $budget->update($request->all());
-
-        Storage::disk('local')->makeDirectory($budget->path);
-
-        return redirect()->route('budget.index')
-        ->with('success','Orçamento atualizado com sucesso');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Budget\Budget  $budget
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Budget $budget)
-    {
-        //
+        return view('user.budget.budget.show',
+        compact('budget', 'areas', 'services','payments', 'transports', 'files'));
     }
 
     /**
@@ -240,36 +172,18 @@ class BudgetController extends Controller
 
         if (!empty($sort) && !empty($filters))
         {
-            $query = Budget::with('client')->where($filtersArray)->orderBy($sort[0]->name, $sort[0]->order)->paginate($per_page);
+            $query = Budget::with('client')->where($filtersArray)->whereIn('client_id', $clients_id)->orderBy($sort[0]->name, $sort[0]->order)->paginate($per_page);
         }
         else if (!empty($sort))
         {
-            $query = Budget::with('client')->where('active',1)->orderBy($sort[0]->name, $sort[0]->order)->paginate($per_page);
+            $query = Budget::with('client')->where('active',1)->whereIn('client_id', $clients_id)->orderBy($sort[0]->name, $sort[0]->order)->paginate($per_page);
         }
         else
         {
-            $query = Budget::with('client')->where($filtersArray)->paginate($per_page);
+            $query = Budget::with('client')->where($filtersArray)->whereIn('client_id', $clients_id)->paginate($per_page);
         }
 
         return ['data' => $query];
     }
 
-    /**
-     * Set rules validation
-     *
-     * @return array
-     */
-    private function rules()
-    {
-        return array(
-            'contact' => 'required|max:255',
-            'client_id' => 'required',
-            'phone' => 'required|max:255',
-            'mail' => 'required|max:255',
-            'payment_id' => 'required',
-            'transport_id' => 'required',
-            'files.*' => 'mimes:pdf,doc,docx,xlsx,dot'
-        );
-
-    }
 }

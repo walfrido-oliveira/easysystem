@@ -54,6 +54,7 @@ Route::get('/home/acess/user','AdmController@showUser')->middleware('auth')->nam
 //tables routes
 Route::get('/home/acess/user/users','User\UserController@getUsers')->middleware('auth');
 
+
 /*
 /* Comercial Routers
 */
@@ -113,3 +114,10 @@ Route::get('storage/app/{filename?}', function ($filename)
     $response->header("Content-Type", $type);
     return $response;
 })->where('filename', '(.*)');
+
+/*
+/* User Routers
+*/
+Route::get('/home/user/budget','User\BudgetController@index')->middleware('auth')->name('user.budget.index');
+Route::get('/home/user/budget/show/{id}','User\BudgetController@show')->middleware('auth')->name('user.budget.show');
+Route::get('/home/user/budget/budgets','User\BudgetController@getBudgets')->middleware('auth')->name('user.budget.budgets');
