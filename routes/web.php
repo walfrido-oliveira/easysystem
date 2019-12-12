@@ -95,8 +95,9 @@ Route::get('/home/comercial/budget/budgets','Budget\BudgetController@getBudgets'
 /* Files
 */
 Route::get('/pdf/signer','SignerController@signer')->middleware('auth')->name('pdf.signer');
-Route::get('open/{id}', 'OpenFileController@index')->middleware('auth')->name('file.open');
-Route::get('download/{id}', 'DownloadFileController@index')->middleware('auth')->name('file.download');
+Route::get('/open/{id}', 'OpenFileController@index')->middleware('auth')->name('file.open');
+Route::get('/download/{id}', 'DownloadFileController@index')->middleware('auth')->name('file.download');
+Route::post('/budget/upload', 'Budget\BudgetFilesController@upload')->middleware('auth')->name('budget.upload');
 
 Route::get('storage/app/{filename?}', function ($filename)
 {

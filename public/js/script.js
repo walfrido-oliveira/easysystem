@@ -371,18 +371,48 @@ $(document).ready(function(){
 });
 
 $('#files_budget').change(function(e) {
-    var files = e.target.files;
     var tbody = $("#files_table tbody");
-    //tbody.empty();
-    for(var i=0; i< this.files.length; i++) {
-        var file = this.files[i];
-        name = file.name.toLowerCase();
-        size = file.size;
-        type = file.type;
-        tbody.append('<tr>'+
-                 '<td>'+name+'</td>'+
-                 '</tr>');
+    var id =  $('#files_budget').data("id");
 
+    var formdata = new FormData();
+    formdata.append('id', id);
+
+    for(var i=0; i< this.files.length; i++) {
+        file =this.files[i];
+        formdata.append("files_" + i, file);
     }
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        url: '/budget/upload',
+        type: "POST",
+        data: formdata,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            var budget_files_id = data.budget_files_id;
+            for( var i=0; i < budget_files_id.length; i++) {
+                tbody.append('<tr>'+
+                 '<td>'+budget_files_id[i].name+'</td>'+
+                 '<td>' +
+                 '<a href="/pdf/signer?id='+budget_files_id[i].id+'" class="btn btn-success" target="_blank">' +
+                 '<i class="fa fa-pencil"></i>' +
+                 '</a>&nbsp;' +
+                 '<a href="/open/'+budget_files_id[i].id+'" class="btn btn-success" target="_blank">' +
+                 '<i class="fa fa-folder-open"></i>' +
+                 '</a>&nbsp;' +
+                 '</a>' +
+                 '<a href="/download/'+budget_files_id[i].id+'" class="btn btn-success" target="_blank">' +
+                 '<i class="fa fa-download"></i>' +
+                 '</a>' +
+                 '</tr>');
+            }
+        }
+    });
 });
 

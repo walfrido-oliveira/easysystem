@@ -1,12 +1,56 @@
 <?php
 
-namespace App\Http\Budget\Controllers;
+namespace App\Http\Controllers\Budget;
 
 use App\Budget\BudgetFiles;
+use App\Budget\Budget;
 use Illuminate\Http\Request;
+use \App\Role\UserRole;
+use App\Http\Controllers\Controller;
 
 class BudgetFilesController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('check_user_role:' . UserRole::ROLE_ADMIN);
+    }
+
+    /**
+     * Upload file into budget folder
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return JSON
+     */
+    public function upload(Request $request)
+    {
+        $files = $request->file();
+        $id = $request->id;
+        $budget = Budget::find($id);
+        $budget_files_id = [];
+
+        foreach ($files as $value) {
+            $url = $value->store($budget->path);
+            $name = $value->getClientOriginalName();
+            $mime = $value->getMimeType();
+            $budget_files_id[] = ["id" => BudgetFiles::create([
+                                            'budget_id' => $budget->id,
+                                            'url' => $url,
+                                            'name' => $name,
+                                            'mime' => $mime
+                                            ])->id,
+                                  "name" => $name];
+        }
+
+        return ['budget_files_id' => $budget_files_id];
+    }
+
+
     /**
      * Display a listing of the resource.
      *

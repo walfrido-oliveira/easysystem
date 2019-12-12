@@ -13,9 +13,20 @@ use App\Budget\Transport;
 use App\Budget\BudgetFiles;
 use Storage;
 use File;
+use \App\Role\UserRole;
 
 class BudgetController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('check_user_role:' . UserRole::ROLE_ADMIN);
+    }
 
    /**
      * Display a listing of the resource.
@@ -111,23 +122,7 @@ class BudgetController extends Controller
 
         Storage::disk('local')->makeDirectory($budget->path);
 
-        $files = $request->file('files_budget');
-
-        if($request->hasFile('files_budget')) {
-            foreach ($files as $value) {
-                $url = $value->store($budget->path);
-                $name = $value->getClientOriginalName();
-                $mime = $value->getMimeType();
-                BudgetFiles::create([
-                    'budget_id' => $budget->id,
-                    'url' => $url,
-                    'name' => $name,
-                    'mime' => $mime
-                ]);
-            }
-        }
-
-        return redirect()->route('budget.index')
+        return redirect()->route('budget.edit', $budget->id)
         ->with('success','Orçamento adicionado com sucesso');
     }
 
@@ -177,22 +172,6 @@ class BudgetController extends Controller
         $budget->update($request->all());
 
         Storage::disk('local')->makeDirectory($budget->path);
-
-        $files = $request->file('files_budget');
-
-        if($request->hasFile('files_budget')) {
-            foreach ($files as $value) {
-                $url = $value->store($budget->path);
-                $name = $value->getClientOriginalName();
-                $mime = $value->getMimeType();
-                BudgetFiles::create([
-                    'budget_id' => $budget->id,
-                    'url' => $url,
-                    'name' => $name,
-                    'mime' => $mime
-                ]);
-            }
-        }
 
         return redirect()->route('budget.index')
         ->with('success','Orçamento atualizado com sucesso');

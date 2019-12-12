@@ -31,6 +31,7 @@ class SignerController extends Controller
      */
     public function signer(Request $request)
     {
+        $user = auth()->user();
 
         $budgetFile = BudgetFiles::Find($request->id);
 
@@ -53,9 +54,6 @@ class SignerController extends Controller
             $pdf->useTemplate( $page, 0, 0 );
         }
 
-
-
-
         //$pdf2->AddPage();
         //$pages = $pdf2->setSourceFile( $pdf_path );
         //$page = $pdf2->ImportPage( 1 );
@@ -65,10 +63,10 @@ class SignerController extends Controller
 
         // set additional information
         $info = array(
-        'Name' => 'Name of PDF',
+        'Name' => $user->name,
         'Location' => '',
-        'Reason' => 'Proof of author',
-        'ContactInfo' => 'info@example.co.za',
+        'Reason' => 'Assinatura de certificado',
+        'ContactInfo' => $user->email,
         );
 
         // set document signature

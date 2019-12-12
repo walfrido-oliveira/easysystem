@@ -8,6 +8,7 @@ use App\Budget\Budget;
 use App\User\UserHasClient;
 use App\Budget\BudgetFiles;
 use \App\Role\UserRole;
+use App\Http\Controllers\Controller;
 
 class DownloadFileController extends Controller
 {
@@ -40,7 +41,7 @@ class DownloadFileController extends Controller
         $user = auth()->user();
         $clients = UserHasClient::where('user_id', $user->id)->where('client_id', $client_id)->get();
 
-        if(count($clients) == 0) {
+        if(count($clients) == 0 && $user->type != 'adm') {
             abort(404,'Arquivo não localizado');
         }
 

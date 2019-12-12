@@ -96,25 +96,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group row">
-                                    <div class="col-sm-4 p-2">
-                                        <button type="button" class="btn btn-success btn-sm add_more mb-3">+ Adicionar Arquivos</button>
-                                        <input type='file' accept='application/pdf' name='files_budget[]' id='files_budget' multiple='multiple' hidden/>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <table class="table table-sm table-hover" id="files_table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Arquivo</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="form-group pt-3 border-top">
                             <button type="submit" class="btn btn-primary">Salvar</button>

@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    @include('adm.comercial.budget.area.header')
+                    @include('adm.comercial.budget.budget.header')
                 </div>
 
                 <div class="card-body">
@@ -19,6 +19,11 @@
                                 @endforeach
                             </ul>
                         </div>
+                    @endif
+                    @if ($message = Session::get('success'))
+                            <div class="alert alert-success">
+                                <p>{{ $message }}</p>
+                            </div>
                     @endif
                     <form action="{{ route('budget.update',$budget->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -101,7 +106,8 @@
                                 <div class="form-group row">
                                     <div class="col-sm-4 p-2">
                                         <button type="button" class="btn btn-success btn-sm add_more mb-3">+ Adicionar Arquivos</button>
-                                        <input type='file' accept='application/pdf' name='files_budget[]' id='files_budget' multiple='multiple' hidden/>
+                                        <input type='file' accept='application/pdf' name='files_budget[]' id='files_budget'
+                                               multiple='multiple' hidden data-id="{{ $budget->id }}"/>
                                     </div>
                                     <div class="col-sm-12">
                                         <table class="table table-sm table-hover" id="files_table">
