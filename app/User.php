@@ -116,4 +116,24 @@ class User extends Authenticatable implements MustVerifyEmail
         return $roles;
     }
 
+    /**
+     * Generate a password radom
+    */
+    public static function generatePassword()
+    {
+      // Generate random string and encrypt it.
+      return bcrypt(str_random(35));
+    }
+
+    public static function sendWelcomeEmail($user)
+    {
+      // Generate a new reset password token
+      $token = app('auth.password.broker')->createToken($user);
+
+      // Send email
+      Mail::send('emails.welcome', ['user' => $user, 'token' => $token], function ($m) use ($user) {
+        $m->to($user->email, $user->name)->subject('Welcome to APP');
+      });
+    }
+
   }

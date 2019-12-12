@@ -18,7 +18,7 @@
 
                     <table-filter-component action=@json($actions)  href=@json($hrefs) csrf="{{ csrf_token() }}"
                     new_route="{{ route('users.create') }}" sort_value=@json($sort) array_coluns=@json($columns)
-                    get_router="/home/acess/user/users"></table-filter-component>
+                    get_router="/home/acess/user/users" :edit='true'></table-filter-component>
 
                 </div>
             </div>

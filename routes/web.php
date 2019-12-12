@@ -13,11 +13,18 @@ use \App\Role\UserRole;
 |
 */
 
+Route::get('/teste', function() {
+    $user = Auth::user();
+    $token = Password::getRepository()->create($user);
+    $user->sendPasswordResetNotification($token);
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['register' => false, 'verify' => true]);
+//Auth::routes(['register' => false, 'verify' => true]);
+Auth::routes(['register' => false]);
 
 Route::get('/home', function() {
     if (Auth::user()->type === 'adm')
@@ -28,7 +35,7 @@ Route::get('/home', function() {
     {
         return view('user.home');
     }
-})->middleware(['verified','auth'])->name('home');
+})->middleware(['auth'])->name('home');
 
 /*
 /* JSON

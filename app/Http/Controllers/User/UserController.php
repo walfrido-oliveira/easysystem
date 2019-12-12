@@ -8,6 +8,7 @@ use \App\Role\UserRole;
 use App\User;
 use Hash;
 Use App\User\UserHasClient;
+use Password;
 
 class UserController extends Controller
 {
@@ -185,17 +186,21 @@ class UserController extends Controller
             $user->addRole(UserRole::ROLE_USER)->save();
         }
 
-        $data = $data['clients'];
-
-        foreach ($data as $key => $value) {
-            UserHasClient::create([
-                'user_id' => $user->id,
-                'client_id' => $value['client_id'],
-            ]
-            );
+        if (isset($data['clients'])) {
+            $data = $data['clients'];
+            foreach ($data as $key => $value) {
+                UserHasClient::create([
+                    'user_id' => $user->id,
+                    'client_id' => $value['client_id'],
+                ]
+                );
+            }
         }
 
-        $user->sendEmailVerificationNotification();
+        //$user->sendEmailVerificationNotification();
+
+        $token = Password::getRepository()->create($user);
+        $user->sendPasswordResetNotification($token);
 
         return redirect()->route('users.index')
             ->with('success','Usuário adicionado com sucesso');
