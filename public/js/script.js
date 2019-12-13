@@ -401,14 +401,14 @@ $('#files_budget').change(function(e) {
                  '<td>'+budget_files_id[i].name+'</td>'+
                  '<td>NÃO</td>' +
                  '<td>' +
-                 '<a href="/pdf/signer?id='+budget_files_id[i].id+'" class="btn btn-success" target="_blank">' +
+                 '<a href="/pdf/signer?id='+budget_files_id[i].id+'" class="btn btn-success signer" target="_blank" title="Assinar documento">' +
                  '<i class="fa fa-pencil"></i>' +
                  '</a>&nbsp;' +
-                 '<a href="/open/'+budget_files_id[i].id+'" class="btn btn-success" target="_blank">' +
+                 '<a href="/open/'+budget_files_id[i].id+'" class="btn btn-success" target="_blank" title="Abrir documento">' +
                  '<i class="fa fa-folder-open"></i>' +
                  '</a>&nbsp;' +
                  '</a>' +
-                 '<a href="/download/'+budget_files_id[i].id+'" class="btn btn-success" target="_blank">' +
+                 '<a href="/download/'+budget_files_id[i].id+'" class="btn btn-success" target="_blank" title="Baixar documento">' +
                  '<i class="fa fa-download"></i>' +
                  '</a>' +
                  '</tr>');
