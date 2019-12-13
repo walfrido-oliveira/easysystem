@@ -419,6 +419,8 @@ $('#files_budget').change(function(e) {
 
 $(document).on('click', '.signer', function(event) {
     $(this).addClass('disabled');
+    var parent = $(this).parent();
+    parent.parent().find('td').eq(1).text('SIM');
 });
 
 
