@@ -46,15 +46,9 @@
                             <li class="nav-item">
                                 <a class="nav-link nav-link-highlight-blue"  href="{{ url('/') }}">{{ __('Início') }}</a>
                             </li>
-
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Área do Cliente') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Área restrita') }}</a>
                             </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
                         @else
                             <li class="nav-item dropdown">
 
