@@ -1,6 +1,7 @@
 <?php
 
 use \App\Role\UserRole;
+use App\Notifications\WelcomeUser;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,18 @@ use \App\Role\UserRole;
 Route::get('/teste', function() {
     $user = Auth::user();
     $token = Password::getRepository()->create($user);
-    $user->sendPasswordResetNotification($token);
+    //$user->sendPasswordResetNotification($token);
+
+    DB::table(config('auth.passwords.users.table'))->insert([
+        'email' => $user->email,
+        'token' => $token
+    ]);
+
+    $resetUrl= url(config('app.url').route('password.reset', $token, false));
+
+    //Mail::to($this)->send(new Welcome($this, $resetUrl));
+
+    $user->notify(new WelcomeUser($token));
 });
 
 Route::get('/', function () {

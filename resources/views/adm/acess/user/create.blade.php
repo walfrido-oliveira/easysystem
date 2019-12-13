@@ -44,30 +44,6 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group row">
-                                    <label for="password" class="col-sm-1 col-form-label">{{ __('Senha: ') }}</label>
-                                    <div class="col-sm-5">
-                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                                        name="password" required autocomplete="new-password" placeholder="Senha">
-                                        @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <label for="password" class="col-sm-2 col-form-label">{{ __('Confirmar Senha:') }}</label>
-                                    <div class="col-sm-4">
-                                        <input id="password-confirm" type="password" class="form-control"
-                                        name="password_confirmation" required autocomplete="new-password" placeholder="Confirmar Senha">
-                                        @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group row">
                                     <label for="type" class="col-sm-1 col-form-label">{{ __('Tipo: ') }}</label>
                                     <div class="col-sm-5">
                                         <select  class="form-control custom-select" name="type" id="type" >

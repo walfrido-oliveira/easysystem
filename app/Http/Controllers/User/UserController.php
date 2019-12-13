@@ -9,6 +9,7 @@ use App\User;
 use Hash;
 Use App\User\UserHasClient;
 use Password;
+use Str;
 
 class UserController extends Controller
 {
@@ -174,7 +175,7 @@ class UserController extends Controller
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => $this->generateRandomPassword(),
             'type' => $data['type'],
             'active' => $data['active'],
         ]);
@@ -189,7 +190,8 @@ class UserController extends Controller
         if (isset($data['clients'])) {
             $data = $data['clients'];
             foreach ($data as $key => $value) {
-                UserHasClient::create([
+                UserHasClient::create(
+                [
                     'user_id' => $user->id,
                     'client_id' => $value['client_id'],
                 ]
@@ -197,10 +199,7 @@ class UserController extends Controller
             }
         }
 
-        //$user->sendEmailVerificationNotification();
-
-        $token = Password::getRepository()->create($user);
-        $user->sendPasswordResetNotification($token);
+        User::sendWelcomeEmail($user);
 
         return redirect()->route('users.index')
             ->with('success','Usuário adicionado com sucesso');
@@ -282,7 +281,6 @@ class UserController extends Controller
             return array(
                 'name' => 'required|max:255|unique:users',
                 'email' => 'required|max:255|unique:users',
-                'password' => 'required|min:8|confirmed',
                 'type' => 'required',
             );
         } else {
@@ -311,5 +309,15 @@ class UserController extends Controller
             'password.confirmed' => 'As senhas devem ser iguais',
             'type.required' => 'O campo tipo é obrigatório',
         );
+    }
+
+    /**
+     * Henerate a random password
+     *
+     * @return string
+     */
+    public function generateRandomPassword()
+    {
+        return Hash::make(Str::random(8));
     }
 }

@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Password;
+use App\Notifications\WelcomeUser;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -118,22 +120,23 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Generate a password radom
+     *
+     * @return string
     */
     public static function generatePassword()
     {
-      // Generate random string and encrypt it.
       return bcrypt(str_random(35));
     }
 
+     /**
+     * Send welcome email
+     *
+     */
     public static function sendWelcomeEmail($user)
     {
-      // Generate a new reset password token
-      $token = app('auth.password.broker')->createToken($user);
+        $token = Password::getRepository()->create($user);
 
-      // Send email
-      Mail::send('emails.welcome', ['user' => $user, 'token' => $token], function ($m) use ($user) {
-        $m->to($user->email, $user->name)->subject('Welcome to APP');
-      });
+        $user->notify(new WelcomeUser($token));
     }
 
   }
