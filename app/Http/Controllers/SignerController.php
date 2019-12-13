@@ -39,8 +39,8 @@ class SignerController extends Controller
 
         $pdf_path = $storagePath . $budgetFile->url;
 
-        $certificate = 'file://'. realpath('../storage/cert/certificate.crt');
-        $private_key = 'file://'. realpath('../storage/cert/out.key');
+        $certificate = 'file://' . realpath('../storage/cert/certificate.crt');
+        $private_key = 'file://' . realpath('../storage/cert/certificate.key');
         $image_signature = realpath('../storage/cert/signature.png');
 
         //$pdf = new TCPDF();
@@ -53,13 +53,6 @@ class SignerController extends Controller
             $page = $pdf->ImportPage( $i+1 );
             $pdf->useTemplate( $page, 0, 0 );
         }
-
-        //$pdf2->AddPage();
-        //$pages = $pdf2->setSourceFile( $pdf_path );
-        //$page = $pdf2->ImportPage( 1 );
-        //$pdf2->useTemplate( $page, 0, 0 );
-        //$pdf2->Output();
-        //return;
 
         // set additional information
         $info = array(
@@ -80,15 +73,6 @@ class SignerController extends Controller
         $pdf->setCellPaddings(0,0,0,0);
         $pdf->setFooterMargin(0);
 
-        // add a page
-        //$pdf->AddPage();
-
-        //$pdf->useTemplate( $page, 0, 0 );
-
-        // print a line of text
-        //$text = '<p>Teste de assinatura de certificado</p>';
-        //$pdf->writeHTML($text, true, 0, true, 0);
-
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         // *** set signature appearance ***
 
@@ -98,14 +82,6 @@ class SignerController extends Controller
         // define active area for signature appearance
         $pdf->setSignatureAppearance(180, 261.5, 15, 15);
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-        // *** set an empty signature appearance ***
-        //$pdf::addEmptySignatureAppearance(180, 80, 15, 15);
-
-        // ---------------------------------------------------------
-
-        //Close and output PDF document
-        //$pdf->Output('example_052.pdf', 'D');
 
         $pdf->Output($pdf_path, 'F');
 

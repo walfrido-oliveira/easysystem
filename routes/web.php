@@ -15,20 +15,17 @@ use App\Notifications\WelcomeUser;
 */
 
 Route::get('/teste', function() {
-    $user = Auth::user();
-    $token = Password::getRepository()->create($user);
-    //$user->sendPasswordResetNotification($token);
+    $res = [];
+    $openSSL = openssl_pkcs12_read($pkcs12, $res, $cert_password);
+    if(!$openSSL) {
+        throw new ClientException("Error: ".openssl_error_string());
+    }
+    // this is the CER FILE
+    file_put_contents('CERT.cer', $res['pkey'].$res['cert'].implode('', $res['extracerts']));
 
-    DB::table(config('auth.passwords.users.table'))->insert([
-        'email' => $user->email,
-        'token' => $token
-    ]);
-
-    $resetUrl= url(config('app.url').route('password.reset', $token, false));
-
-    //Mail::to($this)->send(new Welcome($this, $resetUrl));
-
-    $user->notify(new WelcomeUser($token));
+    // this is the PEM FILE
+    $cert = $res['cert'].implode('', $res['extracerts']);
+    file_put_contents('KEY.pem', $cert);
 });
 
 Route::get('/', function () {
