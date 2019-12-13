@@ -123,9 +123,10 @@ class ServiceController extends Controller
 
         $data = $this->cleanData($request->all());
 
-        Service::create($data);
+        $service = Service::create($data);
 
-        return redirect()->route('service.index');
+        return redirect()->route('service.edit', $service->id)
+        ->with('success','Serviço adicionado com sucesso');
     }
 
     /**
@@ -221,8 +222,8 @@ class ServiceController extends Controller
 
         $service->update($data);
 
-        return redirect()->route('service.index')
-                        ->with('success','Serviço adicionado com sucesso');
+        return redirect()->route('service.edit', $service->id)
+            ->with('success','Serviço atualizado com sucesso');
     }
 
     /**

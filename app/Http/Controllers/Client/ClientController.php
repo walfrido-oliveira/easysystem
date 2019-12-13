@@ -124,7 +124,7 @@ class ClientController extends Controller
 
         $client->update($data);
 
-        return redirect()->route('client.index')
+        return redirect()->route('client.edit', $client->id)
             ->with('success','Cliente adicionado com sucesso');
     }
 
@@ -164,7 +164,8 @@ class ClientController extends Controller
             $client->produtor_rural = '';
         }
 
-        return view('adm.comercial.client.client.edit',compact('client','activitys','ufs'));
+        return view('adm.comercial.client.client.edit',
+        compact('client','activitys','ufs'));
     }
 
     /**
@@ -189,7 +190,7 @@ class ClientController extends Controller
 
         $client->update($data);
 
-        return redirect()->route('client.index')
+        return redirect()->route('client.edit', $client->id)
                         ->with('success','Cliente atualizado com sucesso');
     }
 
