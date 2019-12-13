@@ -114,6 +114,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Arquivo</th>
+                                                    <th>Assinado?</th>
                                                     <th>Ações</th>
                                                 </tr>
                                             </thead>
@@ -121,17 +122,19 @@
                                                 @foreach ($files as $file)
                                                     <tr>
                                                         <td>{{ $file->name }}</td>
+                                                        <td>{{ $file->signed ? 'SIM' : 'NÃO' }}</td>
                                                         <td>
-                                                            <a href="{{ route('pdf.signer', ['id' => $file->id]) }}" class="btn btn-success"
-                                                            target="_blank">
+                                                            <a href="{{ $file->signed ? '' : route('pdf.signer', ['id' => $file->id]) }}"
+                                                            class="btn btn-success {{ $file->signed ? 'disabled' : '' }} signer"
+                                                            target="_blank" title="Assinar documento" data-id="{{ $file->id }}" id="signer_{{ $file->id }}">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
                                                             <a href="{{ route('file.open', $file->id) }}" class="btn btn-success"
-                                                            target="_blank">
+                                                            target="_blank" title="Abrir documento">
                                                                 <i class="fa fa-folder-open"></i>
                                                             </a>
                                                             <a href="{{ route('file.download', $file->id) }}" class="btn btn-success"
-                                                            target="_blank">
+                                                            target="_blank" title="Baixar documento">
                                                                 <i class="fa fa-download"></i>
                                                             </a>
                                                         </td>

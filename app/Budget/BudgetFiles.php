@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class BudgetFiles extends Model
 {
     protected $fillable = [
-        'budget_id','url', 'name', 'mime'
+        'budget_id','url', 'name', 'mime', 'signed'
     ];
 
     public function budget()

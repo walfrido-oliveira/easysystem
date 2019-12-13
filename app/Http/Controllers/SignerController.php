@@ -109,6 +109,9 @@ class SignerController extends Controller
 
         $pdf->Output($pdf_path, 'F');
 
+        $budgetFile->signed = true;
+        $budgetFile->save();
+
         return response()->file($pdf_path);
     }
 

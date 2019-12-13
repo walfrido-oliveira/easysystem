@@ -59,10 +59,11 @@ CREATE TABLE `budget_files` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `name` varchar(55) NOT NULL,
   `mime` varchar(45) NOT NULL,
+  `signed` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `budgets_files_budget_foregein_idx` (`budget_id`),
   CONSTRAINT `budgets_files_budget_foregein` FOREIGN KEY (`budget_id`) REFERENCES `budgets` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,6 +72,7 @@ CREATE TABLE `budget_files` (
 
 LOCK TABLES `budget_files` WRITE;
 /*!40000 ALTER TABLE `budget_files` DISABLE KEYS */;
+INSERT INTO `budget_files` VALUES (1,6,'clients\\00000000000000000007\\budgets\\00000000000000000006/bBHB0GKDFXVjVPtXikopEMd6LVlaqohZlfRFVjV8.pdf','2019-12-12 20:08:28','2019-12-12 20:08:28','LV05340-16398-R0.pdf','application/pdf',0),(2,6,'clients\\00000000000000000007\\budgets\\00000000000000000006/KQi4gOY7jT2HWwrd6Tbg0JCWFBptSQzx5gM5Enty.pdf','2019-12-12 20:10:22','2019-12-12 20:10:22','LV05340-16398-R0.pdf','application/pdf',0),(3,6,'clients\\00000000000000000007\\budgets\\00000000000000000006/zWAnIgZUEEaKmIJlRbcbk4MyI2Gw9HAeArQc5oz3.pdf','2019-12-12 20:10:32','2019-12-12 20:10:32','LV05340-16398-R0.pdf','application/pdf',0);
 /*!40000 ALTER TABLE `budget_files` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -126,14 +128,13 @@ CREATE TABLE `budgets` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `internal_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `internal_id_UNIQUE` (`internal_id`),
   KEY `budgets_payment_id_foreign` (`payment_id`),
   KEY `budgets_transport_id_foreign` (`transport_id`),
   KEY `budgets_client_id_foreign_idx` (`client_id`),
   CONSTRAINT `budgets_client_id_foreign` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `budgets_payment_id_foreign` FOREIGN KEY (`payment_id`) REFERENCES `payments` (`id`),
   CONSTRAINT `budgets_transport_id_foreign` FOREIGN KEY (`transport_id`) REFERENCES `transports` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,7 +143,7 @@ CREATE TABLE `budgets` (
 
 LOCK TABLES `budgets` WRITE;
 /*!40000 ALTER TABLE `budgets` DISABLE KEYS */;
-INSERT INTO `budgets` VALUES (14,'Walfrido',6,'11111-1111','walfrido_16@hotmail.com.br',1,1,'sAS','2019-12-11 20:52:44','2019-12-11 20:52:44','1234444wwwwwwwwwwwffwewqewWq');
+INSERT INTO `budgets` VALUES (1,'Walfrido',6,'(85) 991639737','walfrido_16@hotmail.com.br',3,3,'asASas ok','2019-12-11 21:58:18','2019-12-11 22:30:13','04295-05779/2019'),(4,'Walfrido',6,'(85) 991639737','walfrido_16@hotmail.com.br',1,1,'sasAS','2019-12-11 22:38:57','2019-12-11 22:38:57','04295-05779/2019'),(5,'Walfrido',7,'(85) 991639737','walfrido_16@hotmail.com.br',3,3,'wqwdqwdqwdqw','2019-12-12 18:49:48','2019-12-12 18:49:48','04295-05779/2018'),(6,'Walfrido',7,'(85) 991639737','walfrido_16@hotmail.com.br',3,3,'dfsdfsdfsdfsdf','2019-12-12 18:50:45','2019-12-12 18:50:45','04295-05779/2017');
 /*!40000 ALTER TABLE `budgets` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -326,6 +327,7 @@ CREATE TABLE `password_resets` (
 
 LOCK TABLES `password_resets` WRITE;
 /*!40000 ALTER TABLE `password_resets` DISABLE KEYS */;
+INSERT INTO `password_resets` VALUES ('teste@teste.com','$2y$10$bGicxnmdw22IgnQLNB5.peQK3uXnArYb51GXDoVKBYOLtxV4waAje','2019-12-12 23:25:32'),('teste@teste.com.ce','$2y$10$oled1eZRHO81qJiOCMOkP.J0oz7sJmvIonlEsT/nRl7YUsJMa36dG','2019-12-12 23:26:44');
 /*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -627,7 +629,7 @@ CREATE TABLE `user_has_clients` (
   KEY `user_has_clients_clients_id_foreign_idx` (`client_id`),
   CONSTRAINT `user_has_clients_clients_id_foreign` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `user_has_clients_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -636,7 +638,7 @@ CREATE TABLE `user_has_clients` (
 
 LOCK TABLES `user_has_clients` WRITE;
 /*!40000 ALTER TABLE `user_has_clients` DISABLE KEYS */;
-INSERT INTO `user_has_clients` VALUES (9,13,6,'2019-12-11 00:43:52','2019-12-11 00:43:52'),(10,13,7,'2019-12-11 00:43:52','2019-12-11 00:43:52');
+INSERT INTO `user_has_clients` VALUES (10,13,6,'2019-12-11 00:43:52','2019-12-11 00:43:52'),(11,14,6,'2019-12-12 20:19:26','2019-12-12 20:19:26'),(12,14,7,'2019-12-12 20:19:26','2019-12-12 20:19:26'),(13,18,7,'2019-12-12 23:26:44','2019-12-12 23:26:44');
 /*!40000 ALTER TABLE `user_has_clients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -661,7 +663,7 @@ CREATE TABLE `users` (
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -670,7 +672,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (13,'teste','walfrido_15@hotmail.com','2019-12-10 23:31:59','$2y$10$oMbIiPmaDWIQ96xMRwppKOorNHbBhXpvgrolrtSLmPoiJuOUB9meK','tJXszHiaarkdxmAOwJR2yaNqBhqii6JUY41EewU2ne1OLzMwH6LzLa4FHyzt','2019-12-10 22:16:00','2019-12-11 00:49:10','user','[\"ROLE_ADMIN\"]',1);
+INSERT INTO `users` VALUES (13,'teste','walfrido_15@hotmail.com','2019-12-10 23:31:59','$2y$10$oMbIiPmaDWIQ96xMRwppKOorNHbBhXpvgrolrtSLmPoiJuOUB9meK','HNHDcOH4rnnndAlkjRhFE52rVPmQvvXlRkv8mHhKWNjTBxMu3u9bpQvjqnFR','2019-12-10 22:16:00','2019-12-11 00:49:10','adm','[\"ROLE_ADMIN\"]',1),(14,'Astoufo','teste@teste.com','2019-12-12 20:20:17','$2y$10$HXfB0QgAOsYk4kO64rYNr.yKfwp5L54EymNQI0noPHK/ty09SyThO','RH08rCPtCnCw4A2Dthh26tTEmbYjOShKusJ3LnHCj5kyGRSkPdGHZN8MlaU6','2019-12-12 20:19:26','2019-12-12 20:20:17','user','[\"ROLE_USER\"]',1),(17,'VISA','teste@teste.com.br',NULL,'$2y$10$MVmNYHvZEP1.r6zfPadQG.5veewz0v8MbYxjjR.tKDFl89XZvovmm','CCGckbghFDUs2DEz5eb8E2BnhY5aGkf01NPUlfdmRgh4stvVS3JU4W1HkDFK','2019-12-12 22:58:45','2019-12-12 22:59:30','adm','[\"ROLE_ADMIN\"]',1),(18,'Fernandes','teste@teste.com.ce',NULL,'$2y$10$SnKF/1juS/eRTnVhooaMk.eVGLn6M4AWokrBcdooAxSJYajf14WX2',NULL,'2019-12-12 23:26:44','2019-12-12 23:26:44','user','[\"ROLE_USER\"]',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -691,4 +693,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-11 15:00:27
+-- Dump completed on 2019-12-13  8:14:30

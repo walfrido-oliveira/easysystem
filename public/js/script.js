@@ -399,6 +399,7 @@ $('#files_budget').change(function(e) {
             for( var i=0; i < budget_files_id.length; i++) {
                 tbody.append('<tr>'+
                  '<td>'+budget_files_id[i].name+'</td>'+
+                 '<td>NÃO</td>' +
                  '<td>' +
                  '<a href="/pdf/signer?id='+budget_files_id[i].id+'" class="btn btn-success" target="_blank">' +
                  '<i class="fa fa-pencil"></i>' +
@@ -415,4 +416,9 @@ $('#files_budget').change(function(e) {
         }
     });
 });
+
+$(document).on('click', '.signer', function(event) {
+    $(this).addClass('disabled');
+});
+
 

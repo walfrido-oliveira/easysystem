@@ -175,8 +175,8 @@ class BudgetController extends Controller
 
         Storage::disk('local')->makeDirectory($budget->path);
 
-        return redirect()->route('budget.index')
-        ->with('success','Orçamento atualizado com sucesso');
+        return redirect()->route('budget.edit', $budget->id)
+        ->with('success','Orçamento alterado com sucesso');
     }
 
     /**
