@@ -240,6 +240,12 @@ return [
     'receitaws' => [
         'APP_KEY' => '',
         'URL' => 'https://www.receitaws.com.br/v1/cnpj/'
+    ],
+
+    'certificate' => [
+        'CRT' => '../storage/cert/certificate.crt',
+        'KEY' => '../storage/cert/certificate.key',
+        'IMAGE' => '../storage/cert/signature.png',
     ]
 
 ];
