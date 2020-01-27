@@ -39,9 +39,9 @@ class SignerController extends Controller
 
         $pdf_path = $storagePath . $budgetFile->url;
 
-        $certificate = 'file://' . realpath('../storage/cert/certificate.crt');
-        $private_key = 'file://' . realpath('../storage/cert/certificate.key');
-        $image_signature = realpath('../storage/cert/signature.png');
+        $certificate = 'file://' . realpath(config('app.certificate.CRT'));
+        $private_key = 'file://' . realpath(config('app.certificate.KEY'));
+        $image_signature = realpath(config('app.certificate.IMAGE'));
 
         //$pdf = new TCPDF();
 
