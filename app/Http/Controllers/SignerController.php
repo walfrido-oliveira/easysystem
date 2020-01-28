@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-//use Elibyy\TCPDF\Facades\TCPDF;
-use App\Budget\BudgetFiles;
-use \setasign\Fpdi;
 use Storage;
-use \App\Role\UserRole;
+//use Elibyy\TCPDF\Facades\TCPDF;
+use setasign\Fpdi;
+use App\Budget\Budget;
+use App\Role\UserRole;
+use App\User\UserHasClient;
+use App\Budget\BudgetFiles;
+use Illuminate\Http\Request;
+use App\User;
 
 class SignerController extends Controller
 {
@@ -34,6 +37,10 @@ class SignerController extends Controller
         $user = auth()->user();
 
         $budgetFile = BudgetFiles::Find($request->id);
+
+        $budget = $budgetFile->budget;
+
+        $users = UserHasClient::where('client_id', $budget->client_id)->get();
 
         $storagePath  = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
 
@@ -87,6 +94,8 @@ class SignerController extends Controller
 
         $budgetFile->signed = true;
         $budgetFile->save();
+
+        User::sendSignedFileEmails($users, $budget, $budgetFile->name);
 
         return response()->file($pdf_path);
     }

@@ -7,6 +7,8 @@ use App\Budget\Budget;
 use Illuminate\Http\Request;
 use \App\Role\UserRole;
 use App\Http\Controllers\Controller;
+use App\User;
+use App\User\UserHasClient;
 
 class BudgetFilesController extends Controller
 {
@@ -30,9 +32,14 @@ class BudgetFilesController extends Controller
     public function upload(Request $request)
     {
         $files = $request->file();
+
         $id = $request->id;
+
         $budget = Budget::find($id);
+
         $budget_files_id = [];
+
+        $users = UserHasClient::where('client_id', $budget->client_id)->get();
 
         foreach ($files as $value) {
             $url = $value->store($budget->path);
@@ -45,6 +52,8 @@ class BudgetFilesController extends Controller
                                             'mime' => $mime
                                             ])->id,
                                   "name" => $name];
+
+            User::sendNewFileEmails($users, $budget, $name);
         }
 
         return ['budget_files_id' => $budget_files_id];

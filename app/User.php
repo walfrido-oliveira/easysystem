@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Password;
 use App\Notifications\WelcomeUser;
+use App\Notifications\NewFile;
+use App\Notifications\SignedFile;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -131,12 +133,66 @@ class User extends Authenticatable implements MustVerifyEmail
      /**
      * Send welcome email
      *
+     * @param App\User user
      */
     public static function sendWelcomeEmail($user)
     {
         $token = Password::getRepository()->create($user);
 
         $user->notify(new WelcomeUser($token));
+    }
+
+    /**
+     * Send new file email
+     *
+     * @param App\User user
+     * @param App\Budget\Budget budget
+     * @param string fileName
+     */
+    public static function sendNewFileEmail($user, $budget, $fileName)
+    {
+        $user->notify(new NewFile($budget, $user->name, $fileName));
+    }
+
+    /**
+     * Send new file emails
+     *
+     * @param array users
+     * @param App\Budget\Budget budget
+     * @param string fileName
+     */
+    public static function sendNewFileEmails($users, $budget, $fileName)
+    {
+        foreach ($users as $value) {
+            User::sendNewFileEmail($value->user, $budget, $fileName);
+        }
+
+    }
+
+    /**
+     * Send signed file email
+     *
+     * @param App\User user
+     * @param App\Budget\Budget budget
+     * @param string fileName
+     */
+    public static function sendSignedFileEmail($user, $budget, $fileName)
+    {
+        $user->notify(new SignedFile($budget, $user->name, $fileName));
+    }
+
+    /**
+     * Send signed file emails
+     *
+     * @param array users
+     * @param App\Budget\Budget budget
+     * @param string fileName
+     */
+    public static function sendSignedFileEmails($users, $budget, $fileName)
+    {
+        foreach ($users as $value) {
+            User::sendSignedFileEmail($value->user, $budget, $fileName);
+        }
     }
 
   }
