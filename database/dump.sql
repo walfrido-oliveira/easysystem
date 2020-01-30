@@ -1,15 +1,15 @@
 CREATE DATABASE  IF NOT EXISTS `easysystem` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `easysystem`;
--- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 8.0.18, for Win64 (x86_64)
 --
 -- Host: localhost    Database: easysystem
 -- ------------------------------------------------------
--- Server version	5.1.37-community-log
+-- Server version	8.0.12
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -23,10 +23,10 @@ USE `easysystem`;
 
 DROP TABLE IF EXISTS `areas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `areas` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
@@ -50,7 +50,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `budget_files`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `budget_files` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `budget_id` bigint(20) unsigned NOT NULL,
@@ -62,8 +62,8 @@ CREATE TABLE `budget_files` (
   `signed` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `budgets_files_budget_foregein_idx` (`budget_id`),
-  CONSTRAINT `budgets_files_budget_foregein` FOREIGN KEY (`budget_id`) REFERENCES `budgets` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  CONSTRAINT `budgets_files_budget_foregein` FOREIGN KEY (`budget_id`) REFERENCES `budgets` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +72,7 @@ CREATE TABLE `budget_files` (
 
 LOCK TABLES `budget_files` WRITE;
 /*!40000 ALTER TABLE `budget_files` DISABLE KEYS */;
-INSERT INTO `budget_files` VALUES (1,6,'clients\\00000000000000000007\\budgets\\00000000000000000006/bBHB0GKDFXVjVPtXikopEMd6LVlaqohZlfRFVjV8.pdf','2019-12-12 20:08:28','2019-12-12 20:08:28','LV05340-16398-R0.pdf','application/pdf',0),(2,6,'clients\\00000000000000000007\\budgets\\00000000000000000006/KQi4gOY7jT2HWwrd6Tbg0JCWFBptSQzx5gM5Enty.pdf','2019-12-12 20:10:22','2019-12-12 20:10:22','LV05340-16398-R0.pdf','application/pdf',0),(3,6,'clients\\00000000000000000007\\budgets\\00000000000000000006/zWAnIgZUEEaKmIJlRbcbk4MyI2Gw9HAeArQc5oz3.pdf','2019-12-12 20:10:32','2019-12-12 20:10:32','LV05340-16398-R0.pdf','application/pdf',0);
+INSERT INTO `budget_files` VALUES (1,1,'clients\\00000000000000000006\\budgets\\00000000000000000001/59b1YM1fCR1vl5i76Ptj7QBAdZ6JRHOYm49AyiPu.pdf','2020-01-28 22:26:31','2020-01-28 22:26:49','LV05340-16398-R0.pdf','application/pdf',1),(2,1,'clients\\00000000000000000006\\budgets\\00000000000000000001/7DKONOklwIA8hxkIKbCd1vU7j3SHu6vXFJgilWYJ.pdf','2020-01-28 22:27:34','2020-01-28 22:27:38','LV05340-16398-R0.pdf','application/pdf',1),(3,1,'clients\\00000000000000000006\\budgets\\00000000000000000001/x0pjxVmCrvAuQlHQLacRo5shB2Xk7CJOia0h1tqQ.pdf','2020-01-28 22:28:31','2020-01-28 22:28:34','LV05340-16398-R0.pdf','application/pdf',1),(4,1,'clients\\00000000000000000006\\budgets\\00000000000000000001/s12ypamLh7KnaaJr8FtksgIZx4BRi8Uf9oj3cStx.pdf','2020-01-28 22:31:23','2020-01-28 22:31:45','LV05340-16398-R0.pdf','application/pdf',1),(5,1,'clients\\00000000000000000006\\budgets\\00000000000000000001/B2EpTkHyDJcG9EmJ5FXuCYIRHNYpWXj1n8SyRiwB.pdf','2020-01-28 22:33:33','2020-01-28 22:33:37','LV05340-16398-R0.pdf','application/pdf',1),(6,1,'clients\\00000000000000000006\\budgets\\00000000000000000001/MsO2xx2D9yUU359N9QOBJ1rsC3mXuAsQMSothqLf.pdf','2020-01-28 22:46:00','2020-01-28 22:46:00','LV05340-16398-R0.pdf','application/pdf',0);
 /*!40000 ALTER TABLE `budget_files` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,13 +82,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `budget_has_services`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `budget_has_services` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `budget_id` bigint(20) unsigned NOT NULL,
   `service_id` bigint(20) unsigned NOT NULL,
   `count` int(10) NOT NULL,
-  `obs` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `obs` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -114,24 +114,24 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `budgets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `budgets` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `contact` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `contact` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `client_id` bigint(20) unsigned NOT NULL,
-  `phone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `mail` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `mail` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `payment_id` bigint(20) unsigned NOT NULL,
   `transport_id` bigint(20) unsigned NOT NULL,
-  `obs` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `obs` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `internal_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `internal_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `budgets_payment_id_foreign` (`payment_id`),
   KEY `budgets_transport_id_foreign` (`transport_id`),
   KEY `budgets_client_id_foreign_idx` (`client_id`),
-  CONSTRAINT `budgets_client_id_foreign` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `budgets_client_id_foreign` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`),
   CONSTRAINT `budgets_payment_id_foreign` FOREIGN KEY (`payment_id`) REFERENCES `payments` (`id`),
   CONSTRAINT `budgets_transport_id_foreign` FOREIGN KEY (`transport_id`) REFERENCES `transports` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -153,7 +153,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `citys`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `citys` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(120) DEFAULT NULL,
@@ -179,7 +179,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `clients`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `clients` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `cnpj` char(14) NOT NULL,
@@ -234,7 +234,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cnaes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cnaes` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `cnae_id` varchar(16) NOT NULL,
@@ -260,13 +260,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `failed_jobs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `connection` text COLLATE utf8_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `connection` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `queue` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `exception` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -287,10 +287,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `migrations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `migrations` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `migration` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -312,10 +312,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `password_resets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   KEY `password_resets_email_index` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -327,7 +327,7 @@ CREATE TABLE `password_resets` (
 
 LOCK TABLES `password_resets` WRITE;
 /*!40000 ALTER TABLE `password_resets` DISABLE KEYS */;
-INSERT INTO `password_resets` VALUES ('teste@teste.com','$2y$10$bGicxnmdw22IgnQLNB5.peQK3uXnArYb51GXDoVKBYOLtxV4waAje','2019-12-12 23:25:32'),('teste@teste.com.ce','$2y$10$oled1eZRHO81qJiOCMOkP.J0oz7sJmvIonlEsT/nRl7YUsJMa36dG','2019-12-12 23:26:44');
+INSERT INTO `password_resets` VALUES ('teste@teste.com','$2y$10$bGicxnmdw22IgnQLNB5.peQK3uXnArYb51GXDoVKBYOLtxV4waAje','2019-12-12 23:25:32'),('teste@teste.com.ce','$2y$10$oled1eZRHO81qJiOCMOkP.J0oz7sJmvIonlEsT/nRl7YUsJMa36dG','2019-12-12 23:26:44'),('walfrido_15@hotmail.com.br','$2y$10$UUm/nb4ZQLMSS4ghSMdYKehBtNrxr4YYqnwqcVFPIVc4Xjs2ETVoO','2020-01-28 22:45:46');
 /*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -337,10 +337,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `payments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `payments` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
@@ -364,10 +364,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `service_categories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `service_categories` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `service_category_type_id` bigint(20) unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -394,10 +394,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `service_category_types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `service_category_types` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
@@ -421,7 +421,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `service_types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `service_types` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `tse_id` int(11) NOT NULL,
@@ -451,22 +451,22 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `services`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `services` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `desc` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `desc` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `area_id` bigint(20) unsigned DEFAULT NULL,
-  `type` enum('RBC','ACREDITADO') COLLATE utf8_unicode_ci DEFAULT NULL,
-  `local` enum('INTERNO','EXTERNO') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `type` enum('RBC','ACREDITADO') CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `local` enum('INTERNO','EXTERNO') CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `value` decimal(10,2) NOT NULL DEFAULT '0.00',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
-  `range` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `range` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `taxation_id` bigint(20) unsigned DEFAULT NULL,
-  `cm` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cm` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `service_type_id` int(11) DEFAULT NULL,
-  `nbs` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nbs` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `service_category_id` bigint(20) unsigned DEFAULT NULL,
   `iss_aliquot` decimal(10,4) NOT NULL DEFAULT '0.0000',
   `pis_aliquot` decimal(10,4) NOT NULL DEFAULT '0.0000',
@@ -509,10 +509,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `taxations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `taxations` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
@@ -536,10 +536,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `transports`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `transports` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
@@ -563,7 +563,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `type_client_activities`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `type_client_activities` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -591,7 +591,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `ufs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ufs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `uf` char(2) NOT NULL,
@@ -617,7 +617,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `user_has_clients`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_has_clients` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) unsigned NOT NULL,
@@ -627,9 +627,9 @@ CREATE TABLE `user_has_clients` (
   PRIMARY KEY (`id`,`user_id`,`client_id`),
   KEY `user_has_clients_user_id_foreign_idx` (`user_id`),
   KEY `user_has_clients_clients_id_foreign_idx` (`client_id`),
-  CONSTRAINT `user_has_clients_clients_id_foreign` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `user_has_clients_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+  CONSTRAINT `user_has_clients_clients_id_foreign` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`),
+  CONSTRAINT `user_has_clients_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -638,7 +638,7 @@ CREATE TABLE `user_has_clients` (
 
 LOCK TABLES `user_has_clients` WRITE;
 /*!40000 ALTER TABLE `user_has_clients` DISABLE KEYS */;
-INSERT INTO `user_has_clients` VALUES (10,13,6,'2019-12-11 00:43:52','2019-12-11 00:43:52'),(11,14,6,'2019-12-12 20:19:26','2019-12-12 20:19:26'),(12,14,7,'2019-12-12 20:19:26','2019-12-12 20:19:26'),(13,18,7,'2019-12-12 23:26:44','2019-12-12 23:26:44');
+INSERT INTO `user_has_clients` VALUES (1,14,6,'2020-01-28 21:27:58','2020-01-28 21:27:58'),(2,19,6,'2020-01-28 22:45:46','2020-01-28 22:45:46');
 /*!40000 ALTER TABLE `user_has_clients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -648,22 +648,22 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `roles` text COLLATE utf8_unicode_ci,
+  `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `roles` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -672,7 +672,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (13,'teste','walfrido_15@hotmail.com','2019-12-10 23:31:59','$2y$10$oMbIiPmaDWIQ96xMRwppKOorNHbBhXpvgrolrtSLmPoiJuOUB9meK','HNHDcOH4rnnndAlkjRhFE52rVPmQvvXlRkv8mHhKWNjTBxMu3u9bpQvjqnFR','2019-12-10 22:16:00','2019-12-11 00:49:10','adm','[\"ROLE_ADMIN\"]',1),(14,'Astoufo','teste@teste.com','2019-12-12 20:20:17','$2y$10$HXfB0QgAOsYk4kO64rYNr.yKfwp5L54EymNQI0noPHK/ty09SyThO','RH08rCPtCnCw4A2Dthh26tTEmbYjOShKusJ3LnHCj5kyGRSkPdGHZN8MlaU6','2019-12-12 20:19:26','2019-12-12 20:20:17','user','[\"ROLE_USER\"]',1),(17,'VISA','teste@teste.com.br',NULL,'$2y$10$MVmNYHvZEP1.r6zfPadQG.5veewz0v8MbYxjjR.tKDFl89XZvovmm','CCGckbghFDUs2DEz5eb8E2BnhY5aGkf01NPUlfdmRgh4stvVS3JU4W1HkDFK','2019-12-12 22:58:45','2019-12-12 22:59:30','adm','[\"ROLE_ADMIN\"]',1),(18,'Fernandes','teste@teste.com.ce',NULL,'$2y$10$SnKF/1juS/eRTnVhooaMk.eVGLn6M4AWokrBcdooAxSJYajf14WX2',NULL,'2019-12-12 23:26:44','2019-12-12 23:26:44','user','[\"ROLE_USER\"]',1);
+INSERT INTO `users` VALUES (13,'teste','walfrido_15@hotmail.com','2019-12-10 23:31:59','$2y$10$oMbIiPmaDWIQ96xMRwppKOorNHbBhXpvgrolrtSLmPoiJuOUB9meK','3NL7wnia0U6M0xQDbAJ9xlv0KMSeHgIFsWDm3eTLkt9BWwuFPYf1byh49VAB','2019-12-10 22:16:00','2019-12-11 00:49:10','adm','[\"ROLE_ADMIN\"]',1),(14,'Astoufo','teste@teste.com','2019-12-12 20:20:17','$2y$10$HXfB0QgAOsYk4kO64rYNr.yKfwp5L54EymNQI0noPHK/ty09SyThO','JkPDiRfuxSfDtlwVhphKoxacoQydClsGMy5fPvLSy9MSZtFFQ6OCEvLFkw96','2019-12-12 20:19:26','2020-01-28 21:27:58','user','[\"ROLE_USER\"]',1),(19,'Teste II','walfrido_15@hotmail.com.br',NULL,'$2y$10$I8CFgGK5IXLB2bn055J6c.aJcoo8PViBnT3asnZwMkHkD2nRAeqs2',NULL,'2020-01-28 22:45:46','2020-01-28 22:45:46','user','[\"ROLE_USER\"]',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -693,4 +693,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-13  8:14:30
+-- Dump completed on 2020-01-30 15:08:00
