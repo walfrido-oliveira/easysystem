@@ -15,10 +15,10 @@
                     <nav class="row align-items-center justify-content-center">
                         <ul class="thumb">
                             <li>
-                                <a href="{{ route('area.index') }}">
-                                    <img src="{{URL::asset('/img/icons/add.png')}}" alt="Áreas">
+                                <a href="{{ route('budget.index') }}">
+                                    <img src="{{URL::asset('/img/icons/budget.png')}}" alt="Serviços">
                                 </a>
-                                <div class="title">Áreas</div>
+                                <div class="title">Orçamentos</div>
                             </li>
                             <li>
                                 <a href="{{ route('transport.index') }}">
@@ -33,16 +33,16 @@
                                 <div class="title">Pagamento</div>
                             </li>
                             <li>
+                                <a href="{{ route('area.index') }}">
+                                    <img src="{{URL::asset('/img/icons/add.png')}}" alt="Áreas">
+                                </a>
+                                <div class="title">Áreas</div>
+                            </li>
+                            <li>
                                 <a href="{{ route('service.index') }}">
                                     <img src="{{URL::asset('/img/icons/service.png')}}" alt="Serviços">
                                 </a>
                                 <div class="title">Serviços</div>
-                            </li>
-                            <li>
-                                <a href="{{ route('budget.index') }}">
-                                    <img src="{{URL::asset('/img/icons/budget.png')}}" alt="Serviços">
-                                </a>
-                                <div class="title">Orçamentos</div>
                             </li>
                         </ul>
                     </nav>
