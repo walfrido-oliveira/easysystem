@@ -25,7 +25,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top ">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="img/logo.png" width="30" height="30" alt="">
+                    <img src="{{ asset('img/logo.png') }}" width="30" height="30" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
