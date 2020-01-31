@@ -255,10 +255,10 @@ return [
             'budget' => [
                 'visible' => false,
                 'budget' => [
-                    'visible' => false,
+                    'visible' => true,
                 ],
                 'area' => [
-                    'visible' => false,
+                    'visible' => true,
                 ],
                 'transport' => [
                     'visible' => false,
