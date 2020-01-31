@@ -14,36 +14,46 @@
                 <div class="card-body">
                     <nav class="row align-items-center justify-content-center">
                         <ul class="thumb">
-                            <li>
-                                <a href="{{ route('budget.index') }}">
-                                    <img src="{{URL::asset('/img/icons/budget.png')}}" alt="Serviços">
-                                </a>
-                                <div class="title">Orçamentos</div>
-                            </li>
-                            <li>
-                                <a href="{{ route('transport.index') }}">
-                                    <img src="{{URL::asset('/img/icons/trucking.png')}}" alt="Transporte">
-                                </a>
-                                <div class="title">Transporte</div>
-                            </li>
-                            <li>
-                                <a href="{{ route('payment.index') }}">
-                                    <img src="{{URL::asset('/img/icons/payment.png')}}" alt="Pagamento">
-                                </a>
-                                <div class="title">Pagamento</div>
-                            </li>
-                            <li>
-                                <a href="{{ route('area.index') }}">
-                                    <img src="{{URL::asset('/img/icons/add.png')}}" alt="Áreas">
-                                </a>
-                                <div class="title">Áreas</div>
-                            </li>
-                            <li>
-                                <a href="{{ route('service.index') }}">
-                                    <img src="{{URL::asset('/img/icons/service.png')}}" alt="Serviços">
-                                </a>
-                                <div class="title">Serviços</div>
-                            </li>
+                            @if (config('app.modules.comercial.budget.visible'))
+                                <li>
+                                    <a href="{{ route('budget.index') }}">
+                                        <img src="{{URL::asset('/img/icons/budget.png')}}" alt="Serviços">
+                                    </a>
+                                    <div class="title">Orçamentos</div>
+                                </li>
+                            @endif
+                            @if (config('app.modules.comercial.transport.visible'))
+                                <li>
+                                    <a href="{{ route('transport.index') }}">
+                                        <img src="{{URL::asset('/img/icons/trucking.png')}}" alt="Transporte">
+                                    </a>
+                                    <div class="title">Transporte</div>
+                                </li>
+                            @endif
+                            @if (config('app.modules.comercial.payment.visible'))
+                                <li>
+                                    <a href="{{ route('payment.index') }}">
+                                        <img src="{{URL::asset('/img/icons/payment.png')}}" alt="Pagamento">
+                                    </a>
+                                    <div class="title">Pagamento</div>
+                                </li>
+                            @endif
+                            @if (config('app.modules.comercial.area.visible'))
+                                <li>
+                                    <a href="{{ route('area.index') }}">
+                                        <img src="{{URL::asset('/img/icons/add.png')}}" alt="Áreas">
+                                    </a>
+                                    <div class="title">Áreas</div>
+                                </li>
+                            @endif
+                            @if (config('app.modules.comercial.service.visible'))
+                                <li>
+                                    <a href="{{ route('service.index') }}">
+                                        <img src="{{URL::asset('/img/icons/service.png')}}" alt="Serviços">
+                                    </a>
+                                    <div class="title">Serviços</div>
+                                </li>
+                            @endif
                         </ul>
                     </nav>
                 </div>

@@ -246,6 +246,31 @@ return [
         'CRT' => '../storage/cert/certificate.crt',
         'KEY' => '../storage/cert/certificate.key',
         'IMAGE' => '../storage/cert/signature.png',
+    ],
+
+    'modules' => [
+        'teste' => 'oj',
+        'comercial' => [
+            'visible' => true,
+            'budget' => [
+                'visible' => false,
+                'budget' => [
+                    'visible' => false,
+                ],
+                'area' => [
+                    'visible' => false,
+                ],
+                'transport' => [
+                    'visible' => false,
+                ],
+                'payment' => [
+                    'visible' => false,
+                ],
+                'service' => [
+                    'visible' => false,
+                ],
+            ]
+        ]
     ]
 
 ];
