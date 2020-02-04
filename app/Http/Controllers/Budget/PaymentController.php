@@ -111,6 +111,8 @@ class PaymentController extends Controller
 
         Payment::create($request->all());
 
+        flash('Pagamento adicionado com sucesso!')->success();
+
         return redirect()->route('payment.index');
     }
 
@@ -156,8 +158,9 @@ class PaymentController extends Controller
 
         $payment->update($request->all());
 
-        return redirect()->route('payment.index')
-                        ->with('success','Forma de pagamento adicionado com sucesso');
+        flash('Pagamento atualizado com sucesso!')->success();
+
+        return redirect()->route('payment.index');
     }
 
     /**
@@ -170,8 +173,9 @@ class PaymentController extends Controller
     {
         $payment->delete();
 
-        return redirect()->route('payment.index')
-                        ->with('success','Forma de pagamento deletada com sucesso');
+        flash('Área deletada com sucesso!')->success();
+
+        return redirect()->route('payment.index');
     }
 
     /**

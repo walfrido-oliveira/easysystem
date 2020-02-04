@@ -17,6 +17,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet" type="text/css">
 
 
 </head>
@@ -79,6 +80,7 @@
         </nav>
 
         <main class="py-6">
+            @include('flash::message')
             @yield('content')
         </main>
     </div>
@@ -86,6 +88,9 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{asset('js/script.js') }}"></script>
+    <script src="{{asset('js/toastr.min.js') }}"></script>
+
+    @yield('scripts')
 
 </body>
 </html>

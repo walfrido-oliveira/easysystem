@@ -21,7 +21,7 @@ class Client extends Model
         return $this->hasOne('App\Cliet\TypeActivity','id','id_type_client_activity');
     }
 
-    protected $rootPath = 'clients\\';
+    protected $rootPath = 'clients/';
 
     public function getPathAttribute()
     {

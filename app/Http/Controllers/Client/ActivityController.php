@@ -111,6 +111,8 @@ class ActivityController extends Controller
 
         Activity::create($request->all());
 
+        flash('Atividade adicionado com sucesso!')->success();
+
         return redirect()->route('activity.index');
     }
 
@@ -155,8 +157,9 @@ class ActivityController extends Controller
 
         $activity->update($request->all());
 
-        return redirect()->route('activity.index')
-                        ->with('success','Atividade adicionada com sucesso');
+        flash('Atividade atualizada com sucesso!')->success();
+
+        return redirect()->route('activity.index');
     }
 
     /**
@@ -169,8 +172,9 @@ class ActivityController extends Controller
     {
         $activity->delete();
 
-        return redirect()->route('activity.index')
-                        ->with('success','Atividade deletada com sucesso');
+        flash('Atividade deletada com sucesso!')->success();
+
+        return redirect()->route('activity.index');
     }
 
     /**

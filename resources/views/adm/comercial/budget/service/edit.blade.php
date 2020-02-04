@@ -20,11 +20,6 @@
                             </ul>
                         </div>
                     @endif
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
                     <form action="{{ route('service.update',$service->id) }}" method="POST">
                         @csrf
                         @method('PUT')
@@ -298,6 +293,10 @@
 
 @include('modals.typeservicemodal')
 
+@endsection
+
+@section('scripts')
+    @include('adm.comercial.budget.service.scripts')
 @endsection
 
 

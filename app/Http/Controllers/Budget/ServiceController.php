@@ -125,8 +125,9 @@ class ServiceController extends Controller
 
         $service = Service::create($data);
 
-        return redirect()->route('service.edit', $service->id)
-        ->with('success','Serviço adicionado com sucesso');
+        flash('Serviço adicionado com sucesso!')->success();
+
+        return redirect()->route('service.edit', $service->id);
     }
 
     /**
@@ -222,8 +223,9 @@ class ServiceController extends Controller
 
         $service->update($data);
 
-        return redirect()->route('service.edit', $service->id)
-            ->with('success','Serviço atualizado com sucesso');
+        flash('Serviço atualizado com sucesso!')->success();
+
+        return redirect()->route('service.edit', $service->id);
     }
 
     /**
@@ -236,8 +238,9 @@ class ServiceController extends Controller
     {
         $service->delete();
 
-        return redirect()->route('service.index')
-                        ->with('success','Serviço deletado com sucesso');
+        flash('Serviço deletado com sucesso!')->success();
+
+        return redirect()->route('service.index');
     }
 
     /**

@@ -111,6 +111,8 @@ class TransportController extends Controller
 
         Transport::create($request->all());
 
+        flash('Transporte adicionado com sucesso!')->success();
+
         return redirect()->route('transport.index');
     }
 
@@ -156,8 +158,9 @@ class TransportController extends Controller
 
         $transport->update($request->all());
 
-        return redirect()->route('transport.index')
-                        ->with('success','Forma de transporte adicionado com sucesso');
+        flash('Transporte atualizado com sucesso!')->success();
+
+        return redirect()->route('transport.index');
     }
 
     /**
@@ -170,8 +173,9 @@ class TransportController extends Controller
     {
         $transport->delete();
 
-        return redirect()->route('transport.index')
-                        ->with('success','Forma de transporte deletada com sucesso');
+        flash('Transporte deletado com sucesso!')->success();
+
+        return redirect()->route('transport.index');
     }
 
     /**

@@ -33,6 +33,6 @@ class Budget extends Model
 
     public function getPathAttribute()
     {
-        return $this->client->path . '\\budgets\\' . str_pad((string)$this->id, 20, "0", STR_PAD_LEFT);
+        return $this->client->path . '//budgets//' . str_pad((string)$this->id, 20, "0", STR_PAD_LEFT);
     }
 }

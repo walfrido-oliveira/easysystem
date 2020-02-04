@@ -110,6 +110,8 @@ class AreaController extends Controller
 
         Area::create($request->all());
 
+        flash('Área adicionada com sucesso!')->success();
+
         return redirect()->route('area.index');
     }
 
@@ -154,8 +156,9 @@ class AreaController extends Controller
 
         $area->update($request->all());
 
-        return redirect()->route('area.index')
-                        ->with('success','Área adicionado com sucesso');
+        flash('Área atualizado com sucesso!')->success();
+
+        return redirect()->route('area.index');
     }
 
     /**
@@ -168,8 +171,9 @@ class AreaController extends Controller
     {
         $area->delete();
 
-        return redirect()->route('area.index')
-                        ->with('success','Área deletado com sucesso');
+        flash('Área deletada com sucesso!')->success();
+
+        return redirect()->route('area.index');
     }
 
     /**

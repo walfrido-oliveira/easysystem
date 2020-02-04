@@ -9,6 +9,7 @@ use \App\Role\UserRole;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\User\UserHasClient;
+use Storage;
 
 class BudgetFilesController extends Controller
 {
@@ -35,6 +36,8 @@ class BudgetFilesController extends Controller
 
         $id = $request->id;
 
+        $signed = $request->signed;
+
         $budget = Budget::find($id);
 
         $budget_files_id = [];
@@ -49,14 +52,21 @@ class BudgetFilesController extends Controller
                                             'budget_id' => $budget->id,
                                             'url' => $url,
                                             'name' => $name,
-                                            'mime' => $mime
+                                            'mime' => $mime,
+                                            'signed' => $signed,
                                             ])->id,
                                   "name" => $name];
 
             User::sendNewFileEmails($users, $budget, $name);
         }
 
-        return ['budget_files_id' => $budget_files_id];
+        return response()->json([
+            'data' => [
+                'status' => true,
+                'message' => 'Arquivo adicionado com sucesso!',
+                'budget_files_id' => $budget_files_id,
+            ]
+        ]);
     }
 
 
@@ -128,11 +138,22 @@ class BudgetFilesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Budget\BudgetFiles  $budgetFiles
+     * @param  \App\Budget\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BudgetFiles $budgetFiles)
+    public function destroy(Request $request)
     {
-        //
+        $budgetFiles = BudgetFiles::find($request->id);
+
+        $budgetFiles->delete();
+
+        Storage::delete($budgetFiles->url);
+
+        return response()->json([
+            'data' => [
+                'status' => true,
+                'message' => 'Arquivo excluído com sucesso!'
+            ]
+        ]);
     }
 }

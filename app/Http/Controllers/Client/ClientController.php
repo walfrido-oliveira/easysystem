@@ -124,8 +124,9 @@ class ClientController extends Controller
 
         $client->update($data);
 
-        return redirect()->route('client.edit', $client->id)
-            ->with('success','Cliente adicionado com sucesso');
+        flash('Cliente adicionado com sucesso!')->success();
+
+        return redirect()->route('client.edit', $client->id);
     }
 
     /**
@@ -190,8 +191,9 @@ class ClientController extends Controller
 
         $client->update($data);
 
-        return redirect()->route('client.edit', $client->id)
-                        ->with('success','Cliente atualizado com sucesso');
+        flash('Cliente atualizado com sucesso!')->success();
+
+        return redirect()->route('client.edit', $client->id);
     }
 
     /**
@@ -203,8 +205,10 @@ class ClientController extends Controller
     public function destroy(Client $client)
     {
        $client->delete();
-        return redirect()->route('client.index')
-                        ->with('success','Cliente deletado com sucesso');
+
+       flash('Cliente deletado com sucesso!')->success();
+
+        return redirect()->route('client.index');
     }
 
     /**

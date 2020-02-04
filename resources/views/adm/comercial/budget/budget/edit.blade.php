@@ -20,11 +20,6 @@
                             </ul>
                         </div>
                     @endif
-                    @if ($message = Session::get('success'))
-                            <div class="alert alert-success">
-                                <p>{{ $message }}</p>
-                            </div>
-                    @endif
                     <form action="{{ route('budget.update',$budget->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -105,12 +100,26 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group row">
-                                    <div class="col-sm-4 p-2">
-                                        <button type="button" class="btn btn-success btn-sm add_more mb-3">+ Adicionar Arquivos</button>
+                                    <div class="col-sm-2">
+                                        <button type="button" class="btn btn-success btn-sm add_more mb-3 p-2">+ Adicionar Arquivos</button>
                                         <input type='file' accept='application/pdf' name='files_budget[]' id='files_budget'
                                                multiple='multiple' hidden data-id="{{ $budget->id }}"/>
                                     </div>
+                                    <div class="col-sm-4 p-2">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="hidden" name="signed" id="signed" value="0">
+                                            <input class="custom-control-input" type="checkbox" id="signed_checkbox" name="signed_checkbox">
+                                            <label class="custom-control-label" for="signed_checkbox">
+                                            Assinado
+                                            </label>
+                                        </div>
+                                    </div>
                                     <div class="col-sm-12">
+                                        <div id="overlay">
+                                            <div class="w-100 d-flex justify-content-center align-items-center">
+                                              <div class="spinner"></div>
+                                            </div>
+                                        </div>
                                         <table class="table table-sm table-hover" id="files_table">
                                             <thead>
                                                 <tr>
@@ -138,6 +147,9 @@
                                                             target="_blank" title="Baixar documento">
                                                                 <i class="fa fa-download"></i>
                                                             </a>
+                                                            <a href="#" class="btn btn-danger destroy-file" target="_blank" title="Remover arquivo" data-id="{{ $file->id }}">
+                                                                <i class="fa fa-trash"></i>
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -159,4 +171,11 @@
 </div>
 
 @include('modals.clientmodal')
+
+@endsection
+
+@section('scripts')
+
+@include('adm.comercial.budget.budget.scripts')
+
 @endsection

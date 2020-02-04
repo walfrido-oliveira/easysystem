@@ -14,20 +14,6 @@ use App\Notifications\WelcomeUser;
 |
 */
 
-Route::get('/teste', function() {
-    $res = [];
-    $openSSL = openssl_pkcs12_read($pkcs12, $res, $cert_password);
-    if(!$openSSL) {
-        throw new ClientException("Error: ".openssl_error_string());
-    }
-    // this is the CER FILE
-    file_put_contents('CERT.cer', $res['pkey'].$res['cert'].implode('', $res['extracerts']));
-
-    // this is the PEM FILE
-    $cert = $res['cert'].implode('', $res['extracerts']);
-    file_put_contents('KEY.pem', $cert);
-});
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -89,6 +75,7 @@ Route::get('/home/comercial/client','AdmController@showClient')->middleware('aut
 /* Comercial Resources
 */
 Route::resource('/home/comercial/budget/budget','Budget\BudgetController')->middleware('auth');
+Route::resource('/home/comercial/budget/budget-files','Budget\BudgetFilesController')->middleware('auth');
 Route::resource('/home/comercial/budget/area','Budget\AreaController')->middleware('auth');
 Route::resource('/home/comercial/budget/service','Budget\ServiceController')->middleware('auth');
 Route::resource('/home/comercial/budget/payment','Budget\PaymentController')->middleware('auth');

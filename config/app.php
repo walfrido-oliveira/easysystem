@@ -267,7 +267,7 @@ return [
                     'visible' => false,
                 ],
                 'service' => [
-                    'visible' => false,
+                    'visible' => true,
                 ],
             ]
         ]
