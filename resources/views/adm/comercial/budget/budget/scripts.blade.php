@@ -64,9 +64,10 @@
                     '</tr>');
                 }
                 hideSpinner();
-                toastr.success(res.data.message, 'Sucesso');
+                toastr.sucess(res.data.message, 'Sucesso');
             },
             erro: function(err) {
+                hideSpinner();
                 toastr.error("Houve um erro ao enviar seu arquivo", 'Erro');
             }
         });
