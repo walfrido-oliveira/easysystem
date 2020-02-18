@@ -2405,6 +2405,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
@@ -37990,7 +37998,37 @@ var render = function() {
                       : _vm._e()
                   ]
                 )
-              ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                [
+                  _c(
+                    "b-button",
+                    {
+                      directives: [
+                        {
+                          name: "b-modal",
+                          rawName: "v-b-modal.modal-1",
+                          modifiers: { "modal-1": true }
+                        }
+                      ]
+                    },
+                    [_vm._v("Launch demo modal")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-modal",
+                    { attrs: { id: "modal-1", title: "BootstrapVue" } },
+                    [
+                      _c("p", { staticClass: "my-4" }, [
+                        _vm._v("Hello from d!")
+                      ])
+                    ]
+                  )
+                ],
+                1
+              )
             ]
           }
         }

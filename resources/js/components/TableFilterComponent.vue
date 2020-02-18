@@ -34,7 +34,6 @@
                         </button>
                     </form>
                 </span>
-
              </template>
         </vue-bootstrap4-table>
 </template>
