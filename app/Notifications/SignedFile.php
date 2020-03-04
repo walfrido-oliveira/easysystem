@@ -78,7 +78,7 @@ class SignedFile extends Notification
                     ->line('O seguinte arquivo do orçamento ' . $this->budget->internal_id . ' acaba de ser assinado:')
                     ->line('- ' . $this->fileName)
                     ->line('Verifique o arquivo acessando sua conta do ' . config('app.name') . '.')
-                    ->action('Verifique sua conta', url('http://easysystem/home/user/budget/show/'. $this->budget->id));
+                    ->action('Verifique sua conta', url('/home/user/budget/show/'. $this->budget->id));
     }
 
     /**
