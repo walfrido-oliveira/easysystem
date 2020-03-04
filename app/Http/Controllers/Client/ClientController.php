@@ -345,10 +345,14 @@ class ClientController extends Controller
     {
         if ($request->ajax())
         {
-
-            $clients = Client::where('razao_social','LIKE','%'.$request->search.'%')
-            ->orWhere('nome_fantasia','LIKE','%'.$request->search.'%')
-            ->get();
+            if($request->has('search'))
+            {
+                $clients = Client::where('razao_social','LIKE','%'.$request->search.'%')
+                ->orWhere('nome_fantasia','LIKE','%'.$request->search.'%')
+                ->get();
+            } else {
+                $clients = Cliente::where('active', true)->limit(10);
+            }
 
             if ($clients)
             {
