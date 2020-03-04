@@ -14,6 +14,12 @@ $(".allownumericwithoutdecimal").on("keypress keyup blur",function (event) {
 $("#search_client_id").click(function(event) {
     var tbody = $("#client_results tbody");
     tbody.empty();
+    $('#searchClient').find('.modal-body').css({
+        width:'auto',
+        height:'auto',
+        'max-height':'100%',
+        'overflow': 'auto',
+    });
     $('#searchClient').modal('toggle');
 });
 
@@ -22,7 +28,7 @@ $("#search_service_type").click(function(event) {
 });
 
 $("#search_client").click(function(event) {
-    $('#cnpjModalValue').val($('#cnpj').val())
+    $('#cnpjModalValue').val($('#cnpj').val());
     $('#searchClient').modal('toggle');
     $('#fieldset_client_modal').hide();
 });
@@ -48,6 +54,9 @@ $('#searchClientValue').on('keyup',function() {
                              '<td>'+element.id+'</td>'+
                              '<td>'+element.razao_social+'</td>'+
                              '<td>'+cnpj+'</td>'+
+                             '<td>'+element.contact+'</td>'+
+                             '<td>('+element.ddd+') '+element.phone+'</td>'+
+                             '<td>'+element.mail+'</td>'+
                              '</tr>');
             });
         }
@@ -87,6 +96,9 @@ $(document).on('click', '#client_results tbody tr', function(event) {
     var id = $(this).find('td').eq(0).text();
     var razao_socail = $(this).find('td').eq(1).text();
     var cnpj = $(this).find('td').eq(2).text();
+    var contact = $(this).find('td').eq(3).text();
+    var phone = $(this).find('td').eq(4).text();
+    var mail = $(this).find('td').eq(5).text();
 
     if ($('#clients tr > td:contains('+id+') + td:contains('+razao_socail+')').length > 0) {
         alert('Esse cliente já foi adicionado');
@@ -99,14 +111,17 @@ $(document).on('click', '#client_results tbody tr', function(event) {
                  '<td>'+razao_socail+'</td>'+
                  '</tr>');
 
-    var client = $("#client");
-    client.val(razao_socail);
+    $("#client").val(razao_socail);
 
-    var client_id = $("#client_id");
-    client_id.val(id);
+    $("#client_id").val(id);
 
-    var client_cnpj = $("#cnpj");
-    client_cnpj.val(cnpj);
+    $("#cnpj").val(cnpj);
+
+    $("#contact").val(contact);
+
+    $("#phone").val(phone);
+
+    $("#mail").val(mail);
 
     $('#searchClient').modal('toggle');
     var tbody = $("#client_results tbody");
