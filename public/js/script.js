@@ -23,6 +23,36 @@ $("#search_client_id").click(function(event) {
     $('#searchClient').modal('toggle');
 });
 
+$('#searchClient').on('shown.bs.modal', function(){
+    $value= '';
+    $.ajax({
+        type : 'get',
+        url : '/home/comercial/client/client/search',
+        data:{'search':$value},
+        success:function(data) {
+            var result = data.result;
+            var tbody = $("#client_results tbody");
+            tbody.empty();
+            result.forEach(function(element) {
+                var cnpj = element.cnpj;
+                if (cnpj.length < 14 ) {
+                    cnpj = format(cnpj, '###.###.###-##');
+                } else {
+                    cnpj = format(cnpj, '##.###.###/####-##');
+                }
+                tbody.append('<tr id="'+element.id+'">'+
+                             '<td>'+element.id+'</td>'+
+                             '<td>'+element.razao_social+'</td>'+
+                             '<td>'+cnpj+'</td>'+
+                             '<td>'+element.contact+'</td>'+
+                             '<td>('+element.ddd+') '+element.phone+'</td>'+
+                             '<td>'+element.mail+'</td>'+
+                             '</tr>');
+            });
+        }
+    });
+});
+
 $("#search_service_type").click(function(event) {
     $('#searchService').modal('toggle');
 });
