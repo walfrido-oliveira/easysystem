@@ -4,6 +4,7 @@
         $('#cnpjModalValue').val($('#cnpj').val())
         $('#searchClient').modal('toggle');
         $('#fieldset_client_modal').hide();
+        $("#import_cnpj_modal").attr("disabled","disabled");
     });
 
     $("#search_cnae").click(function(event) {
