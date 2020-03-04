@@ -21,6 +21,9 @@
                         <th class="column1">#</th>
                         <th class="column2">Razão Social</th>
                         <th class="column2">CNPJ</th>
+                        <th class="column2">Contato</th>
+                        <th class="column2">Telefone</th>
+                        <th class="column2">Email</th>
                     </tr>
                 </thead>
                 <tbody>
