@@ -88,9 +88,9 @@ $('#searchClientValue').on('keyup',function() {
                              '<td>'+element.id+'</td>'+
                              '<td>'+element.razao_social+'</td>'+
                              '<td>'+cnpj+'</td>'+
-                             '<td>'+element.contact+'</td>'+
-                             '<td>('+element.ddd+') '+element.phone+'</td>'+
-                             '<td>'+element.mail+'</td>'+
+                             '<td>'+removeNullValue(element.contact)+'</td>'+
+                             '<td>('+removeNullValue(element.ddd)+') '+removeNullValue(element.phone)+'</td>'+
+                             '<td>'+removeNullValue(element.mail)+'</td>'+
                              '</tr>');
             });
         }
