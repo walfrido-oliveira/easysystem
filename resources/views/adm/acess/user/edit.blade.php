@@ -111,6 +111,6 @@
 @endsection
 
 @section('scripts')
-    @include('adm.comercial.budget.service.scripts')
+    @include('adm.acess.user.scripts')
 @endsection
 

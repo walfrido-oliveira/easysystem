@@ -83,6 +83,12 @@ class UserHasClientController extends Controller
     {
         $client = UserHasClient::find($id);
         $client ->delete();
-        return 'Item deletado com sucesso!';
+
+        return response()->json([
+            'data' => [
+                'status' => true,
+                'message' => 'Cliente removido com sucesso!'
+            ]
+        ]);
     }
 }
