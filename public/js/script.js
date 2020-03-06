@@ -143,6 +143,10 @@ $(document).on('click', '#client_results tbody tr', function(event) {
     tbody.append('<tr id="'+id+'">'+
                  '<td>'+id+'<input type="hidden" name="clients[R'+id+'][client_id]" value="'+id+'" id="client_id_'+id+'"></td>'+
                  '<td>'+razao_socail+'</td>'+
+                 '<td><a href="#" class="btn btn-danger del_user_client" id="del_client'+id+'"'+
+                 'data-id="'+id+'" data-toggle="modal" data-target="#confirm-delete"'+
+                 'data-msg-destroy="Deseja realmente remover esse cliente?">'+
+                 '<i class="fa fa-trash"></i></a></td>'+
                  '</tr>');
 
     $("#client").val(razao_socail);
@@ -172,13 +176,28 @@ $(document).on('click', '#service_results tbody tr', function(event) {
     $('#searchServiceValue').val('');
 });
 
+$(document).on('click', '.destroy', function(event) {
+    event.preventDefault();
+});
+
+$(document).on("show.bs.modal", "#confirm-delete", function (event) {
+    let id = $(event.relatedTarget).data('id');
+    let msg = $(event.relatedTarget).data('msg-destroy');
+    $(event.currentTarget).find('input[name="id"]').val(id);
+    $(event.currentTarget).find('.confirm-delete-msg').html(msg);
+});
+
+$(document).on('click', '.btn-ok-destroy', function(event) {
+    let id = $('input[name="id"]').val();
+    if(id !== null) $('#form-destroy-id-'+id).submit();
+});
+
 function showSpinner() {
     document.getElementById("overlay").style.display = "flex";
 }
 
-  function hideSpinner() {
+function hideSpinner() {
     document.getElementById("overlay").style.display = "none";
 }
-
 
 

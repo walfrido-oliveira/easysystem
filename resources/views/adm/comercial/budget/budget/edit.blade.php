@@ -147,7 +147,9 @@
                                                             target="_blank" title="Baixar documento">
                                                                 <i class="fa fa-download"></i>
                                                             </a>
-                                                            <a href="#" class="btn btn-danger destroy-file" target="_blank" title="Remover arquivo" data-id="{{ $file->id }}">
+                                                            <a href="#" class="btn btn-danger destroy-file" id="{{ 'del_file' . $file->id }}"
+                                                            title="Remover arquivo" data-id="{{ $file->id }}" data-toggle="modal"
+                                                            data-target="#confirm-delete" data-msg-destroy="Deseja realmente remover esse arquivo?">
                                                                 <i class="fa fa-trash"></i>
                                                             </a>
                                                         </td>
@@ -171,6 +173,7 @@
 </div>
 
 @include('modals.clientmodal')
+@include('modals.confirm-deletion-modal')
 
 @endsection
 

@@ -2404,10 +2404,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
-  props: ['href', 'action', 'csrf', 'new_route', 'sort_value', 'array_coluns', 'get_router', 'edit'],
+  props: {
+    href: String,
+    action: String,
+    csrf: String,
+    new_route: String,
+    sort_value: String,
+    array_coluns: String,
+    get_router: String,
+    edit: Boolean,
+    msg_destroy: {
+      "default": 'Deseja realmente deletar esse item do sistema?'
+    }
+  },
   data: function data() {
     return {
       seen: this.edit,
@@ -37923,7 +37939,8 @@ var render = function() {
         new_route: _vm.new_route,
         sort_value: _vm.sort_value,
         classes: _vm.classes,
-        edit: _vm.edit
+        edit: _vm.edit,
+        msg_destroy: _vm.msg_destroy
       },
       on: { "on-change-query": _vm.onChangeQuery, click: _vm.openNew },
       scopedSlots: _vm._u([
@@ -37949,7 +37966,8 @@ var render = function() {
                   {
                     attrs: {
                       action: _vm.actionArray[props.row.id],
-                      method: "POST"
+                      method: "POST",
+                      id: "form-destroy-id-" + props.row.id
                     }
                   },
                   [
@@ -37981,8 +37999,14 @@ var render = function() {
                       ? _c(
                           "button",
                           {
-                            staticClass: "btn btn-danger",
-                            attrs: { type: "submit" }
+                            staticClass: "btn btn-danger destroy",
+                            attrs: {
+                              type: "submit",
+                              "data-toggle": "modal",
+                              "data-target": "#confirm-delete",
+                              "data-id": props.row.id,
+                              "data-msg-destroy": _vm.msg_destroy
+                            }
                           },
                           [_c("i", { staticClass: "fa fa-trash" })]
                         )

@@ -9,7 +9,8 @@
                               :new_route="new_route"
                               :sort_value="sort_value"
                               :classes="classes"
-                              :edit="edit">
+                              :edit="edit"
+                              :msg_destroy="msg_destroy">
             <template slot="paginataion-previous-button">
                 Anterior
             </template>
@@ -23,13 +24,15 @@
             </template>
             <template slot="actions" slot-scope="props" >
                 <span>
-                    <form :action="actionArray[props.row.id]" method="POST">
+                    <form :action="actionArray[props.row.id]" method="POST" :id="'form-destroy-id-'+props.row.id">
                         <a class="btn btn-primary" :href="hrefArray[props.row.id]">
                             <i class="fa fa-edit"></i>
                         </a>
                         <input type="hidden" name="_token" :value="csrf">
                         <input type="hidden" name="_method" value="DELETE" v-if="seen">
-                        <button type="submit" class="btn btn-danger" v-if="seen">
+                        <button type="submit" class="btn btn-danger destroy" v-if="seen"
+                        data-toggle="modal" data-target="#confirm-delete" :data-id="props.row.id"
+                        :data-msg-destroy="msg_destroy">
                             <i class="fa fa-trash"></i>
                         </button>
                     </form>
@@ -38,16 +41,30 @@
         </vue-bootstrap4-table>
 </template>
 
+
 <script>
 import VueBootstrap4Table from 'vue-bootstrap4-table'
 
 export default {
     name: 'App',
 
-     props : ['href','action','csrf','new_route','sort_value','array_coluns','get_router','edit'],
+    props: {
+        href: String,
+        action: String,
+        csrf: String,
+        new_route: String,
+        sort_value: String,
+        array_coluns: String,
+        get_router: String,
+        edit: Boolean,
+        msg_destroy: {
+            default: 'Deseja realmente deletar esse item do sistema?'
+        }
+    },
 
     data: function() {
         return {
+
             seen: this.edit,
 
             rows: [],

@@ -84,7 +84,8 @@
                                                             <td>{{ $client->client->razao_social }}</td>
                                                             <td>
                                                                 <a href="#" class="btn btn-danger del_user_client" id="{{ 'del_client' . $client->id }}"
-                                                                    data-id="{{ $client->id }}">
+                                                                data-id="{{ $client->id }}" data-toggle="modal" data-target="#confirm-delete"
+                                                                data-msg-destroy="Deseja realmente remover esse cliente?">
                                                                     <i class="fa fa-trash"></i>
                                                                 </a>
                                                             </td>
@@ -106,7 +107,7 @@
             </div>
         </div>
     </div>
-
+    @include('modals.confirm-deletion-modal')
     @include('modals.clientmodal')
 @endsection
 

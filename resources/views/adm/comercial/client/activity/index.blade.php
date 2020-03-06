@@ -21,4 +21,5 @@
         </div>
     </div>
 </div>
+@include('modals.confirm-deletion-modal')
 @endsection

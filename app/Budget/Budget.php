@@ -31,6 +31,11 @@ class Budget extends Model
         return $this->hasMany('App\Budget\BudgetHasService','budget_id','id');
     }
 
+    public function files()
+    {
+        return $this->hasMany('App\Budget\BudgetFiles','budget_id','id');
+    }
+
     public function getPathAttribute()
     {
         return $this->client->path . '//budgets//' . str_pad((string)$this->id, 20, "0", STR_PAD_LEFT);

@@ -190,7 +190,16 @@ class BudgetController extends Controller
      */
     public function destroy(Budget $budget)
     {
-        //
+        foreach ($budget->files as $key => $value) {
+            Storage::delete($value->url);
+            $value->delete();
+        }
+
+        $budget->delete();
+
+        flash('Orçamento deletada com sucesso!')->success();
+
+        return redirect()->route('budget.index');
     }
 
     /**

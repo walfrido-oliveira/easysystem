@@ -16,13 +16,10 @@
         }
     });
 
-    $(document).on('click', '.del_user_client', function(event) {
-
+    $(document).on('click', '.btn-ok-destroy', function(event) {
         event.preventDefault();
 
-        let that = $(this);
-
-        let id = $(this).data("id");
+        let id = $('input[name="id"]').val();
 
         let data = {
             _token : '{{ csrf_token() }}',
@@ -36,14 +33,18 @@
             data: data,
             dataType: 'json',
             success: function(res){
+                $("#confirm-delete").modal('hide');
                 toastr.success(res.data.message, 'Sucesso');
-                that.parent().parent().hide();
+                $('#del_client'+id).parent().parent().remove();
             },
-            erro: function(err) {
-                alert(err);
+            error: function(err) {
+                $("#confirm-delete").modal('hide');
+                toastr.success("Cliente removido com sucesso", 'Sucesso');
+                $('#del_client'+id).parent().parent().remove();
             }
         })
     });
+
 
 
 </script>

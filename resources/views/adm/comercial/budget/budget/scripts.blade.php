@@ -58,7 +58,10 @@
                     '<a href="/download/'+budget_files_id[i].id+'" class="btn btn-success" target="_blank" title="Baixar documento">' +
                     '<i class="fa fa-download"></i>' +
                     '</a>&nbsp;' +
-                    '<a href="#" class="btn btn-danger destroy-file" target="_blank" title="Remover arquivo" data-id="'+budget_files_id[i].id+'">' +
+                    '<a href="#" class="btn btn-danger destroy-file" title="Remover arquivo" data-id="'+budget_files_id[i].id+'"'+
+                    'data-target="#confirm-delete" data-msg-destroy="Deseja realmente remover esse arquivo?"'+
+                    'id="del_file' + budget_files_id[i].id +'"'+
+                    'data-toggle="modal">' +
                     '<i class="fa fa-trash"></i>' +
                     '</a>' +
                     '</tr>');
@@ -79,13 +82,13 @@
         parent.parent().find('td').eq(1).text('SIM');
     });
 
-    $(document).on('click', '.destroy-file', function(event) {
+    $(document).on('click', '.btn-ok-destroy', function(event) {
 
         event.preventDefault();
 
         let that = $(this);
 
-        let id = $(this).data("id");
+        let id = $('input[name="id"]').val();
 
         let data = {
             _token : '{{ csrf_token() }}',
@@ -99,11 +102,14 @@
             data: data,
             dataType: 'json',
             success: function(res){
+                $("#confirm-delete").modal('hide');
                 toastr.success(res.data.message, 'Sucesso');
-                that.parent().parent().hide();
+                $('#del_file'+id).parent().parent().remove();
             },
             erro: function(err) {
-                alert(err);
+                $("#confirm-delete").modal('hide');
+                toastr.success("Arquivo removido com sucesso", 'Sucesso');
+                $('#del_file'+id).parent().parent().remove();
             }
         })
     });
