@@ -38,7 +38,7 @@
                                     <label for="cnpj" class="col-sm-1 col-form-label">Cliente:</label>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control" name="client" id="client" placeholder="Cliente"
-                                        readonly value="{{ $budget->client->razao_social }}">
+                                        readonly value="{{ !is_null($budget->client) ? $budget->client->razao_social : '' }}">
                                         <input type="hidden" class="form-control" name="client_id" id="client_id" value="{{ $budget->client_id }}">
                                     </div>
                                     <div class="col-sm-1 pl-0">
@@ -50,7 +50,8 @@
                                     <label for="client_id" class="col-sm-1 col-form-label">CNPJ:</label>
                                     <div class="col-sm-3">
                                         <input type="text" name="cnpj" id="cnpj" class="form-control" placeholder="CNPJ/CPF"
-                                        readonly value="{{ vsprintf('%s%s.%s%s%s.%s%s%s/%s%s%s%s-%s%s', str_split($budget->client->cnpj)) }}">
+                                        readonly
+                                        value="{{ !is_null($budget->client) ? vsprintf('%s%s.%s%s%s.%s%s%s/%s%s%s%s-%s%s', str_split($budget->client->cnpj)) : '' }}">
                                     </div>
                                 </div>
                             </div>
