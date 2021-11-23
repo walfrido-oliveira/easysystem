@@ -32,7 +32,7 @@
                                     <label for="client_id" class="col-sm-1 col-form-label">CNPJ:</label>
                                     <div class="col-sm-3">
                                         <input type="text" name="cnpj" id="cnpj" class="form-control" placeholder="CNPJ/CPF"
-                                        readonly
+                                        readonly 
                                         value="{{ !is_null($budget->client) ? vsprintf('%s%s.%s%s%s.%s%s%s/%s%s%s%s-%s%s', str_split($budget->client->cnpj)) : '' }}">
                                     </div>
                                 </div>

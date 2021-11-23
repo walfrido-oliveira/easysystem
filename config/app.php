@@ -253,12 +253,12 @@ return [
         'comercial' => [
             'visible' => true,
             'budget' => [
-                'visible' => true,
+                'visible' => false,
                 'budget' => [
                     'visible' => true,
                 ],
                 'area' => [
-                    'visible' => true,
+                    'visible' => false,
                 ],
                 'transport' => [
                     'visible' => true,
@@ -267,7 +267,7 @@ return [
                     'visible' => true,
                 ],
                 'service' => [
-                    'visible' => true,
+                    'visible' => false,
                 ],
             ]
         ]

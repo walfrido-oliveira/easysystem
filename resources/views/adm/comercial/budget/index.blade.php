@@ -19,7 +19,7 @@
                                     <a href="{{ route('budget.index') }}">
                                         <img src="{{URL::asset('/img/icons/budget.png')}}" alt="Serviços">
                                     </a>
-                                    <div class="title">Orçamentos</div>
+                                    <div class="title">Documentos</div>
                                 </li>
                             @endif
                             @if (config('app.modules.comercial.budget.transport.visible'))

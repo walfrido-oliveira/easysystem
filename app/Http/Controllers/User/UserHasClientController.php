@@ -83,7 +83,7 @@ class UserHasClientController extends Controller
     {
         $client = UserHasClient::find($id);
         $client ->delete();
-
+        
         return response()->json([
             'data' => [
                 'status' => true,

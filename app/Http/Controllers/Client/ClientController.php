@@ -345,6 +345,7 @@ class ClientController extends Controller
     {
         if ($request->ajax())
         {
+
             if($request->has('search'))
             {
                 $clients = Client::where('razao_social','LIKE','%'.$request->search.'%')
