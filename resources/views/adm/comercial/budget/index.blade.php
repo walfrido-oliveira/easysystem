@@ -8,7 +8,7 @@
             <div class="card-header">
                     <a href="{{ route('home') }}" class="link-light">Painel de Controle Administrativo</a> <i class="fa fa-chevron-right"></i>
                     <a href="{{ route('home.comercial') }}" class="link-light">Comercial</a> <i class="fa fa-chevron-right"></i>
-                    <a href="{{ route('comercial.budget') }}" class="link-light">Orçamento</a>
+                    <a href="{{ route('comercial.budget') }}" class="link-light">Documentos</a>
                 </div>
 
                 <div class="card-body">
@@ -17,9 +17,9 @@
                             @if (config('app.modules.comercial.budget.budget.visible'))
                                 <li>
                                     <a href="{{ route('budget.index') }}">
-                                        <img src="{{URL::asset('/img/icons/budget.png')}}" alt="Serviços">
+                                        <img src="{{URL::asset('/img/icons/docs.png')}}" alt="Docuemntos">
                                     </a>
-                                    <div class="title">Documentos</div>
+                                    <div class="title">Docuemntos</div>
                                 </li>
                             @endif
                             @if (config('app.modules.comercial.budget.transport.visible'))

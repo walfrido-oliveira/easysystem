@@ -15,9 +15,9 @@
                         <ul class="thumb">
                             <li>
                                 <a href="{{ route('comercial.budget') }}">
-                                    <img src="{{URL::asset('/img/icons/budget.png')}}" alt="Orçamento">
+                                    <img src="{{URL::asset('/img/icons/docs.png')}}" alt="Documentos">
                                 </a>
-                                <div class="title">Orçamento</div>
+                                <div class="title">Documentos</div>
                             </li>
                             <li>
                                 <a href="{{ route('comercial.client') }}">
