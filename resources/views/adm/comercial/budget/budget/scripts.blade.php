@@ -67,7 +67,7 @@
                     '</tr>');
                 }
                 hideSpinner();
-                toastr.sucess(res.data.message, 'Sucesso');
+                toastr.success(res.data.message, 'Sucesso');
             },
             erro: function(err) {
                 hideSpinner();
