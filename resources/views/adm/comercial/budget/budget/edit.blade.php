@@ -50,7 +50,7 @@
                                     <label for="client_id" class="col-sm-1 col-form-label">CNPJ:</label>
                                     <div class="col-sm-3">
                                         <input type="text" name="cnpj" id="cnpj" class="form-control" placeholder="CNPJ/CPF"
-                                        readonly 
+                                        readonly
                                         value="{{ !is_null($budget->client) ? vsprintf('%s%s.%s%s%s.%s%s%s/%s%s%s%s-%s%s', str_split($budget->client->cnpj)) : '' }}">
                                     </div>
                                 </div>
@@ -103,7 +103,7 @@
                                 <div class="form-group row">
                                     <div class="col-sm-2">
                                         <button type="button" class="btn btn-success btn-sm add_more mb-3 p-2">+ Adicionar Arquivos</button>
-                                        <input type='file' accept='application/pdf' name='files_budget[]' id='files_budget'
+                                        <input type='file' accept='*' name='files_budget[]' id='files_budget'
                                                multiple='multiple' hidden data-id="{{ $budget->id }}"/>
                                     </div>
                                     <div class="col-sm-4 p-2">
@@ -135,11 +135,13 @@
                                                         <td>{{ $file->name }}</td>
                                                         <td>{{ $file->signed ? 'SIM' : 'NÃO' }}</td>
                                                         <td>
-                                                            <a href="{{ $file->signed ? '' : route('pdf.signer', ['id' => $file->id]) }}"
-                                                            class="btn btn-success {{ $file->signed ? 'disabled' : '' }} signer"
-                                                            target="_blank" title="Assinar documento" data-id="{{ $file->id }}" id="signer_{{ $file->id }}">
-                                                                <i class="fa fa-pencil"></i>
-                                                            </a>
+                                                            @if (strpos($file->name, '.pdf') > -1)
+                                                                <a href="{{ $file->signed ? '' : route('pdf.signer', ['id' => $file->id]) }}"
+                                                                class="btn btn-success {{ $file->signed ? 'disabled' : '' }} signer"
+                                                                target="_blank" title="Assinar documento" data-id="{{ $file->id }}" id="signer_{{ $file->id }}">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                            @endif
                                                             <a href="{{ route('file.open', $file->id) }}" class="btn btn-success"
                                                             target="_blank" title="Abrir documento">
                                                                 <i class="fa fa-folder-open"></i>
