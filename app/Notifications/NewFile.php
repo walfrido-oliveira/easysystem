@@ -77,10 +77,10 @@ class NewFile extends Notification
         return (new MailMessage)
                     ->subject('Novo Arquivo Adicionado')
                     ->greeting('Olá ' . $this->userName)
-                    ->line('Foi adicionado o seguinte arquivo ao orçamento ' . $this->budget->internal_id . ':')
+                    ->line('Foi adicionado o seguinte arquivo ao orçamento ' . $this->budget->internal_id . ', clique no link abaixo e visualize  o arquivo:')
                     ->line(new HtmlString("<a href='" . route('file.open', $this->file->id) . "' class='btn btn-success' target='_blank'>" . $this->file->name . "</a>"))
-                    ->line('Verifique o arquivo acessando sua conta do ' . config('app.name') . '.')
-                    ->action('Verifique sua conta', url('/home/user/budget/show/'. $this->budget->id));
+                    ->line('Ou visualize seu orçamento acessando sua conta do ' . config('app.name') . '.')
+                    ->action('Acesse sua conta', url('/home/user/budget/show/'. $this->budget->id));
     }
 
     /**
