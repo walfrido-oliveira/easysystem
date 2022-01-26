@@ -17,9 +17,9 @@
                             @if (config('app.modules.comercial.budget.budget.visible'))
                                 <li>
                                     <a href="{{ route('budget.index') }}">
-                                        <img src="{{URL::asset('/img/icons/docs.png')}}" alt="Docuemntos">
+                                        <img src="{{URL::asset('/img/icons/docs.png')}}" alt="Documentos">
                                     </a>
-                                    <div class="title">Docuemntos</div>
+                                    <div class="title">Documentos</div>
                                 </li>
                             @endif
                             @if (config('app.modules.comercial.budget.transport.visible'))
