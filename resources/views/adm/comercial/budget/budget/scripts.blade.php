@@ -68,10 +68,12 @@
                 }
                 hideSpinner();
                 toastr.success(res.data.message, 'Sucesso');
+                $('input[type="file"]').val(null);
             },
             erro: function(err) {
                 hideSpinner();
                 toastr.error("Houve um erro ao enviar seu arquivo", 'Erro');
+                $('input[type="file"]').val(null);
             }
         });
     });

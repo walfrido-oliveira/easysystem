@@ -147,11 +147,11 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @param App\User user
      * @param App\Budget\Budget budget
-     * @param string fileName
+     * @param BudgetFiles file
      */
-    public static function sendNewFileEmail($user, $budget, $fileName)
+    public static function sendNewFileEmail($user, $budget, $file)
     {
-        $user->notify(new NewFile($budget, $user->name, $fileName));
+        $user->notify(new NewFile($budget, $user->name, $file));
     }
 
     /**
@@ -159,12 +159,12 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @param array users
      * @param App\Budget\Budget budget
-     * @param string fileName
+     * @param BudgetFiles file
      */
-    public static function sendNewFileEmails($users, $budget, $fileName)
+    public static function sendNewFileEmails($users, $budget, $file)
     {
         foreach ($users as $value) {
-            User::sendNewFileEmail($value->user, $budget, $fileName);
+            User::sendNewFileEmail($value->user, $budget, $file);
         }
 
     }

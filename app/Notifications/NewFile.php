@@ -2,11 +2,13 @@
 
 namespace App\Notifications;
 
+use App\Budget\Budget;
+use App\Budget\BudgetFiles;
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\HtmlString;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
-use App\Budget\Budget;
 
 class NewFile extends Notification
 {
@@ -15,7 +17,7 @@ class NewFile extends Notification
     /**
      * The budget for sending information.
      *
-     * @var string
+     * @var Budget
      */
     public $budget;
 
@@ -29,9 +31,9 @@ class NewFile extends Notification
     /**
      * The name of file.
      *
-     * @var string
+     * @var BudgetFiles
      */
-    public $fileName;
+    public $file;
 
     /**
      * The callback that should be used to build the mail message.
@@ -46,11 +48,11 @@ class NewFile extends Notification
      *
      * @return void
      */
-    public function __construct($budget, $userName, $fileName)
+    public function __construct($budget, $userName, $file)
     {
         $this->budget = $budget;
         $this->userName = $userName;
-        $this->fileName = $fileName;
+        $this->file = $file;
     }
 
     /**
@@ -76,7 +78,7 @@ class NewFile extends Notification
                     ->subject('Novo Arquivo Adicionado')
                     ->greeting('Olá ' . $this->userName)
                     ->line('Foi adicionado o seguinte arquivo ao orçamento ' . $this->budget->internal_id . ':')
-                    ->line('- ' . $this->fileName)
+                    ->line(new HtmlString("<a href='" . route('file.open', $this->file->id) . "' class='btn btn-success' target='_blank'>" . $this->file->name . "</a>"))
                     ->line('Verifique o arquivo acessando sua conta do ' . config('app.name') . '.')
                     ->action('Verifique sua conta', url('/home/user/budget/show/'. $this->budget->id));
     }

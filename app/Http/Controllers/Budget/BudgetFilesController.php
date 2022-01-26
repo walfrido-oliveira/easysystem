@@ -48,16 +48,17 @@ class BudgetFilesController extends Controller
             $url = $value->store($budget->path);
             $name = $value->getClientOriginalName();
             $mime = $value->getMimeType();
-            $budget_files_id[] = ["id" => BudgetFiles::create([
-                                            'budget_id' => $budget->id,
-                                            'url' => $url,
-                                            'name' => $name,
-                                            'mime' => $mime,
-                                            'signed' => $signed,
-                                            ])->id,
-                                  "name" => $name];
-
-            User::sendNewFileEmails($users, $budget, $name);
+            $file = BudgetFiles::create([
+                'budget_id' => $budget->id,
+                'url' => $url,
+                'name' => $name,
+                'mime' => $mime,
+                'signed' => $signed,
+            ]);
+            $budget_files_id[] = ["id" => $file->id,
+                                  "name" => $name
+                                ];
+            User::sendNewFileEmails($users, $budget, $file);
         }
 
         return response()->json([
