@@ -37,7 +37,7 @@
                         </button>
                     </form>
                 </span>
-             </template>
+            </template>
         </vue-bootstrap4-table>
 </template>
 
@@ -157,6 +157,8 @@ export default {
                     self.rows = response.data.data.data;
                     self.total_rows = response.data.data.total;
                     self.showLoader = true;
+                    self.hrefArray = response.data.hrefs;
+                    self.actionArray = response.data.actions;
                 })
                 .catch(function(error) {
                     self.showLoader = false;

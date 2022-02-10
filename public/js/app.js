@@ -2507,6 +2507,8 @@ __webpack_require__.r(__webpack_exports__);
         self.rows = response.data.data.data;
         self.total_rows = response.data.data.total;
         self.showLoader = true;
+        self.hrefArray = response.data.hrefs;
+        self.actionArray = response.data.actions;
       })["catch"](function (error) {
         self.showLoader = false;
         console.log(error);
@@ -50555,8 +50557,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\easysystem\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\easysystem\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp2\htdocs\easysystem\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp2\htdocs\easysystem\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
