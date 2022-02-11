@@ -134,7 +134,20 @@ class UserController extends Controller
             $query = User::where($filtersArray)->paginate($per_page);
         }
 
-        return ['data' => $query];
+        $hrefs = array();
+        $actions = array();
+
+        foreach ($query as $key => $value)
+        {
+            $hrefs[$value->id] =  route('users.edit',$value->id);
+            $actions[$value->id] = route('users.destroy',$value->id);
+        }
+
+        return [
+            'data' => $query,
+            'hrefs' => $hrefs,
+            'actions' => $actions
+        ];
     }
 
     /**

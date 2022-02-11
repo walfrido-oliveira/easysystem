@@ -81,7 +81,7 @@ class BudgetController extends Controller
 
         $sort = array(
             array(
-            "name" => "id",
+            "name" => "budgets.id",
             "order" => "desc"
             )
         );
@@ -252,18 +252,59 @@ class BudgetController extends Controller
 
         if (!empty($sort) && !empty($filters))
         {
-            $query = Budget::with('client')->where($filtersArray)->orderBy($sort[0]->name, $sort[0]->order)->paginate($per_page);
+            $query = Budget::with('client')
+            ->where(function($q) use($filtersArray) {
+                if($filtersArray)
+                {
+                    foreach ($filtersArray as $key => $value)
+                    {
+                        if(in_array('client.razao_social', $value))
+                        {
+                            $q->whereHas('client', function($q) use($value) {
+                                $q->where('clients.razao_social', $value[1], $value[2]);
+                            });
+                        }
+                        if(in_array('internal_id', $value))
+                        {
+                            $q->where($value[0], $value[1], $value[2]);
+                        }
+                    }
+                }
+            })
+            ->orderBy($sort[0]->name, $sort[0]->order)->paginate($per_page);
         }
         else if (!empty($sort))
         {
-            $query = Budget::with('client')->orderBy($sort[0]->name, $sort[0]->order)->paginate($per_page);
+            $query = Budget::with('client')
+            ->orderBy($sort[0]->name, $sort[0]->order)->paginate($per_page);
         }
         else
         {
-            $query = Budget::with('client')->where($filtersArray)->paginate($per_page);
+            $query = Budget::with('client')
+            ->where(function($q) use($filtersArray) {
+                if($filtersArray)
+                {
+                    foreach ($filtersArray as $key => $value)
+                    {
+                        if(in_array('client.razao_social', $value))
+                        {
+                            $q->whereHas('client', function($q) use($value) {
+                                $q->where('clients.razao_social', $value[1], $value[2]);
+                            });
+                        }
+                        if(in_array('internal_id', $value))
+                        {
+                            $q->where($value[0], $value[1], $value[2]);
+                        }
+                    }
+                }
+
+            })
+            ->paginate($per_page);
         }
 
         $hrefs = array();
+        $actions = array();
 
         foreach ($query as $key => $value)
         {

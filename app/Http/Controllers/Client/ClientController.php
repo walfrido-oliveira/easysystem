@@ -333,7 +333,20 @@ class ClientController extends Controller
             $query = Client::where($filtersArray)->paginate($per_page);
         }
 
-        return ['data' => $query];
+        $hrefs = array();
+        $actions = array();
+
+        foreach ($query as $key => $value)
+        {
+            $hrefs[$value->id] =  route('client.edit',$value->id);
+            $actions[$value->id] = route('client.destroy',$value->id);
+        }
+
+        return [
+            'data' => $query,
+            'hrefs' => $hrefs,
+            'actions' => $actions
+        ];
     }
 
     /**
