@@ -235,6 +235,7 @@ class UserController extends Controller
         $user->update([
             'type' => $data['type'],
             'active' => $data['active'],
+            'password' => Hash::make($data['password'])
         ]);
 
         $user->setRoles([])->save();

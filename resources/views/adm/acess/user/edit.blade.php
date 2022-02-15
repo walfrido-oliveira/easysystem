@@ -39,6 +39,15 @@
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group row">
+                                        <label for="password" class="col-sm-1 col-form-label">{{ __('Senha: ') }}</label>
+                                        <div class="col-sm-4">
+                                            <input id="password" type="password" class="form-control"
+                                            name="password" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group row">
                                         <label for="type" class="col-sm-1 col-form-label">{{ __('Tipo: ') }}</label>
                                         <div class="col-sm-4">
                                             <select  class="form-control custom-select" name="type" id="type" >

@@ -176,14 +176,27 @@ class BudgetController extends Controller
         }
         else if (!empty($sort))
         {
-            $query = Budget::with('client')->where('active',1)->whereIn('client_id', $clients_id)->orderBy($sort[0]->name, $sort[0]->order)->paginate($per_page);
+            $query = Budget::with('client')->whereIn('client_id', $clients_id)->orderBy($sort[0]->name, $sort[0]->order)->paginate($per_page);
         }
         else
         {
             $query = Budget::with('client')->where($filtersArray)->whereIn('client_id', $clients_id)->paginate($per_page);
         }
 
-        return ['data' => $query];
+        $hrefs = array();
+        $actions = array();
+
+        foreach ($query as $key => $value)
+        {
+            $hrefs[$value->id] =  route('budget.edit',$value->id);
+            $actions[$value->id] = route('budget.destroy',$value->id);
+        }
+
+        return [
+            'data' => $query,
+            'hrefs' => $hrefs,
+            'actions' => $actions
+        ];
     }
 
 }
